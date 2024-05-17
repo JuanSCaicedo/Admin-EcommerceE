@@ -6,6 +6,7 @@ import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { URL_FRONTEND } from 'src/app/config/config';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit, OnDestroy {
   // KeenThemes mock, change it to:
   defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    email: 'juan2@correo.com',
+    password: '12345678',
   };
   loginForm: FormGroup;
   hasError: boolean;
@@ -83,9 +84,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     const loginSubscr = this.authService
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
-      .subscribe((user: UserModel | undefined) => {
+      .subscribe((user: any) => {
         if (user) {
-          this.router.navigate([this.returnUrl]);
+          // this.router.navigate([this.returnUrl]);
+          window.location.href = URL_FRONTEND + '/dashboard';
         } else {
           this.hasError = true;
         }
