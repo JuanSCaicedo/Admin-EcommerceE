@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class CreateCategorieComponent {
 
+  processFile($event:any) {
+    
+  }
 }

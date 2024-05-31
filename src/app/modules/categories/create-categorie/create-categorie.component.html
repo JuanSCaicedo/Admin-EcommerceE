@@ -1,31 +1,56 @@
 <div class="card">
-    <!--begin::Card body-->
-    <div class="card-body">
-        <!--begin::Heading-->
-        <div class="card-px text-center pt-15 pb-15">
-            <!--begin::Title-->
-            <h2 class="fs-2x fw-bold mb-0">New Target Modal Example</h2>
-            <!--end::Title-->
+    <div class="card-body border-top p-9">
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Nombre: </label>
+                <input type="text" name="name" class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: Computadora">
+            </div>
 
-            <!--begin::Description-->
-            <p class="text-gray-500 fs-4 fw-semibold py-7">
-                Click on the below buttons to launch <br>a new target example. </p>
-            <!--end::Description-->
-
-            <!--begin::Action-->
-            <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                data-bs-target="#kt_modal_new_target">
-                Add New Target </a>
-            <!--end::Action-->
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Icon: </label>
+                <input type="text" name="icon" class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: Computadora">
+            </div>
         </div>
-        <!--end::Heading-->
 
-        <!--begin::Illustration-->
-        <div class="text-center pb-15 px-5">
-            <img src="/metronic8/demo1/assets/media/illustrations/sketchy-1/17.png" alt=""
-                class="mw-100 h-200px h-sm-325px">
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="form-label">Sube tu imagen: *</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"
+                        accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+
+                <div class="">
+                    <img src="https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg"
+                        class="img py-4" width="200" alt="img">
+                </div>
+            </div>
+
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Posición: </label>
+                <input type="number" name="position" class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: 4">
+            </div>
         </div>
-        <!--end::Illustration-->
+
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Departamento: </label>
+                <select class="form-control form-select-solid fw-bolder" name="departament"
+                    placeholder="Selec. Departamento">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Categoria: </label>
+                <select class="form-control form-select-solid fw-bolder" name="categorie"
+                    placeholder="Selec. Categoria">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <!--end::Card body-->
 </div>
