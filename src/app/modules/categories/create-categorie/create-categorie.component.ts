@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
 })
 export class CreateCategorieComponent {
 
+  type_categorie: number = 1;
+
   processFile($event:any) {
     
+  }
+
+  changeCategorie(val: number) {
+    this.type_categorie = val;
   }
 }
