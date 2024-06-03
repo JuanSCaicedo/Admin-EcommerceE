@@ -94,7 +94,9 @@ export class CreateCategorieComponent {
 
     let formData = new FormData();
     formData.append('name', this.name);
-    formData.append('icon', this.icon);
+    if (this.icon) {
+      formData.append('icon', this.icon);
+    }
     formData.append('position', this.position + "");
     formData.append('type_categorie', this.type_categorie + "");
 
