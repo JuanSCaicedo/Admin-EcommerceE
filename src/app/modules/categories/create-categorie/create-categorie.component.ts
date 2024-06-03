@@ -65,6 +65,8 @@ export class CreateCategorieComponent {
 
   changeTypeCategorie(val: number) {
     this.type_categorie = val;
+    this.categorie_third_id = '';
+    this.categorie_second_id = '';
   }
   save() {
     if (!this.name || !this.position) {
