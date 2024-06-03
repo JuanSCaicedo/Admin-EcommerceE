@@ -37,6 +37,15 @@ export class ListCategorieComponent {
     });
   }
 
+  searchTo() {
+    this.listCategories();
+  }
+
+  loadPage($event:any) {
+    console.log($event);
+    this.listCategories($event);
+  }
+
   getDomParser(categorie:any) {
     var miDiv: any = document.getElementById('svg-categorie-' + categorie.id);
     miDiv.innerHTML = categorie.icon;

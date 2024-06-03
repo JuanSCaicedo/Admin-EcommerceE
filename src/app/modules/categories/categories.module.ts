@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
     ReactiveFormsModule,
     InlineSVGModule,
     NgbModalModule,
+    NgbPaginationModule
   ]
 })
 export class CategoriesModule { }
