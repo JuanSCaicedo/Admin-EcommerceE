@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Icon: (*)</label>
+                <label class="fw-semibold fs-6 py-2">Icon: ({{ type_categorie == 1 ? '*' : 'Opcional' }})</label>
                 <input type="text" name="icon" [(ngModel)]="icon"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Computadora">
             </div>
@@ -83,21 +83,30 @@
                 <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_second_id">
-                    <option value="">Todos</option>
+                    <option value="" disabled selected>-- Seleccione --</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
                 </select>
             </div>
             <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_third_id">
-                    <option value="">Todos</option>
+                    <option value="" disabled selected>-- Seleccione --</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
                 </select>
             </div>
             <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2">Categoria:(Segundo nivel *) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
                     [(ngModel)]="categorie_second_id">
-                    <option value="">Todos</option>
+                    <option value="" disabled selected>-- Seleccione --</option>
+                    <ng-container *ngFor="let item of categories_seconds">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
                 </select>
             </div>
         </div>

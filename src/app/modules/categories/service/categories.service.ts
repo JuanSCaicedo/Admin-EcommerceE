@@ -22,16 +22,16 @@ export class CategoriesService {
 
   listCategories(search: string) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories';
     return this.http.get(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  configCategories(search: string) {
+  configCategories() {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories/config';
     return this.http.get(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
@@ -40,7 +40,7 @@ export class CategoriesService {
 
   createCategories(data: any) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories';
     return this.http.post(url, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
@@ -49,16 +49,16 @@ export class CategoriesService {
 
   showCategorie(categorie_id: string) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories/' + categorie_id;
     return this.http.get(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  updateCategories(categorie_id:string, data: any) {
+  updateCategories(categorie_id: string, data: any) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories/' + categorie_id;
     return this.http.post(url, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
@@ -67,7 +67,7 @@ export class CategoriesService {
 
   daleteCategorie(categorie_id: string) {
     this.isLoadingSubject.next(true);
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories/' + categorie_id;
     return this.http.delete(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))

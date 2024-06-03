@@ -22,6 +22,9 @@ export class CreateCategorieComponent {
 
   isLoading$: any;
 
+  categories_first: any = [];
+  categories_seconds: any = [];
+
   constructor(
     public categorieService: CategoriesService,
     public toastr: ToastrService
@@ -31,6 +34,14 @@ export class CreateCategorieComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.categorieService.isLoading$;
+    this.config();
+  }
+
+  config() {
+    this.categorieService.configCategories().subscribe((resp: any) => {
+      this.categories_first = resp.categories_first;
+      this.categories_seconds = resp.categories_seconds;
+    })
   }
 
   processFile($event: any) {
@@ -56,8 +67,13 @@ export class CreateCategorieComponent {
     this.type_categorie = val;
   }
   save() {
-    if (!this.name || !this.icon || !this.position) {
+    if (!this.name || !this.position) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
+      return;
+    }
+
+    if (this.type_categorie == 1 && !this.icon) {
+      this.toastr.error('validacion', 'El icono es requerido');
       return;
     }
 
@@ -96,6 +112,21 @@ export class CreateCategorieComponent {
 
     this.categorieService.createCategories(formData).subscribe((resp: any) => {
       console.log(resp);
+
+      if (resp.message == 403) {
+        this.toastr.error('validacion', 'La Categoria ya existe');
+        return;
+      }
+
+      this.name = '';
+      this.icon = '';
+      this.position = 1;
+      this.type_categorie = 1;
+      this.imagen_previsualiza = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
+      this.categorie_second_id = '';
+      this.categorie_third_id = '';
+      this.toastr.success('Exito', 'Categoria creada correctamente');
+      this.config();
     });
   }
 }
