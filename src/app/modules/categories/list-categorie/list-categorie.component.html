@@ -138,6 +138,11 @@
                                 State
                             </th>
                             <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Role: activate to sort column ascending"
+                                style="width: 161.469px;">
+                                Type
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
                                 colspan="1" aria-label="Two-step : activate to sort column ascending"
                                 style="width: 161.469px;">
                                 Departamento
@@ -178,6 +183,21 @@
                                         *ngIf="categorie.state == 1">Activo</span>
                                     <span class="badge badge-light-danger fs-7 fw-bold"
                                         *ngIf="categorie.state == 2">Inactivo</span>
+                                </td>
+                                <td>
+                                    <ng-container
+                                        *ngIf="!categorie.categorie_second && !categorie.categorie_third; else notDepartment">
+                                        Departamento
+                                    </ng-container>
+                                    <ng-template #notDepartment>
+                                        <ng-container
+                                            *ngIf="categorie.categorie_second && !categorie.categorie_third; else notCategory">
+                                            Categoría
+                                        </ng-container>
+                                        <ng-template #notCategory>
+                                            Subcategoría
+                                        </ng-template>
+                                    </ng-template>
                                 </td>
                                 <td>
                                     <ng-container *ngIf="categorie.categorie_third; else showSecondAsThird">

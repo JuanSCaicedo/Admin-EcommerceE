@@ -138,10 +138,18 @@ export class EditCategorieComponent {
 
     if (this.categorie_second_id) {
       formData.append('categorie_second_id', this.categorie_second_id);
+    } else {
+      if (this.CATEGORIE.categorie_second_id) {
+        formData.append('categorie_second_id', '');
+      }
     }
 
     if (this.categorie_third_id) {
       formData.append('categorie_third_id', this.categorie_third_id);
+    } else {
+      if (this.CATEGORIE.categorie_third_id) {
+        formData.append('categorie_third_id', '');
+      }
     }
 
     if (this.state) {
