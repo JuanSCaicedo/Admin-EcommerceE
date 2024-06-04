@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-categorie.component.scss']
 })
 export class EditCategorieComponent {
+  
   type_categorie: number = 1;
 
   name!: string;
@@ -25,6 +26,7 @@ export class EditCategorieComponent {
 
   categories_first: any = [];
   categories_seconds: any = [];
+  categories_seconds_backups: any = [];
 
   CATEGORIE_ID: string = '';
   CATEGORIE: any = null;
@@ -94,6 +96,11 @@ export class EditCategorieComponent {
     this.categorie_third_id = '';
     this.categorie_second_id = '';
   }
+
+  changeDepartament() {
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_third_id);
+  }
+
   save() {
     if (!this.name || !this.position) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');

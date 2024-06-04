@@ -24,6 +24,7 @@ export class CreateCategorieComponent {
 
   categories_first: any = [];
   categories_seconds: any = [];
+  categories_seconds_backups: any = [];
 
   constructor(
     public categorieService: CategoriesService,
@@ -68,6 +69,11 @@ export class CreateCategorieComponent {
     this.categorie_third_id = '';
     this.categorie_second_id = '';
   }
+
+  changeDepartament() {
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_third_id);
+  }
+
   save() {
     if (!this.name || !this.position) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
