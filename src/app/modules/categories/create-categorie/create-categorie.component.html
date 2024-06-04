@@ -7,7 +7,7 @@
                     [ngClass]="{'active': type_categorie == 1}" data-kt-button="true">
                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                         <input class="form-check-input" type="radio" (click)="changeTypeCategorie(1)" name="usage"
-                            value="1" checked="checked">
+                            value="1" [checked]="type_categorie == 1">
                     </span>
                     <span class="ms-5">
                         <span class="fs-6 fw-bolder mb-1 d-block">Departamento</span>
@@ -33,7 +33,7 @@
                     [ngClass]="{'active': type_categorie == 3}" data-kt-button="true">
                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                         <input class="form-check-input" type="radio" (click)="changeTypeCategorie(3)" name="usage"
-                            value="2">
+                            value="3">
                     </span>
                     <span class="ms-5">
                         <span class="fs-6 fw-bolder mb-1 d-block">Sub Categoria</span>
@@ -53,7 +53,7 @@
             <div class="col-lg-6 fv-row fv-plugins-icon-container">
                 <label class="fw-semibold fs-6 py-2">Icon: ({{ type_categorie == 1 ? '*' : 'Opcional' }})</label>
                 <input type="text" name="icon" [(ngModel)]="icon"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Computadora">
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: <svg url>">
             </div>
         </div>
 
