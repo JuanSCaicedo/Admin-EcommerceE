@@ -16,7 +16,7 @@ export class EditCategorieComponent {
   position: number = 1;
   categorie_second_id!: string;
   categorie_third_id!: string;
-  state:string = '1';
+  state: string = '1';
 
   imagen_previsualiza: any = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
   file_imagen: any = null;
@@ -27,6 +27,7 @@ export class EditCategorieComponent {
   categories_seconds: any = [];
 
   CATEGORIE_ID: string = '';
+  CATEGORIE: any = null;
 
   constructor(
     public categorieService: CategoriesService,
@@ -48,6 +49,7 @@ export class EditCategorieComponent {
     this.categorieService.showCategorie(this.CATEGORIE_ID).subscribe((resp: any) => {
       console.log(resp);
 
+      this.CATEGORIE = resp.categorie;
       this.type_categorie = resp.categorie.type_categorie;
       this.name = resp.categorie.name;
       this.icon = resp.categorie.icon;
@@ -55,7 +57,7 @@ export class EditCategorieComponent {
       this.categorie_second_id = resp.categorie.categorie_second_id;
       this.categorie_third_id = resp.categorie.categorie_third_id;
       this.state = resp.categorie.state; // assign the state here
-      if (resp.categorie.imagen) {        
+      if (resp.categorie.imagen) {
         this.imagen_previsualiza = resp.categorie.imagen;
       }
     })
@@ -122,6 +124,10 @@ export class EditCategorieComponent {
     formData.append('name', this.name);
     if (this.icon) {
       formData.append('icon', this.icon);
+    } else {
+      if (this.CATEGORIE.icon) {
+        formData.append('icon', '');
+      }
     }
     formData.append('position', this.position + "");
     formData.append('type_categorie', this.type_categorie + "");
