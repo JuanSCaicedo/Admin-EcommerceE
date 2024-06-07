@@ -92,7 +92,7 @@
             <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
-                    placeholder="Selec. Departamento" [(ngModel)]="categorie_third_id" (change)="changeDepartament()">
+                    placeholder="Selec. Departamento" [(ngModel)]="categorie_second_id" (change)="changeDepartament()">
                     <option value="" disabled selected>-- Seleccione --</option>
                     <ng-container *ngFor="let item of categories_first">
                         <option [value]="item.id">{{item.name}}</option>
@@ -102,7 +102,7 @@
             <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2">Categoria:(Segundo nivel *) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
-                    [(ngModel)]="categorie_second_id">
+                    [(ngModel)]="categorie_third_id">
                     <option value="" disabled selected>-- Seleccione --</option>
                     <ng-container *ngFor="let item of categories_seconds_backups">
                         <option [value]="item.id">{{item.name}}</option>

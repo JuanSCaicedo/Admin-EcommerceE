@@ -71,7 +71,7 @@ export class CreateCategorieComponent {
   }
 
   changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_third_id);
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_second_id);
   }
 
   save() {
@@ -133,6 +133,11 @@ export class CreateCategorieComponent {
       this.position = 1;
       this.type_categorie = 1;
       this.imagen_previsualiza = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
+      // Restablecer el campo de entrada de archivo
+      const imageInput = <HTMLInputElement>document.getElementById('customFile');
+      if (imageInput) {
+        imageInput.value = '';
+      }
       this.categorie_second_id = '';
       this.categorie_third_id = '';
       this.toastr.success('Exito', 'Categoria creada correctamente');
