@@ -69,6 +69,12 @@ export class EditCategorieComponent {
   config() {
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
+      if (this.type_categorie !== 1) {
+        this.categorie_second_id = '';
+        this.categorieService.showCategorie(this.CATEGORIE_ID).subscribe((resp: any) => {
+          this.categorie_second_id = resp.categorie.categorie_second_id;
+        });
+      }
     });
   }
 

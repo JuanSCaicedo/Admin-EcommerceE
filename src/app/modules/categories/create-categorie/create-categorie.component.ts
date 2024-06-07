@@ -138,6 +138,8 @@ export class CreateCategorieComponent {
       if (imageInput) {
         imageInput.value = '';
       }
+      // Restablecer this.file_imagen
+      this.file_imagen = null;
       this.categorie_second_id = '';
       this.categorie_third_id = '';
       this.toastr.success('Exito', 'Categoria creada correctamente');
