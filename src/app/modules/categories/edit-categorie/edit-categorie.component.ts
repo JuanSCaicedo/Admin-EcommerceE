@@ -25,7 +25,6 @@ export class EditCategorieComponent {
   isLoading$: any;
 
   categories_first: any = [];
-  categories_first_backup: any = [];
   categories_seconds: any = [];
   categories_seconds_backups: any = [];
 
@@ -73,6 +72,24 @@ export class EditCategorieComponent {
     });
   }
 
+  changeDepartament() {
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
+      item.categorie_second_id == this.categorie_second_id &&
+      item.id != this.CATEGORIE_ID
+    );
+
+    if (this.type_categorie == 3) {
+      this.categories_seconds_backups = this.categories_seconds_backups;
+    }
+
+    this.categorieService.configCategories().subscribe((resp: any) => {
+      this.categories_seconds_backups = resp.categories_seconds.filter((item: any) =>
+        item.categorie_second_id == this.categorie_second_id &&
+        item.id != this.CATEGORIE_ID
+      );
+    });
+  }
+
   processFile($event: any) {
     if ($event.target.files[0].type.indexOf("image") < 0) {
       this.toastr.error("Validacion", "El archivo no es una imagen");
@@ -96,24 +113,6 @@ export class EditCategorieComponent {
     this.type_categorie = val;
     this.categorie_third_id = '';
     this.categorie_second_id = '';
-  }
-
-  changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
-      item.categorie_second_id == this.categorie_second_id &&
-      item.id != this.CATEGORIE_ID
-    );
-
-    if (this.type_categorie == 3) {
-      this.categories_seconds_backups = this.categories_seconds_backups;
-    }
-
-    this.categorieService.configCategories().subscribe((resp: any) => {
-      this.categories_seconds_backups = resp.categories_seconds.filter((item: any) =>
-        item.categorie_second_id == this.categorie_second_id &&
-        item.id != this.CATEGORIE_ID
-      );
-    });
   }
 
   onCategorieThirdChange() {
