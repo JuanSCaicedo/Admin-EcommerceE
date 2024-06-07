@@ -25,6 +25,7 @@ export class EditCategorieComponent {
   isLoading$: any;
 
   categories_first: any = [];
+  categories_first_backup: any = [];
   categories_seconds: any = [];
   categories_seconds_backups: any = [];
 
@@ -67,7 +68,7 @@ export class EditCategorieComponent {
 
   config() {
     this.categorieService.configCategories().subscribe((resp: any) => {
-      this.categories_first = resp.categories_first;
+      this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
       this.categories_seconds = resp.categories_seconds;
     })
   }
@@ -98,7 +99,10 @@ export class EditCategorieComponent {
   }
 
   changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_second_id);
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
+      item.categorie_second_id == this.categorie_second_id &&
+      item.id != this.CATEGORIE_ID
+    );
   }
 
   save() {
