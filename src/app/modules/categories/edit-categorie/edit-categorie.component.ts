@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CategoriesService } from '../service/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 
 @Component({
   selector: 'app-edit-categorie',
@@ -19,7 +20,8 @@ export class EditCategorieComponent {
   categorie_third_id!: string;
   state: string = '1';
 
-  imagen_previsualiza: any = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
+  imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
+  imagen_previsualiza_bk: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
 
   isLoading$: any;
@@ -124,6 +126,12 @@ export class EditCategorieComponent {
   onCategorieThirdChange() {
     // Restablecer el ID de la tercera categoría cuando se cambia
     this.categorie_third_id = '';
+  }
+
+  deleteImage() {
+    if (confirm('¿Estás seguro de que deseas eliminar la imagen?')) {
+      console.log('eliminando imagen');
+    }
   }
 
   save() {

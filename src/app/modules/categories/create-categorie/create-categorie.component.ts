@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoriesService } from '../service/categories.service';
 import { ToastrService } from 'ngx-toastr';
+import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 
 @Component({
   selector: 'app-create-categorie',
@@ -17,7 +18,7 @@ export class CreateCategorieComponent {
   categorie_second_id!: string;
   categorie_third_id!: string;
 
-  imagen_previsualiza: any = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
+  imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
 
   isLoading$: any;
@@ -132,7 +133,7 @@ export class CreateCategorieComponent {
       this.icon = '';
       this.position = 1;
       this.type_categorie = 1;
-      this.imagen_previsualiza = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
+      this.imagen_previsualiza = PREVISUALIZA_IMAGEN;
       // Restablecer el campo de entrada de archivo
       const imageInput = <HTMLInputElement>document.getElementById('customFile');
       if (imageInput) {
