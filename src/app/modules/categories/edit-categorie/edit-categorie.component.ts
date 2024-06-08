@@ -20,6 +20,8 @@ export class EditCategorieComponent {
   categorie_third_id!: string;
   state: string = '1';
 
+  imageDeleted: boolean;
+
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   imagen_previsualiza_bk: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
@@ -130,7 +132,10 @@ export class EditCategorieComponent {
 
   deleteImage() {
     if (confirm('¿Estás seguro de que deseas eliminar la imagen?')) {
-      console.log('eliminando imagen');
+      this.imagen_previsualiza = this.imagen_previsualiza_bk;
+      this.imageDeleted = true;
+    } else {
+      this.imageDeleted = false;
     }
   }
 
@@ -144,11 +149,6 @@ export class EditCategorieComponent {
       this.toastr.error('validacion', 'El icono es requerido');
       return;
     }
-
-    // if (this.type_categorie == 1 && !this.file_imagen) {
-    //   this.toastr.error('validacion', 'La imagen es requerida');
-    //   return;
-    // }
 
     if (this.type_categorie == 2 && !this.categorie_second_id) {
       this.toastr.error('validacion', 'El departamento es requerido');
@@ -171,6 +171,10 @@ export class EditCategorieComponent {
     }
     formData.append('position', this.position + "");
     formData.append('type_categorie', this.type_categorie + "");
+
+    if (this.imageDeleted) {
+      formData.append('image', '');
+    }
 
     if (this.file_imagen) {
       formData.append('image', this.file_imagen);
