@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { DeleteAttributeComponent } from '../delete-attribute/delete-attribute.component';
+import { AttributesService } from '../service/attributes.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-attribute',
@@ -6,5 +9,88 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-attribute.component.scss']
 })
 export class ListAttributeComponent {
+  attributes: any = [];
+  search: string = '';
+  totalPages: number = 0;
+  currentPage: number = 1;
 
+  isLoading$: any;
+
+  constructor(
+    public attributesService: AttributesService,
+    public modalService: NgbModal,
+  ) {
+
+  }
+
+  ngOnInit(): void {
+    // this.listAttributes();
+    this.isLoading$ = this.attributesService.isLoading$;
+  }
+
+  listAttributes(page = 1) {
+    this.attributesService.listAttributes(page, this.search).subscribe((resp: any) => {
+      console.log(resp);
+      this.attributes = resp.attributes.data;
+      this.totalPages = resp.total;
+      this.currentPage = page;
+    });
+  }
+
+  getNameAttribute(type_attribute: number) {
+    var name_attribute = '';
+
+    switch (type_attribute) {
+      case 1:
+        name_attribute = 'Texto';
+        break;
+      case 2:
+        name_attribute = 'Número';
+        break;
+      case 3:
+        name_attribute = 'Seleccionable';
+        break;
+      case 4:
+        name_attribute = 'Seleccionable multiple';
+        break;
+
+      default:
+        break;
+    }
+
+    return name_attribute;
+  }
+
+  searchTo() {
+    this.listAttributes();
+  }
+
+  loadPage($event: any) {
+    console.log($event);
+    this.listAttributes($event);
+  }
+
+  openModalRegisterProperties(attribute: any) {
+
+  }
+
+  openModalCreateAttribute() {
+
+  }
+
+  openModalEditAttribute(attribute: any) {
+
+  }
+
+  deleteAttribute(attribute: any) {
+    const modalRef = this.modalService.open(DeleteAttributeComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.attribute = attribute;
+
+    // modalRef.componentInstance.CategorieD.subscribe((resp: any) => {
+    //   let INDEX = this.attributes.findIndex((item: any) => item.id == categorie.id);
+    //   if (INDEX != -1) {
+    //     this.attributes.splice(INDEX, 1)
+    //   }
+    // });
+  }
 }
