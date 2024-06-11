@@ -55,6 +55,11 @@ const Routing: Routes = [
   },
 
   {
+    path: 'attributes',
+    loadChildren: () => import('../modules/attributes/attributes.module').then((m) => m.AttributesModule),
+  },
+
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
