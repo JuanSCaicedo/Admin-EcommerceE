@@ -3,6 +3,7 @@ import { DeleteAttributeComponent } from '../delete-attribute/delete-attribute.c
 import { AttributesService } from '../service/attributes.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAttributeComponent } from '../create-attribute/create-attribute.component';
+import { EditAttributeComponent } from '../edit-attribute/edit-attribute.component';
 
 @Component({
   selector: 'app-list-attribute',
@@ -86,18 +87,28 @@ export class ListAttributeComponent {
   }
 
   openModalEditAttribute(attribute: any) {
+    const modalRef = this.modalService.open(EditAttributeComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.attribute = attribute;
 
+    modalRef.componentInstance.AttributeE.subscribe((attrib: any) => {
+      // this.attributes.unshift(attrib);
+      let INDEX = this.attributes.findIndex((item: any) => item.id == attrib.id);
+
+      if (INDEX != -1) {
+        this.attributes[INDEX] = attrib;
+      }
+    });
   }
 
   deleteAttribute(attribute: any) {
     const modalRef = this.modalService.open(DeleteAttributeComponent, { centered: true, size: 'md' });
     modalRef.componentInstance.attribute = attribute;
 
-    // modalRef.componentInstance.CategorieD.subscribe((resp: any) => {
-    //   let INDEX = this.attributes.findIndex((item: any) => item.id == categorie.id);
-    //   if (INDEX != -1) {
-    //     this.attributes.splice(INDEX, 1)
-    //   }
-    // });
+    modalRef.componentInstance.AttributeD.subscribe((resp: any) => {
+      let INDEX = this.attributes.findIndex((item: any) => item.id == attribute.id);
+      if (INDEX != -1) {
+        this.attributes.splice(INDEX, 1)
+      }
+    });
   }
 }
