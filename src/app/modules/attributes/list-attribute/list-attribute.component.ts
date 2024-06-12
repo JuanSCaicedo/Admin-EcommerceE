@@ -10,6 +10,7 @@ import { CreateAttributeComponent } from '../create-attribute/create-attribute.c
   styleUrls: ['./list-attribute.component.scss']
 })
 export class ListAttributeComponent {
+
   attributes: any = [];
   search: string = '';
   totalPages: number = 0;
@@ -25,21 +26,22 @@ export class ListAttributeComponent {
   }
 
   ngOnInit(): void {
-    // this.listAttributes();
+    this.listAttributes();
     this.isLoading$ = this.attributesService.isLoading$;
   }
 
   listAttributes(page = 1) {
     this.attributesService.listAttributes(page, this.search).subscribe((resp: any) => {
       console.log(resp);
-      this.attributes = resp.attributes.data;
+      this.attributes = resp.attributes;
       this.totalPages = resp.total;
       this.currentPage = page;
     });
   }
 
-  getNameAttribute(type_attribute: number) {
+  getNameAttribute(type_attribute: any) {
     var name_attribute = '';
+    type_attribute = parseInt(type_attribute);
 
     switch (type_attribute) {
       case 1:
@@ -77,7 +79,10 @@ export class ListAttributeComponent {
 
   openModalCreateAttribute() {
     const modalRef = this.modalService.open(CreateAttributeComponent, { centered: true, size: 'md' });
-    
+
+    modalRef.componentInstance.AttributeC.subscribe((attrib: any) => {
+      this.attributes.unshift(attrib);
+    });
   }
 
   openModalEditAttribute(attribute: any) {

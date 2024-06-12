@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AttributesService } from '../service/attributes.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./create-attribute.component.scss']
 })
 export class CreateAttributeComponent {
+
+  @Output() AttributeC: EventEmitter<any> = new EventEmitter<any>();
+
   name!: string;
   type_attribute: number = 0;
   isLoading$: any;
@@ -30,5 +33,23 @@ export class CreateAttributeComponent {
       this.toastr.error('Validación', 'Todos los campos son requeridos');
       return;
     }
+
+    let data = {
+      name: this.name,
+      type_attribute: this.type_attribute,
+      state: 2,
+    };
+
+    this.attributeService.createAttributes(data).subscribe((resp: any) => {
+      console.log(resp);
+      if (resp.message == 403) {
+        this.toastr.error('Error', 'Ya existe un atributo con el mismo nombre');
+        return;
+      } else {
+        this.AttributeC.emit(resp.attribute);
+        this.toastr.success('Éxito', 'Atributo creado correctamente');
+        this.modal.close();
+      }
+    })
   }
 }
