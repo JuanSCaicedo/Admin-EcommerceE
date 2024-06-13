@@ -4,6 +4,7 @@ import { AttributesService } from '../service/attributes.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAttributeComponent } from '../create-attribute/create-attribute.component';
 import { EditAttributeComponent } from '../edit-attribute/edit-attribute.component';
+import { SubAttributeCreateComponent } from '../sub-attribute-create/sub-attribute-create.component';
 
 @Component({
   selector: 'app-list-attribute',
@@ -75,6 +76,9 @@ export class ListAttributeComponent {
   }
 
   openModalRegisterProperties(attribute: any) {
+    const modalRef = this.modalService.open(SubAttributeCreateComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.attribute = attribute;
+
 
   }
 
