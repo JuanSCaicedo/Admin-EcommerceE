@@ -47,10 +47,28 @@ export class AttributesService {
     );
   }
 
-  daleteAttributes(attribute_id: string) {
+  deleteAttribute(attribute_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/attributes/' + attribute_id;
+    return this.http.delete(url, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  createProperties(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/properties';
+    return this.http.post(url, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  deletePropertie(propertie_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/properties/' + propertie_id;
     return this.http.delete(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );

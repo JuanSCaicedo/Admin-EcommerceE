@@ -25,7 +25,7 @@ export class DeleteAttributeComponent {
   }
 
   delete() {
-    this.attributeService.daleteAttributes(this.attribute.id).subscribe((resp: any) => {
+    this.attributeService.deleteAttribute(this.attribute.id).subscribe((resp: any) => {
       if (resp.message == 403) {
         this.toastr.error("Validación", resp.message_text);
       } else {

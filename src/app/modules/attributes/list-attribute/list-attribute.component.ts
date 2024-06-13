@@ -76,11 +76,15 @@ export class ListAttributeComponent {
   }
 
   openModalRegisterProperties(attribute: any) {
-    const modalRef = this.modalService.open(SubAttributeCreateComponent, { centered: true, size: 'md' });
+    const modalRef = this.modalService.open(SubAttributeCreateComponent, { centered: true, size: 'lg' });
     modalRef.componentInstance.attribute = attribute;
-
-
   }
+
+  //Tamaños de modal
+  // 'sm': para un modal pequeño
+  // 'lg': para un modal grande
+  // 'xl': para un modal extra grande
+  // 'full': para un modal de pantalla completa
 
   openModalCreateAttribute() {
     const modalRef = this.modalService.open(CreateAttributeComponent, { centered: true, size: 'md' });
