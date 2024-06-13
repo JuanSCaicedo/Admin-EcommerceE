@@ -12,12 +12,13 @@ export class EditAttributeComponent {
 
   @Output() AttributeE: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input() attribute: any; 
+  @Input() attribute: any;
 
   name!: string;
   type_attribute: number = 0;
   isLoading$: any;
   state!: string;
+  checked!: boolean;
 
   constructor(
     public attributeService: AttributesService,
@@ -32,6 +33,12 @@ export class EditAttributeComponent {
     this.name = this.attribute.name;
     this.type_attribute = this.attribute.type_attribute;
     this.state = this.attribute.state;
+
+    if (this.state == '1') {
+      this.checked = true;
+    } else if (this.state == '2') {
+      this.checked = false;
+    }
   }
 
   store() {
@@ -57,5 +64,9 @@ export class EditAttributeComponent {
         this.modal.close();
       }
     })
+  }
+
+  onSwitchChange(event: any) {
+    this.state = event.target.checked ? '1' : '2';
   }
 }

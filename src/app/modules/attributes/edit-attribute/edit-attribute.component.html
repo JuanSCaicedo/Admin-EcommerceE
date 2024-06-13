@@ -57,7 +57,7 @@
             </div>
 
             <!-- Status -->
-            <div class="fv-row mb-7">
+            <!-- <div class="fv-row mb-7">
                 <label class="required fw-bold fs-6 mb-2">Status:(*)</label>
                 <select class="form-control form-select-solid fw-bolder" name="state" placeholder="Selec. Estado"
                     [(ngModel)]="state">
@@ -65,6 +65,18 @@
                     <option value="1">Activo</option>
                     <option value="2">Inactivo</option>
                 </select>
+            </div> -->
+
+            <!-- Status -->
+            <!-- Switch -->
+            <div class="fv-row mb-7">
+                <label class="required fw-bold fs-6 mb-3">Status</label>
+                <div class="form-check form-switch">
+                    <input mdbCheckbox class="form-check-input cursor-pointer" type="checkbox"
+                        id="flexSwitchCheckChecked" [checked]="checked" (change)="onSwitchChange($event)" />
+                    <label class="form-check-label" for="flexSwitchCheckChecked">{{state == '1' ? 'Activo' :
+                        'Inactivo'}}</label>
+                </div>
             </div>
 
             <!--begin::Actions-->
