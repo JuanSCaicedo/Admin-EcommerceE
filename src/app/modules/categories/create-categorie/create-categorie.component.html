@@ -113,7 +113,17 @@
 
         <div class="row mb-6">
             <div class="col-3">
-                <button class="btn btn-primary" (click)="save()">Guardar</button>
+                <button class="btn btn-primary" (click)="save()">
+                    <ng-container *ngIf="isLoading$ | async">
+                        <span class="indicator-progress" [style.display]="'block'">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="(isLoading$ | async) === false">
+                        <span class="indicator-label">Guardar</span>
+                    </ng-container>
+                </button>
             </div>
         </div>
     </div>

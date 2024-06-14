@@ -12,7 +12,7 @@ export class DeleteCategorieComponent {
   @Input() categorie: any;
 
   @Output() CategorieD: EventEmitter<any> = new EventEmitter();
-  isLoading: any;
+  isLoading$: any;
 
   constructor(
     public categorieService: CategoriesService,
@@ -21,7 +21,7 @@ export class DeleteCategorieComponent {
   ) { }
 
   ngOnit(): void {
-    this.isLoading = this.categorieService.isLoading$;
+    this.isLoading$ = this.categorieService.isLoading$;
   }
 
   delete(){

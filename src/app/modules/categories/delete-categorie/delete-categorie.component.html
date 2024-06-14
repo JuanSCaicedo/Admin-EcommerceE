@@ -35,7 +35,7 @@
                 <button type="button" (click)="delete()" class="btn btn-danger" data-kt-users-modal-action="submit">
                     <span class="indicator-label">ELIMINAR</span>
 
-                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
                 </button>
             </div>
         </form>
