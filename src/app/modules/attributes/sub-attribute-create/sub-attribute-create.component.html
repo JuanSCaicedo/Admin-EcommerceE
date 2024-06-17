@@ -55,8 +55,9 @@
                     </select>
                 </div>
                 <div class="col-lg-6 col-12" *ngIf="type_action == 2">
-                    <label for="etiqueta_especial" class="required fw-bold fs-6 mb-2">Color: </label>
-                    <input class="form-control" type="color" id="color" name="color" [(ngModel)]="color" />
+                    <label for="color" class="form-label fw-semibold fs-6">Color: (*)</label>
+                    <input type="color" id="color" name="color" [(ngModel)]="color"
+                        class="cursor-pointer form-control form-control-lg">
                 </div>
             </div>
 
