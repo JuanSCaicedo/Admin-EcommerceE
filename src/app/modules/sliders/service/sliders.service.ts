@@ -56,7 +56,7 @@ export class SlidersService {
     );
   }
 
-  daleteSlider(slider_id: string) {
+  deleteSlider(slider_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/sliders/' + slider_id;

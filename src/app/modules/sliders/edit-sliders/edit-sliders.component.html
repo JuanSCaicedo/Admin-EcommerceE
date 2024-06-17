@@ -1,1 +1,80 @@
-<p>edit-sliders works!</p>
+<div class="card">
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-4">
+        <div class="row mb-3">
+            <div class="col-lg-6 mb-3">
+                <label for="title" class="form-label fw-semibold fs-6">Titulo: (*)</label>
+                <input type="text" id="title" name="title" [(ngModel)]="title"
+                    class="form-control-solid form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: The best note book collection 2023">
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="subtitle" class="form-label fw-semibold fs-6">Subtitulo: (*)</label>
+                <input type="text" id="subtitle" name="subtitle" [(ngModel)]="subtitle"
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Exclusive offer">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-6 mb-3">
+                <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional)</label>
+                <input type="text" id="label" name="label" [(ngModel)]="label"
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: Starting at $999,99">
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="link" class="form-label fw-semibold fs-6">Link: (Opcional)</label>
+                <input type="text" id="link" name="link" [(ngModel)]="link"
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: http://dominio.com">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-lg-6 mb-3">
+                <label for="customFile" class="form-label fw-semibold fs-6">Sube tu imagen: (*)</label>
+                <input type="file" class="form-control" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
+                    (change)="processFile($event)">
+
+                <div class="d-flex align-items-center mt-3 flex-column flex-sm-row">
+                    <img [src]="imagen_previsualiza" class="img py-4" width="200" alt="img">
+                    <button *ngIf="imagen_previsualiza !== imagen_previsualiza_bk"
+                        class="btn btn-danger mt-3 mt-sm-0 ms-0 ms-sm-5 w-100 w-sm-auto"
+                        (click)="deleteImage()">Eliminar</button>
+                </div>
+
+            </div>
+            <div class="col-lg-6 mb-3">
+                <label for="color" class="form-label fw-semibold fs-6">Color: (*)</label>
+                <input type="color" id="color" name="color" [(ngModel)]="color"
+                    class="cursor-pointer form-control form-control-lg mb-10">
+
+                <div class="fv-row mb-7 d-flex gap-3">
+                    <label class="required fw-bold fs-6 mb-3">Status Slider</label>
+                    <div class="form-check form-switch">
+                        <input mdbCheckbox class="form-check-input cursor-pointer" type="checkbox"
+                            id="flexSwitchCheckChecked" [checked]="checked" (change)="onSwitchChange($event)" />
+                        <label class="form-check-label" for="flexSwitchCheckChecked">{{state == 1 ? 'Activo' :
+                            'Inactivo'}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">
+                    <ng-container *ngIf="isLoading$ | async">
+                        <span class="indicator-progress" [style.display]="'block'">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="(isLoading$ | async) === false">
+                        <span class="indicator-label">Actualizar</span>
+                    </ng-container>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
