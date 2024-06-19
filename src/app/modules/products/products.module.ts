@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { CKEditorModule } from 'ckeditor4-angular';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     InlineSVGModule,
     NgbModalModule,
     NgbPaginationModule,
-    CKEditorModule
+    CKEditorModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ]
 })
 export class ProductsModule { }

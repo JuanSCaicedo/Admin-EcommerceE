@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-create-product',
@@ -14,20 +15,27 @@ export class CreateProductComponent {
   sku!: string;
   resumen!: string;
 
-  price_cop!:number;
+  price_cop!: number;
   price_usd!: number;
 
-  categorie_first_id!: string;
-  categorie_second_id!: string;
-  categorie_third_id!: string;
+  marca_id:string = '';
+  marcas: any = [];
+
+  categorie_first_id: string = '';
+  categorie_second_id: string = '';
+  categorie_third_id: string = '';
 
   categories_first: any = [];
   categories_seconds: any = [];
   categories_seconds_backups: any = [];
   categories_thirds: any = [];
   categories_thirds_backups: any = [];
-  
-  description:any = '<p>Hello, world!</p>';
+
+  dropdownList: any = [];
+  selectedItems: any = [];
+  dropdownSettings: IDropdownSettings = {};
+
+  description: any = '<p>Hello, world!</p>';
 
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
@@ -43,6 +51,27 @@ export class CreateProductComponent {
 
   ngOnInit(): void {
     this.isLoading$ = this.productService.isLoading$;
+
+    this.dropdownList = [
+      { item_id: 1, item_text: 'Mumbai' },
+      { item_id: 2, item_text: 'Bangaluru' },
+      { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' },
+      { item_id: 5, item_text: 'New Delhi' }
+    ];
+    this.selectedItems = [
+      { item_id: 3, item_text: 'Pune' },
+      { item_id: 4, item_text: 'Navsari' }
+    ];
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      // itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
   processFile($event: any) {
@@ -65,11 +94,20 @@ export class CreateProductComponent {
   }
 
   changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_second_id);
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
+      item.categorie_second_id == this.categorie_first_id);
   }
 
   changeCategorie() {
-  
+    this.categories_thirds_backups = this.categories_thirds.filter((item: any) =>
+      item.categorie_second_id == this.categorie_second_id);
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
   save() {

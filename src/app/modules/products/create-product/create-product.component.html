@@ -1,39 +1,39 @@
 <div class="card">
     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <div class="card-body border-top p-9">
-        <div class="row mb-3">
-            <div class="col-lg-6 mb-3">
+        <!-- Información Básica -->
+        <div class="row mb-6">
+            <div class="col-lg-6">
                 <label for="title" class="form-label fw-semibold fs-6">Titulo: (*)</label>
                 <input type="text" id="title" name="title" [(ngModel)]="title"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
+                    class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: The best note book collection 2023">
             </div>
 
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6">
                 <label for="sku" class="form-label fw-semibold fs-6">Sku: (*)</label>
                 <input type="text" id="sku" name="sku" [(ngModel)]="sku"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Por ejemplo: ZDR456">
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: ZDR456">
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-6 mb-3">
+        <!-- Precios -->
+        <div class="row mb-6">
+            <div class="col-lg-6">
                 <label for="price_cop" class="form-label fw-semibold fs-6">Precio COP: (*)</label>
                 <input type="number" id="price_cop" name="price_cop" [(ngModel)]="price_cop"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Por ejemplo: 10.000 COP">
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 10.000 COP">
             </div>
 
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6">
                 <label for="price_usd" class="form-label fw-semibold fs-6">Precio USD: (*)</label>
                 <input type="number" id="price_usd" name="price_usd" [(ngModel)]="price_usd"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Por ejemplo: 10 USD">
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 10 USD">
             </div>
         </div>
 
-        <div class="row mb-3">
+        <!-- Categorías -->
+        <div class="row mb-6">
             <div class="col-12 col-md-4">
                 <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
@@ -44,6 +44,7 @@
                     </ng-container>
                 </select>
             </div>
+
             <div class="col-12 col-md-4">
                 <label class="fw-semibold fs-6 py-2">Categoria:(Segundo nivel *) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
@@ -54,6 +55,7 @@
                     </ng-container>
                 </select>
             </div>
+
             <div class="col-12 col-md-4">
                 <label class="fw-semibold fs-6 py-2">Sub Categoria:(Tercer nivel *) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
@@ -66,14 +68,36 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <!-- Tags y marcas -->
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class="fw-semibold fs-6 py-2">Tags:</label>
+                <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
+                    [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
 
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class="fw-semibold fs-6 py-2">Marcas:(*)</label>
+                <select class="form-control form-select-solid fw-bolder" name="marca_id"
+                    placeholder="Selec. Marca" [(ngModel)]="marca_id" (change)="changeDepartament()">
+                    <option value="" disabled selected>-- Seleccione --</option>
+                    <ng-container *ngFor="let item of marcas">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+
+        <!-- Descripción e Imagen -->
+        <div class="row mb-6">
+            <div class="col-lg-6">
                 <label class="fs-6 fw-semibold mb-2">Descripción:</label>
                 <ckeditor [data]="description"></ckeditor>
             </div>
 
-            <div class="col-lg-6 mb-3">
+            <div class="col-lg-6">
                 <label for="customFile" class="form-label fw-semibold fs-6">Sube tu imagen: (*)</label>
                 <input type="file" class="form-control" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
                     (change)="processFile($event)">
@@ -89,15 +113,7 @@
             </div>
         </div>
 
-        <!-- 
-        <div class="row mb-3">
-            <div class="col-lg-6 mb-3">
-                <label class="fs-6 fw-semibold mb-2">Resumen:</label>
-                <textarea class="form-control form-control-solid" rows="3" name="resumen" [(ngModel)]="resumen"
-                    placeholder="********"></textarea>
-            </div>
-        </div> -->
-
+        <!-- Botón de Guardar -->
         <div class="row mb-6">
             <div class="col-3">
                 <button class="btn btn-primary" (click)="save()">
