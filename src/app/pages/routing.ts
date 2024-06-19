@@ -34,18 +34,18 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/apps/chat/chat.module').then((m) => m.ChatModule),
     // data: { layout: 'light-sidebar' },
   },
-  {
-    path: 'apps/users',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-  },
-  {
-    path: 'apps/roles',
-    loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
-  },
-  {
-    path: 'apps/permissions',
-    loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
-  },
+  // {
+  //   path: 'apps/users',
+  //   loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+  // },
+  // {
+  //   path: 'apps/roles',
+  //   loadChildren: () => import('./role/role.module').then((m) => m.RoleModule),
+  // },
+  // {
+  //   path: 'apps/permissions',
+  //   loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
+  // },
 
   //NUESTROS MODULOS
 

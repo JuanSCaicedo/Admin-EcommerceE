@@ -9,12 +9,3 @@
   <tbody class="fw-semibold text-gray-600">
   </tbody>
 </table>
-
-<swal #deleteSwal [swalOptions]="swalOptions" title="Are you sure to delete?" text="This cannot be undone" icon="warning" [showCancelButton]="true"
-  [focusCancel]="true" (confirm)="triggerDelete()"
-  [customClass]="{confirmButton: 'btn btn-danger', cancelButton: 'btn btn-active-light'}">
-</swal>
-
-<swal #successSwal [swalOptions]="swalOptions" title="Delete successfully!" text="" icon="success"
-  [customClass]="{confirmButton: 'btn btn-success'}">
-</swal>
