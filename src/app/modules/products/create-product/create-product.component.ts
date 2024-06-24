@@ -30,12 +30,14 @@ export class CreateProductComponent {
   categories_seconds_backups: any = [];
   categories_thirds: any = [];
   categories_thirds_backups: any = [];
-
-  dropdownList: any = [];
-  selectedItems: any = [];
-  dropdownSettings: IDropdownSettings = {};
-
+  
   description: any = '<p>Hello, world!</p>';
+  dropdownList: any = [];
+  dropdownSettings: IDropdownSettings = {};
+  
+  isShowMultiselect: Boolean = false;
+
+  selectedItems: any = [];
 
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
@@ -72,6 +74,16 @@ export class CreateProductComponent {
       // itemsShowLimit: 3,
       allowSearchFilter: true
     };
+  }
+
+  addItems(){
+    this.isShowMultiselect = true;
+    this.dropdownList.push({ item_id: 8, item_text: 'echoDev' });
+    this.selectedItems.push({ item_id: 9, item_text: 'echoDev' });
+    setTimeout(() => {
+      this.isShowMultiselect = false;
+      this.isLoadingView();
+    }, 100);
   }
 
   processFile($event: any) {

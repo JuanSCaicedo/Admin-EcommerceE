@@ -5,7 +5,7 @@
         <div class="row mb-6">
             <div class="col-lg-6">
                 <label for="title" class="form-label fw-semibold fs-6">Titulo: (*)</label>
-                <input type="text" id="title" name="title" [(ngModel)]="title"
+                <input type="text" id="title" name="title" (keyup.enter)="addItems()" [(ngModel)]="title"
                     class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: The best note book collection 2023">
             </div>
@@ -70,10 +70,14 @@
 
         <!-- Tags y marcas -->
         <div class="row mb-6">
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="!isShowMultiselect">
                 <label class="fw-semibold fs-6 py-2">Tags:</label>
-                <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
-                    [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                <ng-multiselect-dropdown 
+                    [placeholder]="'custom placeholder'" 
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList" 
+                    [(ngModel)]="selectedItems" 
+                    (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
                 </ng-multiselect-dropdown>
             </div>
