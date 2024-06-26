@@ -19,25 +19,24 @@
 
         <!-- Precios -->
         <div class="row mb-6">
-            <div class="col-lg-4">
-                <label for="price_cop" class="form-label fw-semibold fs-6">Precio COP: (*)</label>
-                <input type="number" id="price_cop" name="price_cop" [(ngModel)]="price_cop"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 10.000 COP">
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Precio Pen: (*)</label>
+                <input type="number" name="price_cop" [(ngModel)]="price_cop"
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   20 PEN  ">
             </div>
 
-            <div class="col-lg-4">
-                <label for="price_usd" class="form-label fw-semibold fs-6">Precio USD: (*)</label>
-                <input type="number" id="price_usd" name="price_usd" [(ngModel)]="price_usd"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 10 USD">
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Precio Usd: (*)</label>
+                <input type="number" name="price_usd" [(ngModel)]="price_usd"
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   20 USD ">
             </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-12 my-2">
-                <label class="fw-semibold fs-6 py-2">Marcas:(*)</label>
-                <select class="form-control form-select-solid fw-bolder" name="marca_id" placeholder="Selec. Marca"
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Marcas: *</label>
+                <select class="form-control form-select-solid fw-bolder" name="marca" placeholder="Selec. Marca"
                     [(ngModel)]="marca_id">
-                    <option value="" disabled selected>-- Seleccione --</option>
+                    <option value="">Selec.</option>
                     <ng-container *ngFor="let item of marcas">
-                        <option [value]="item.id">{{item.name}}</option>
+                        <option [value]="item.id">{{ item.name }}</option>
                     </ng-container>
                 </select>
             </div>
@@ -86,7 +85,7 @@
             </div>
         </div>
 
-        <!-- Tags y marcas -->
+        <!-- Tags -->
         <div class="row mb-6">
             <div class="col-lg-6 col-md-6 col-sm-12 my-2">
                 <label for="word" class="form-label fw-semibold fs-6">Word: (*)</label>
@@ -95,7 +94,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="!isShowMultiselect">
-                <label class="fw-semibold fs-6 py-2">Tags:</label>
+                <label class="fw-semibold fs-6 py-2">Tags (*):</label>
                 <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
                     [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
