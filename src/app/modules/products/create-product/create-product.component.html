@@ -3,15 +3,15 @@
     <div class="card-body border-top p-9">
         <!-- Información Básica -->
         <div class="row mb-6">
-            <div class="col-lg-6">
-                <label for="title" class="form-label fw-semibold fs-6">Titulo: (*)</label>
+            <div class="col-lg-6 mb-6 mb-md-0">
+                <label for="title" class="form-label required fw-semibold fs-6">Titulo:</label>
                 <input type="text" id="title" name="title" [(ngModel)]="title"
                     class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: The best note book collection 2023">
             </div>
 
             <div class="col-lg-6">
-                <label for="sku" class="form-label fw-semibold fs-6">Sku: (*)</label>
+                <label for="sku" class="form-label required fw-semibold fs-6">Sku:</label>
                 <input type="text" id="sku" name="sku" [(ngModel)]="sku"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: ZDR456">
             </div>
@@ -19,22 +19,22 @@
 
         <!-- Precios -->
         <div class="row mb-6">
-            <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Precio Pen: (*)</label>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2 required">Precio USD:</label>
                 <input type="number" name="price_cop" [(ngModel)]="price_cop"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   20 PEN  ">
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   10.000 COP  ">
             </div>
 
-            <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Precio Usd: (*)</label>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2 required ">Precio Usd:</label>
                 <input type="number" name="price_usd" [(ngModel)]="price_usd"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   20 USD ">
             </div>
-            <div class="col-lg-4 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Marcas: *</label>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2 required">Marcas:</label>
                 <select class="form-control form-select-solid fw-bolder" name="marca" placeholder="Selec. Marca"
                     [(ngModel)]="marca_id">
-                    <option value="">Selec.</option>
+                    <option value="" disabled selected>-- Seleccione --</option>
                     <ng-container *ngFor="let item of marcas">
                         <option [value]="item.id">{{ item.name }}</option>
                     </ng-container>
@@ -44,9 +44,9 @@
 
         <!-- Categorías -->
         <div class="row mb-6 align-items-end">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mb-6 mb-md-0">
                 <div class="form-group">
-                    <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
+                    <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
                     <select class="form-control form-select-solid fw-bolder" name="departament"
                         placeholder="Selec. Departamento" [(ngModel)]="categorie_first_id"
                         (change)="changeDepartament()">
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mb-6 mb-md-0">
                 <div class="form-group">
                     <label class="fw-semibold fs-6 py-2">Categoria:(Segundo nivel (Opcional)) </label>
                     <select class="form-control form-select-solid fw-bolder" name="categorie"
@@ -71,12 +71,12 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4 mb-6 mb-md-0">
                 <div class="form-group">
                     <label class="fw-semibold fs-6 py-2">Sub Categoria:(Tercer Nivel (Opcional))</label>
                     <select class="form-control form-select-solid fw-bolder" name="categorie"
                         placeholder="Selec. Categoria" [(ngModel)]="categorie_third_id">
-                        <option value="">Selec.</option>
+                        <option value="" disabled selected>-- Seleccione --</option>
                         <ng-container *ngFor="let item of categories_thirds_backups">
                             <option [value]="item.id">{{ item.name }}</option>
                         </ng-container>
@@ -87,14 +87,14 @@
 
         <!-- Tags -->
         <div class="row mb-6">
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
-                <label for="word" class="form-label fw-semibold fs-6">Word: (*)</label>
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
+                <label for="word" class="form-label fw-semibold fs-6">Word:</label>
                 <input type="text" id="word" name="word" (keyup.enter)="addItems()" [(ngModel)]="word"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: XXXXXXX">
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="!isShowMultiselect">
-                <label class="fw-semibold fs-6 py-2">Tags (*):</label>
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0" *ngIf="!isShowMultiselect">
+                <label class="fw-semibold fs-6 py-2 required">Tags:</label>
                 <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
                     [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
@@ -104,21 +104,21 @@
 
         <!-- Descripción e Imagen -->
         <div class="row mb-6">
-            <div class="col-lg-6">
-                <label class="fs-6 fw-semibold mb-2">Descripción:</label>
-                <ckeditor [data]="description"></ckeditor>
+            <div class="col-lg-6 mb-6 mb-md-0">
+                <label class="fs-6 fw-semibold mb-2 required">Descripción:</label>
+                <ckeditor [(ngModel)]="description" [data]="description"></ckeditor>
             </div>
 
-            <div class="col-lg-6">
-                <label for="customFile" class="form-label fw-semibold fs-6">Sube tu imagen: (*)</label>
+            <div class="col-lg-6 mb-6 mb-md-0">
+                <label for="customFile" class="form-label required fw-semibold fs-6">Sube tu imagen:</label>
                 <input type="file" class="form-control" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
                     (change)="processFile($event)">
-                <div class="mt-3">
+                <div class="mt-3 mb-6 mb-md-0">
                     <img [src]="imagen_previsualiza" class="img-fluid py-2" width="200" alt="Imagen previsualizada">
                 </div>
 
                 <div>
-                    <label class="fs-6 fw-semibold mb-2">Resumen:</label>
+                    <label class="fs-6 fw-semibold mb-2 required required">Resumen:</label>
                     <textarea class="form-control form-control-solid" rows="3" name="resumen" [(ngModel)]="resumen"
                         placeholder="********"></textarea>
                 </div>
@@ -126,9 +126,9 @@
         </div>
 
         <!-- Botón de Guardar -->
-        <div class="row mb-6">
-            <div class="col-3">
-                <button class="btn btn-primary" (click)="save()">
+        <div class="row mb-sm-6">
+            <div class="col-12 col-sm-12 col-md-3">
+                <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
                     <ng-container *ngIf="isLoading$ | async">
                         <span class="indicator-progress" [style.display]="'block'">
                             Please wait...

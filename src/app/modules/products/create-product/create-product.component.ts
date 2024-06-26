@@ -30,7 +30,7 @@ export class CreateProductComponent {
   categories_thirds: any = [];
   categories_thirds_backups: any = [];
 
-  description: any = '<p>Hello, world!</p>';
+  description: any = '';
   dropdownList: any = [];
   dropdownSettings: IDropdownSettings = {};
 
@@ -108,10 +108,6 @@ export class CreateProductComponent {
   }
 
   changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
-      item.categorie_second_id == this.categorie_first_id
-    )
-
     this.categories_thirds_backups = [];
     this.categories_seconds_backups = [];
 
@@ -126,9 +122,14 @@ export class CreateProductComponent {
   }
 
   changeCategorie() {
-    this.categories_thirds_backups = this.categories_thirds.filter((item: any) =>
-      item.categorie_second_id == this.categorie_second_id
-    )
+    this.categorie_third_id = '';
+    this.categories_thirds_backups = [];
+
+    setTimeout(() => {
+      this.categories_thirds_backups = this.categories_thirds.filter((item: any) =>
+        item.categorie_second_id == this.categorie_second_id
+      )
+    }, 50);
   }
 
   public onChange(event: any) {
@@ -200,6 +201,7 @@ export class CreateProductComponent {
         this.description = '';
         this.resumen = '';
         this.selectedItems = [];
+        this.dropdownList = [];
 
         this.toastr.success('Exito', 'Producto creado correctamente');
       }

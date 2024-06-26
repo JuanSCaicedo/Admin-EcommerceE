@@ -44,43 +44,53 @@
         </div>
 
         <div class="row mb-6">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Nombre: (*)</label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2 required">Nombre:</label>
                 <input type="text" name="name" [(ngModel)]="name"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Computadora">
             </div>
 
-            <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Icon: ({{ type_categorie == 1 ? '*' : 'Opcional' }})</label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2">
+                    Icon:
+                    <span [ngClass]="{ 'required': type_categorie == 1 }">
+                        {{ type_categorie == 1 ? '' : 'Opcional' }}
+                    </span>
+                </label>
                 <input type="text" name="icon" [(ngModel)]="icon"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: <svg url>">
             </div>
         </div>
 
         <div class="row mb-6">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                <label class="form-label">Sube tu imagen: ( {{ type_categorie == 1 ? '*' : 'Opcional' }})</label>
-                <div class="custom-file">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="form-label">
+                    Sube tu imagen:
+                    <span [ngClass]="{ 'required': type_categorie == 1 }">
+                        {{ type_categorie == 1 ? '' : 'Opcional' }}
+                    </span>
+                </label>
+                <div class="custom-file mb-6 mb-md-0">
                     <input type="file" class="custom-file-input" id="customFile"
                         accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <label class="custom-file-label" for="customFile"></label>
                 </div>
 
-                <div class="">
+                <div class="mb-6 mb-md-0">
                     <img [src]="imagen_previsualiza" class="img py-4" width="200" alt="img">
                 </div>
             </div>
 
-            <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                <label class="fw-semibold fs-6 py-2">Posición: (*)</label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+                <label class="fw-semibold fs-6 py-2 required">Posición:</label>
                 <input type="number" name="position" [(ngModel)]="position"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 4">
             </div>
         </div>
 
         <div class="row mb-6" *ngIf="type_categorie != 1">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 2">
-                <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 2">
+                <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_second_id">
                     <option value="" disabled selected>-- Seleccione --</option>
@@ -89,8 +99,8 @@
                     </ng-container>
                 </select>
             </div>
-            <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
-                <label class="fw-semibold fs-6 py-2">Departamento:(Primer nivel *)</label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 3">
+                <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_third_id" (change)="changeDepartament()">
                     <option value="" disabled selected>-- Seleccione --</option>
@@ -99,8 +109,8 @@
                     </ng-container>
                 </select>
             </div>
-            <div class="col-lg-6 fv-row fv-plugins-icon-container" *ngIf="type_categorie == 3">
-                <label class="fw-semibold fs-6 py-2">Categoria:(Segundo nivel *) </label>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 3">
+                <label class="fw-semibold fs-6 py-2 required">Categoria:(Segundo nivel) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
                     [(ngModel)]="categorie_second_id">
                     <option value="" disabled selected>-- Seleccione --</option>
@@ -111,9 +121,9 @@
             </div>
         </div>
 
-        <div class="row mb-6">
-            <div class="col-3">
-                <button class="btn btn-primary" (click)="save()">
+        <div class="row mb-sm-6">
+            <div class="col-12 col-sm-12 col-md-3">
+                <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
                     <ng-container *ngIf="isLoading$ | async">
                         <span class="indicator-progress" [style.display]="'block'">
                             Please wait...
