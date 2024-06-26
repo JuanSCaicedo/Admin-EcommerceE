@@ -11,18 +11,15 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 })
 export class CreateProductComponent {
 
-  title: string = '';
-  sku: string = '';
-  resumen: string = '';
-  price_cop: number = 0;
-  price_usd: number = 0;
-  description: any = "<p>Hello, world!</p>";
-  imagen_previsualiza: any = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
-  file_imagen: any = null;
-  marca_id: string = '';
-  marcas: any = []
+  title!: string;
+  sku!: string;
+  resumen!: string;
 
-  isLoading$: any;
+  price_cop!: number;
+  price_usd!: number;
+
+  marca_id: string = '';
+  marcas: any = [];
 
   categorie_first_id: string = '';
   categorie_second_id: string = '';
@@ -33,31 +30,28 @@ export class CreateProductComponent {
   categories_thirds: any = [];
   categories_thirds_backups: any = [];
 
+  description: any = '<p>Hello, world!</p>';
   dropdownList: any = [];
-  selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
-  word: string = '';
 
   isShowMultiselect: Boolean = false;
+
+  imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
+  file_imagen: any = null;
+
+  isLoading$: any;
+  word: string = '';
+  selectedItems: any = [];
+
   constructor(
     public productService: ProductService,
     private toastr: ToastrService,
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+
     this.isLoading$ = this.productService.isLoading$;
 
-    // this.dropdownList = [
-    //   { item_id: 5, item_text: 'New Delhi' },
-    //   { item_id: 6, item_text: 'Laravest' }
-    // ];
-    // this.selectedItems = [
-    //   { item_id: 6, item_text: 'Laravest' }
-    // ];
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -77,7 +71,7 @@ export class CreateProductComponent {
       this.categories_first = resp.categories_first;
       this.categories_seconds = resp.categories_seconds;
       this.categories_thirds = resp.categories_thirds;
-    })
+    });
   }
 
   addItems() {
@@ -85,6 +79,7 @@ export class CreateProductComponent {
     let time_date = new Date().getTime();
     this.dropdownList.push({ item_id: time_date, item_text: this.word });
     this.selectedItems.push({ item_id: time_date, item_text: this.word });
+
     setTimeout(() => {
       this.word = '';
       this.isShowMultiselect = false;
@@ -97,6 +92,7 @@ export class CreateProductComponent {
       this.toastr.error("Validacion", "El archivo no es una imagen");
       return;
     }
+
     this.file_imagen = $event.target.files[0];
     let reader = new FileReader();
     reader.readAsDataURL(this.file_imagen);
@@ -147,43 +143,56 @@ export class CreateProductComponent {
   }
 
   save() {
-
-    if (!this.title || !this.sku || !this.price_usd || !this.price_cop || !this.marca_id
-      || !this.file_imagen || !this.categorie_first_id || !this.description || !this.resumen || (this.selectedItems == 0)) {
-      this.toastr.error("Validacion", "Los campos con el * son obligatorio");
+    if (!this.title || !this.file_imagen
+      || !this.sku || !this.price_cop || !this.price_usd
+      || !this.marca_id || !this.categorie_first_id
+      || !this.description || !this.resumen
+      || this.selectedItems.length == 0
+    ) {
+      this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;
     }
 
-
     let formData = new FormData();
-    formData.append("title", this.title);
-    formData.append("sku", this.sku);
-    formData.append("price_usd", this.price_usd + "");
-    formData.append("price_cop", this.price_cop + "");
-    formData.append("brand_id", this.marca_id);
-    formData.append("portada", this.file_imagen);
-    formData.append("categorie_first_id", this.categorie_first_id);
+    formData.append('title', this.title);
+    formData.append('sku', this.sku);
+    formData.append('price_cop', this.price_cop + "");
+    formData.append('price_usd', this.price_usd + "");
+    formData.append('brand_id', this.marca_id);
+    formData.append('portada', this.file_imagen);
+
+    formData.append('categorie_first_id', this.categorie_first_id);
     if (this.categorie_second_id) {
-      formData.append("categorie_second_id", this.categorie_second_id);
+      formData.append('categorie_second_id', this.categorie_second_id);
     }
     if (this.categorie_third_id) {
-      formData.append("categorie_third_id", this.categorie_third_id);
+      formData.append('categorie_third_id', this.categorie_third_id);
     }
-    formData.append("description", this.description);
-    formData.append("resumen", this.resumen);
-    formData.append("multiselect", JSON.stringify(this.selectedItems));
+
+    formData.append('description', this.description);
+    formData.append('resumen', this.resumen);
+
+    formData.append('multiselect', JSON.stringify(this.selectedItems));
 
     this.productService.createProducts(formData).subscribe((resp: any) => {
       console.log(resp);
 
       if (resp.message == 403) {
-        this.toastr.error("Validación", resp.message_text);
+        this.toastr.error('Validación', resp.message_text);
       } else {
         this.title = '';
+        this.imagen_previsualiza = PREVISUALIZA_IMAGEN;
+
+        // Restablecer el campo de entrada de archivo
+        const imageInput = <HTMLInputElement>document.getElementById('customFile');
+        if (imageInput) {
+          imageInput.value = '';
+        }
+        // Restablecer this.file_imagen
         this.file_imagen = null;
         this.sku = '';
-        this.price_usd = 0;
         this.price_cop = 0;
+        this.price_usd = 0;
         this.marca_id = '';
         this.categorie_first_id = '';
         this.categorie_second_id = '';
@@ -192,12 +201,8 @@ export class CreateProductComponent {
         this.resumen = '';
         this.selectedItems = [];
 
-        this.imagen_previsualiza = "https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg";
-        this.toastr.success("Exito", "El product se registro perfectamente");
+        this.toastr.success('Exito', 'Producto creado correctamente');
       }
-
-
-    })
+    });
   }
-
 }
