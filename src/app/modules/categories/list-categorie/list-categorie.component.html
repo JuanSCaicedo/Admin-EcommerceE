@@ -200,14 +200,20 @@
                                     </ng-template>
                                 </td>
                                 <td>
-                                    <span *ngIf="categorie.categorie_second">
-                                        {{ categorie.categorie_second.name }}
-                                    </span>
+                                    <ng-container *ngIf="categorie.categorie_third; else showSecondAsThird">
+                                        {{ categorie.categorie_third.name }}
+                                    </ng-container>
+                                    <ng-template #showSecondAsThird>
+                                        {{ categorie.categorie_second?.name }}
+                                    </ng-template>
                                 </td>
                                 <td>
-                                    <span *ngIf="categorie.categorie_third">
-                                        {{ categorie.categorie_third.name }}
-                                    </span>
+                                    <ng-container *ngIf="categorie.categorie_third; else showThirdAsSecond">
+                                        {{ categorie.categorie_second?.name }}
+                                    </ng-container>
+                                    <ng-template #showThirdAsSecond>
+                                        {{ categorie.categorie_third?.name }}
+                                    </ng-template>
                                 </td>
                                 <td class="text-end">
 

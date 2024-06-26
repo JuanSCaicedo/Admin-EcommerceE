@@ -15,8 +15,8 @@ export class CreateCategorieComponent {
   name!: string;
   icon!: string;
   position: number = 1;
-  categorie_second_id!: string;
-  categorie_third_id!: string;
+  categorie_second_id: '';
+  categorie_third_id: '';
 
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
@@ -72,7 +72,8 @@ export class CreateCategorieComponent {
   }
 
   changeDepartament() {
-    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_second_id);
+    this.categorie_second_id = '';
+    this.categories_seconds_backups = this.categories_seconds.filter((item:any) => item.categorie_second_id == this.categorie_third_id)
   }
 
   save() {

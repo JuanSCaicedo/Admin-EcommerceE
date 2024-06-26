@@ -16,8 +16,8 @@ export class EditCategorieComponent {
   name!: string;
   icon!: string;
   position: number = 1;
-  categorie_second_id!: string;
-  categorie_third_id!: string;
+  categorie_second_id: '';
+  categorie_third_id: '';
   state: string = '1';
 
   imageDeleted: boolean;
@@ -66,35 +66,28 @@ export class EditCategorieComponent {
       if (resp.categorie.imagen) {
         this.imagen_previsualiza = resp.categorie.imagen;
       }
-      this.changeDepartament();
     })
   }
 
   config() {
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
-      if (this.type_categorie !== 1) {
-        this.categorie_second_id = '';
-        this.categorieService.showCategorie(this.CATEGORIE_ID).subscribe((resp: any) => {
-          this.categorie_second_id = resp.categorie.categorie_second_id;
-        });
-      }
+      this.categories_seconds_backups = resp.categories_seconds;
     });
   }
 
   changeDepartament() {
+
+    this.categorie_second_id = '';
+
     this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
-      item.categorie_second_id == this.categorie_second_id &&
+      item.categorie_second_id == this.categorie_third_id &&
       item.id != this.CATEGORIE_ID
     );
 
-    if (this.type_categorie == 3) {
-      this.categories_seconds_backups = this.categories_seconds_backups;
-    }
-
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_seconds_backups = resp.categories_seconds.filter((item: any) =>
-        item.categorie_second_id == this.categorie_second_id &&
+        item.categorie_second_id == this.categorie_third_id &&
         item.id != this.CATEGORIE_ID
       );
     });
@@ -123,11 +116,6 @@ export class EditCategorieComponent {
     this.type_categorie = val;
     this.categorie_third_id = '';
     this.categorie_second_id = '';
-  }
-
-  onCategorieThirdChange() {
-    // Restablecer el ID de la tercera categoría cuando se cambia
-    this.categorie_third_id = '';
   }
 
   deleteImage() {
@@ -183,17 +171,13 @@ export class EditCategorieComponent {
     if (this.categorie_second_id) {
       formData.append('categorie_second_id', this.categorie_second_id);
     } else {
-      if (this.CATEGORIE.categorie_second_id) {
-        formData.append('categorie_second_id', '');
-      }
+      formData.append('categorie_second_id', '');
     }
 
     if (this.categorie_third_id) {
       formData.append('categorie_third_id', this.categorie_third_id);
     } else {
-      if (this.CATEGORIE.categorie_third_id) {
-        formData.append('categorie_third_id', '');
-      }
+      formData.append('categorie_third_id', '');
     }
 
     if (this.state) {
