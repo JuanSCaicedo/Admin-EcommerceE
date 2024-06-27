@@ -62,6 +62,14 @@ export class EditCategorieComponent {
       this.position = resp.categorie.position;
       this.categorie_second_id = resp.categorie.categorie_second_id;
       this.categorie_third_id = resp.categorie.categorie_third_id;
+
+      this.categorieService.configCategories().subscribe((resp: any) => {
+        this.categories_seconds_backups = resp.categories_seconds.filter((item: any) =>
+          item.categorie_second_id == this.categorie_third_id &&
+          item.id != this.CATEGORIE_ID
+        );
+      });
+
       this.state = resp.categorie.state; // assign the state here
       if (resp.categorie.imagen) {
         this.imagen_previsualiza = resp.categorie.imagen;
@@ -72,7 +80,6 @@ export class EditCategorieComponent {
   config() {
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
-      this.categories_seconds_backups = resp.categories_seconds;
     });
   }
 
