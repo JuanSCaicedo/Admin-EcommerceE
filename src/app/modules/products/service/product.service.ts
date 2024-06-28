@@ -20,11 +20,11 @@ export class ProductService {
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
 
-  listProducts(page: number = 1, search: string) {
+  listProducts(page: number = 1, data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let URL = URL_SERVICIOS + "/admin/products?page=" + page + "&search=" + search;
-    return this.http.get(URL, { headers: headers }).pipe(
+    let URL = URL_SERVICIOS + "/admin/products/index?page=" + page;
+    return this.http.post(URL, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
