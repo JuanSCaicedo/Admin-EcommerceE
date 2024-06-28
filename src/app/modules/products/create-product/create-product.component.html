@@ -87,10 +87,16 @@
 
         <!-- Tags -->
         <div class="row mb-6">
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
+            <div class="col-lg-4 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
                 <label for="word" class="form-label fw-semibold fs-6">Word:</label>
-                <input type="text" id="word" name="word" (keyup.enter)="addItems()" [(ngModel)]="word"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: XXXXXXX">
+                <input type="text" id="word" name="word" (keydown.enter)="addItems()" [(ngModel)]="word"
+                    class="form-control form-control-lg form-control-solid" placeholder="Presione enter o Add para agregar">
+            </div>
+
+            <div class="d-flex justify-content-center align-items-end col-12 col-sm-12 col-md-2">
+                <button class="btn btn-primary w-100 w-md-auto btn-sm" (click)="addItems()">
+                    Add Tags +
+                </button>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0" *ngIf="!isShowMultiselect">

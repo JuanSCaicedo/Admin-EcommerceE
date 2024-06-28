@@ -75,6 +75,12 @@ export class CreateProductComponent {
   }
 
   addItems() {
+
+    if (!this.word || this.word.trim() === '') {
+      this.toastr.error('Validación', 'El campo de entrada tag no puede estar vacío');
+      return;
+    }
+
     this.isShowMultiselect = true;
     let time_date = new Date().getTime();
     this.dropdownList.push({ item_id: time_date, item_text: this.word });

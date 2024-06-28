@@ -73,4 +73,22 @@ export class ProductService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  imagenAdd(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/products/imagens';
+    return this.http.post(url, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  deleteImagenProduct(imagen_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/products/imagens/' + imagen_id;
+    return this.http.delete(url, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

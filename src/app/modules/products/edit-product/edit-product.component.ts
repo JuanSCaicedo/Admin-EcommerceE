@@ -4,6 +4,8 @@ import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteImagenAddComponent } from './delete-imagen-add/delete-imagen-add.component';
 
 @Component({
   selector: 'app-edit-product',
@@ -38,9 +40,12 @@ export class EditProductComponent {
   isShowMultiselect: Boolean = false;
 
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
+  imagen_add_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
 
   isLoading$: any;
+  imagen_add: any;
+  images_files: any = [];
   word: string = '';
   selectedItems: any = [];
 
@@ -51,6 +56,7 @@ export class EditProductComponent {
     public productService: ProductService,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
+    public modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -106,6 +112,7 @@ export class EditProductComponent {
       this.selectedItems = resp.product.selectedItems;
       this.dropdownList = resp.product.tags;
       this.selectedItems = resp.product.tags;
+      this.images_files = resp.product.images;
 
       this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
         item.categorie_second_id == this.categorie_first_id);
@@ -115,6 +122,12 @@ export class EditProductComponent {
   }
 
   addItems() {
+
+    if (!this.word || this.word.trim() === '') {
+      this.toastr.error('Validación', 'El campo de entrada tag no puede estar vacío');
+      return;
+    }
+
     this.isShowMultiselect = true;
     let time_date = new Date().getTime();
     this.dropdownList.push({ item_id: time_date, item_text: this.word });
@@ -125,6 +138,29 @@ export class EditProductComponent {
       this.isShowMultiselect = false;
       this.isLoadingView();
     }, 100);
+  }
+
+  addImagen() {
+    if (!this.imagen_add) {
+      this.toastr.error("Validacion", "La imagen multiple es obligatoria");
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("imagen_add", this.imagen_add);
+    formData.append("product_id", this.PRODUCT_ID);
+    this.productService.imagenAdd(formData).subscribe((resp: any) => {
+      console.log(resp);
+      this.images_files.unshift(resp.imagen);
+      this.imagen_add = null;
+      this.imagen_add_previsualiza = PREVISUALIZA_IMAGEN;
+      const imageInput = <HTMLInputElement>document.getElementById('customFileOImagenes');
+      if (imageInput) {
+        imageInput.value = '';
+      }
+    })
+
+    this.toastr.success('Exito', 'Imagen agregada correctamente');
   }
 
   processFile($event: any) {
@@ -138,6 +174,31 @@ export class EditProductComponent {
     reader.readAsDataURL(this.file_imagen);
     reader.onloadend = () => this.imagen_previsualiza = reader.result;
     this.isLoadingView();
+  }
+
+  processFileTwo($event: any) {
+    if ($event.target.files[0].type.indexOf("image") < 0) {
+      this.toastr.error("Validacion", "El archivo no es una imagen");
+      return;
+    }
+
+    this.imagen_add = $event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(this.imagen_add);
+    reader.onloadend = () => this.imagen_add_previsualiza = reader.result;
+    this.isLoadingView();
+  }
+
+  removeImages(id: number) {
+    const modalRef = this.modalService.open(DeleteImagenAddComponent, { centered: true, size: 'md' });
+    modalRef.componentInstance.id = id;
+
+    modalRef.componentInstance.ImagenD.subscribe((resp: any) => {
+      let INDEX = this.images_files.findIndex((item: any) => item.id == id);
+      if (INDEX != -1) {
+        this.images_files.splice(INDEX, 1)
+      }
+    });
   }
 
   isLoadingView() {

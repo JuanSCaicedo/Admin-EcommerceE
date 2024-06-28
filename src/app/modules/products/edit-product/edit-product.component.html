@@ -87,10 +87,16 @@
 
         <!-- Tags -->
         <div class="row mb-6">
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
+            <div class="col-lg-4 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
                 <label for="word" class="form-label fw-semibold fs-6">Word:</label>
                 <input type="text" id="word" name="word" (keyup.enter)="addItems()" [(ngModel)]="word"
-                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: XXXXXXX">
+                    class="form-control form-control-lg form-control-solid" placeholder="Presione enter o Add para agregar">
+            </div>
+
+            <div class="d-flex justify-content-center align-items-end col-12 col-sm-12 col-md-2">
+                <button class="btn btn-primary w-100 w-md-auto btn-sm" (click)="addItems()">
+                    Add Tags +
+                </button>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-md-0" *ngIf="!isShowMultiselect">
@@ -109,18 +115,76 @@
                 <ckeditor (change)="onChange($event)" [data]="description"></ckeditor>
             </div>
 
+
             <div class="col-lg-6 mb-6 mb-md-0">
-                <label for="customFile" class="form-label required fw-semibold fs-6">Sube tu imagen:</label>
+                <div class="row">
+                    <div class="col-10">
+                        <label for="customFileOImagenes" class="form-label required fw-semibold fs-6">Sube tus
+                            imagenes:</label>
+                        <input type="file" class="form-control" id="customFileOImagenes"
+                            accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFileTwo($event)">
+                        <div class="mt-3 mb-6 mb-md-0">
+                            <img [src]="imagen_add_previsualiza" class="img-fluid py-2" width="100"
+                                alt="Imagen previsualizada">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <button class="btn btn-primary btn-sm" (click)="addImagen()">
+                            +
+                        </button>
+                    </div>
+
+                    <div class="col-12">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
+                                    id="kt_advance_table_widget_1">
+                                    <thead class="mb-6">
+                                        <tr> <!-- Modified: Added "text-center" class -->
+                                            <th class="text-center">IMAGEN</th>
+                                            <th class="text-center">ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let imagen_ of images_files; let i = index">
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <img [src]="imagen_.imagen" width="60" alt="">
+                                            </td>
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <button class="ml-5 btn btn-sm btn-danger"
+                                                    (click)="removeImages(imagen_.id)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div *ngIf="!(images_files && images_files.length > 0)" class="text-center">
+                                    <p>No hay imágenes para mostrar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-lg-6 mb-6 mb-md-0">
+                <label for="customFile" class="form-label required fw-semibold fs-6">Actualiza tu imagen
+                    principal:</label>
                 <input type="file" class="form-control" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
                     (change)="processFile($event)">
                 <div class="mt-3 mb-6 mb-md-0">
                     <img [src]="imagen_previsualiza" class="img-fluid py-2" width="200" alt="Imagen previsualizada">
                 </div>
+            </div>
 
+            <div class="col-lg-6 mb-6 mb-md-0">
                 <div>
                     <label class="fs-6 fw-semibold mb-2 required required">Resumen:</label>
                     <textarea class="form-control form-control-solid" rows="3" name="resumen" [(ngModel)]="resumen"
-                        placeholder="********"></textarea>
+                        placeholder="********" style="height: 200px;"></textarea>
                 </div>
             </div>
         </div>
