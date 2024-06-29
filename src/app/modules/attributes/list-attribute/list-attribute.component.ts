@@ -82,10 +82,6 @@ export class ListAttributeComponent {
   }
 
   searchTo() {
-    if (!this.search) {
-      this.toastr.error('Validación', 'Ingrese al menos un valor para buscar');
-      return;
-    }
     this.listAttributes();
   }
 
