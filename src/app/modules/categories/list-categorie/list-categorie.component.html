@@ -34,34 +34,22 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
                     <thead>
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="User: activate to sort column ascending"
-                                style="width: 275.844px;">
+                            <th class="min-w-150">
                                 Nombre
                             </th>
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="Role: activate to sort column ascending"
-                                style="width: 161.469px;">
+                            <th class="min-w-100px text-center">
                                 Icon
                             </th>
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="Last login: activate to sort column ascending"
-                                style="width: 161.469px;">
+                            <th class="min-w-125px">
                                 State
                             </th>
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="Role: activate to sort column ascending"
-                                style="width: 161.469px;">
+                            <th class="min-w-125px">
                                 Type
                             </th>
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="Two-step : activate to sort column ascending"
-                                style="width: 161.469px;">
+                            <th class="min-w-125px">
                                 Departamento
                             </th>
-                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
-                                colspan="1" aria-label="Joined Date: activate to sort column ascending"
-                                style="width: 214.609px;">
+                            <th class="min-w-125px">
                                 Categoria
                             </th>
                             <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1"
@@ -85,7 +73,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <ng-container *ngIf="categorie.icon">
                                         <div [id]="'svg-categorie-'+categorie.id">{{ getDomParser(categorie) }}</div>
                                     </ng-container>
