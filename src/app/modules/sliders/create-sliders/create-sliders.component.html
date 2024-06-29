@@ -2,13 +2,13 @@
     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <div class="card-body border-top p-9">
         <div class="row mb-3">
-            <div class="col-lg-6 mb-3 mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="title" class="form-label fw-semibold fs-6 required">Titulo:</label>
                 <input type="text" id="title" name="title" [(ngModel)]="title"
                     class="form-control-solid form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: The best note book collection 2023">
             </div>
-            <div class="col-lg-6 mb-3  mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
                 <label for="subtitle" class="form-label fw-semibold fs-6 required">Subtitulo:</label>
                 <input type="text" id="subtitle" name="subtitle" [(ngModel)]="subtitle"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Exclusive offer">
@@ -16,12 +16,12 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-lg-6 mb-3  mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
                 <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional)</label>
                 <input type="text" id="label" name="label" [(ngModel)]="label" class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: Starting at $999,99">
             </div>
-            <div class="col-lg-6 mb-3  mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
                 <label for="link" class="form-label fw-semibold fs-6">Link: (Opcional)</label>
                 <input type="text" id="link" name="link" [(ngModel)]="link" class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: http://dominio.com">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-lg-6 mb-3 mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="customFile" class="form-label fw-semibold fs-6 required">Sube tu imagen:</label>
                 <input type="file" class="form-control mb-6" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
                     (change)="processFile($event)">
@@ -37,7 +37,7 @@
                     <img [src]="imagen_previsualiza" class="img-fluid py-2" width="200" alt="Imagen previsualizada">
                 </div>
             </div>
-            <div class="col-lg-6 mb-3 mb-6 mb-md-0">
+            <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="color" class="form-label fw-semibold fs-6 required">Color:</label>
                 <input type="color" id="color" name="color" [(ngModel)]="color"
                     class="cursor-pointer form-control form-control-lg">

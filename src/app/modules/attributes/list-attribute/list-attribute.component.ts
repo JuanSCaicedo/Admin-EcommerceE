@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAttributeComponent } from '../create-attribute/create-attribute.component';
 import { EditAttributeComponent } from '../edit-attribute/edit-attribute.component';
 import { SubAttributeCreateComponent } from '../sub-attribute-create/sub-attribute-create.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-attribute',
@@ -23,6 +24,7 @@ export class ListAttributeComponent {
   constructor(
     public attributesService: AttributesService,
     public modalService: NgbModal,
+    private toastr: ToastrService,
   ) {
 
   }
@@ -30,6 +32,19 @@ export class ListAttributeComponent {
   ngOnInit(): void {
     this.listAttributes();
     this.isLoading$ = this.attributesService.isLoading$;
+  }
+
+  clearFields() {
+    if (!this.search) {
+      this.toastr.error('Validación', 'No hay valores para limpiar');
+      return;
+    }
+
+    this.search = '';
+
+    setTimeout(() => {
+      this.listAttributes();
+    }, 50);
   }
 
   listAttributes(page = 1) {
@@ -67,6 +82,10 @@ export class ListAttributeComponent {
   }
 
   searchTo() {
+    if (!this.search) {
+      this.toastr.error('Validación', 'Ingrese al menos un valor para buscar');
+      return;
+    }
     this.listAttributes();
   }
 

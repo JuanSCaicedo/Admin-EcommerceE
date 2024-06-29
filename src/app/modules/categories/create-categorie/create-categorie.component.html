@@ -44,13 +44,13 @@
         </div>
 
         <div class="row mb-6">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0">
                 <label class="fw-semibold fs-6 py-2 required">Nombre:</label>
                 <input type="text" name="name" [(ngModel)]="name"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Computadora">
             </div>
 
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0">
                 <label class="fw-semibold fs-6 py-2">
                     Icon:
                     <span [ngClass]="{ 'required': type_categorie == 1 }">
@@ -63,25 +63,25 @@
         </div>
 
         <div class="row mb-6">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0">
                 <label class="form-label">
                     Sube tu imagen:
                     <span [ngClass]="{ 'required': type_categorie == 1 }">
                         {{ type_categorie == 1 ? '' : 'Opcional' }}
                     </span>
                 </label>
-                <div class="custom-file mb-6 mb-md-0">
+                <div class="custom-file mb-6 mb-lg-0">
                     <input type="file" class="custom-file-input" id="customFile"
                         accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
                     <label class="custom-file-label" for="customFile"></label>
                 </div>
 
-                <div class="mb-6 mb-md-0">
+                <div class="mb-6 mb-lg-0">
                     <img [src]="imagen_previsualiza" class="img py-4" width="200" alt="img">
                 </div>
             </div>
 
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0">
                 <label class="fw-semibold fs-6 py-2 required">Posición:</label>
                 <input type="number" name="position" [(ngModel)]="position"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 4">
@@ -89,7 +89,7 @@
         </div>
 
         <div class="row mb-6" *ngIf="type_categorie != 1">
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 2">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0" *ngIf="type_categorie == 2">
                 <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_second_id">
@@ -99,7 +99,7 @@
                     </ng-container>
                 </select>
             </div>
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 3">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
                 <select class="form-control form-select-solid fw-bolder" name="departament"
                     placeholder="Selec. Departamento" [(ngModel)]="categorie_third_id" (change)="changeDepartament()">
@@ -109,7 +109,7 @@
                     </ng-container>
                 </select>
             </div>
-            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-md-0" *ngIf="type_categorie == 3">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container mb-6 mb-lg-0" *ngIf="type_categorie == 3">
                 <label class="fw-semibold fs-6 py-2 required">Categoria:(Segundo nivel) </label>
                 <select class="form-control form-select-solid fw-bolder" name="categorie" placeholder="Selec. Categoria"
                     [(ngModel)]="categorie_second_id">
