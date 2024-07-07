@@ -1,0 +1,115 @@
+<div class="card">
+    <!--begin::Card header-->
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-header border-0 pt-6">
+        <!--begin::Card title-->
+        <div class="card-title w-100 w-md-auto mb-6 mb-md-0">
+            <!--begin::Search-->
+            <div class="d-flex align-items-center position-relative my-1 w-100 w-md-auto">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span><span class="path2"></span></i>
+                <input type="text" (keyup.enter)="searchTo()" [(ngModel)]="search" data-kt-user-table-filter="search"
+                    class="form-control form-control-solid w-100 w-md-250px ps-13" placeholder="Search Marcas">
+            </div>
+            <!--end::Search-->
+        </div>
+        <!--begin::Card title-->
+
+        <!--begin::Card toolbar-->
+        <div class="card-toolbar w-100 w-md-auto">
+
+        </div>
+
+        <div class="card-toolbar w-100 w-md-auto d-flex justify-content-end gap-6">
+
+            <div class="d-flex justify-content-end w-100 w-md-auto" data-kt-user-table-toolbar="base">
+                <a href="#" onclick="return false;" (click)="openModalCreateBrand()"
+                    class="btn btn-primary w-100 w-md-auto">
+                    <i class="ki-duotone ki-plus fs-2"></i> Add Brand
+                </a>
+            </div>
+
+        </div>
+        <!--end::Card toolbar-->
+    </div>
+    <!--end::Card header-->
+
+    <!--begin::Card body-->
+    <div class="card-body py-4">
+        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="User: activate to sort column ascending"
+                                style="width: 275.844px;">
+                                Nombre
+                            </th>
+
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Last login: activate to sort column ascending"
+                                style="width: 161.469px;">
+                                State
+                            </th>
+
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Joined Date: activate to sort column ascending"
+                                style="width: 214.609px;">
+                                Fecha de Creación
+                            </th>
+                            <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1"
+                                aria-label="Actions" style="width: 129.75px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold">
+                        <ng-container *ngIf="brands.length > 0; else noRecords">
+                            <tr *ngFor="let brand of brands">
+
+                                <td>
+                                    <span>{{ brand.name }}</span>
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-light-primary fs-7 fw-bold"
+                                        *ngIf="brand.state == 1">Activo</span>
+                                    <span class="badge badge-light-danger fs-7 fw-bold"
+                                        *ngIf="brand.state == 2">Inactivo</span>
+                                </td>
+
+                                <td>
+                                    {{ brand.created_at }}
+                                </td>
+
+                                <td class="text-end d-flex justify-content-end">
+
+                                    <a href="#" onclick="return false;" (click)="openModalEditBrand(brand)"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span
+                                                class="path2"></span></i> </a>
+
+                                    <a href="#" onclick="return false;" (click)="deleteBrand(brand)"
+                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                                class="path2"></span><span class="path3"></span><span
+                                                class="path4"></span><span class="path5"></span></i> </a>
+                                </td>
+                            </tr>
+                        </ng-container>
+
+                        <!-- Mensaje para cuando no hay registros -->
+                        <ng-template #noRecords>
+                            <tr>
+                                <td colspan="8" class="text-center py-4">
+                                    <span class="text-muted">No hay registros disponibles</span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+                <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="25" [rotate]="true"
+                    [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

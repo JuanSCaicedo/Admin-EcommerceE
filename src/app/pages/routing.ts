@@ -70,6 +70,11 @@ const Routing: Routes = [
   },
 
   {
+    path: 'brands',
+    loadChildren: () => import('../modules/brands/brands.module').then((m) => m.BrandsModule),
+  },
+
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
