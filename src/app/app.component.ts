@@ -8,6 +8,8 @@ import { locale as jpLang } from './modules/i18n/vocabs/jp';
 import { locale as deLang } from './modules/i18n/vocabs/de';
 import { locale as frLang } from './modules/i18n/vocabs/fr';
 import { ThemeModeService } from './_metronic/partials/layout/theme-mode-switcher/theme-mode.service';
+import { PageInfoService, PageLink } from './_metronic/layout';
+import { Observable } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,9 +20,14 @@ import { ThemeModeService } from './_metronic/partials/layout/theme-mode-switche
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+
+  title$: Observable<string>;
+  bc$: Observable<Array<PageLink>>;
+
   constructor(
     private translationService: TranslationService,
-    private modeService: ThemeModeService
+    private modeService: ThemeModeService,
+    private pageInfo: PageInfoService
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -34,6 +41,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.title$ = this.pageInfo.title.asObservable();
+    this.bc$ = this.pageInfo.breadcrumbs.asObservable();
+
+    this.title$.subscribe(title => {
+      this.bc$.subscribe(breadcrumbs => {
+        const breadcrumbTitles = breadcrumbs.map(bc => bc.title).join(' - ');
+        document.title = `Admin | ${breadcrumbTitles} ${title}`;
+      });
+    });
+
     this.modeService.init();
   }
 }
