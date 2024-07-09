@@ -30,7 +30,7 @@
                 <input type="number" name="price_usd" [(ngModel)]="price_usd"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   20 USD ">
             </div>
-            
+
             <div class="col-lg-4 fv-row fv-plugins-icon-container mb-6 mb-lg-0">
                 <label class="fw-semibold fs-6 py-2 required">Marcas:</label>
                 <select class="form-control form-select-solid fw-bolder" name="marca" placeholder="Selec. Marca"
@@ -91,7 +91,8 @@
             <div class="col-lg-4 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
                 <label for="word" class="form-label fw-semibold fs-6">Word:</label>
                 <input type="text" id="word" name="word" (keydown.enter)="addItems()" [(ngModel)]="word"
-                    class="form-control form-control-lg form-control-solid" placeholder="Presione enter o Add para agregar">
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Presione enter o Add para agregar">
             </div>
 
             <div class="d-flex justify-content-center align-items-end col-12 col-sm-12 col-md-2">
@@ -112,8 +113,8 @@
         <!-- Descripción e Imagen -->
         <div class="row mb-6">
             <div class="col-lg-6 mb-6 mb-lg-0">
-                <label class="fs-6 fw-semibold mb-2 required">Descripción:</label>
-                <ckeditor (change)="onChange($event)" [data]="description"></ckeditor>
+                <label class="fs-6 fw-semibold mb-2 required">Descripción:</label>        
+                <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="description" (change)="onChange($event)"></ckeditor>
             </div>
 
             <div class="col-lg-6 mb-6 mb-lg-0">

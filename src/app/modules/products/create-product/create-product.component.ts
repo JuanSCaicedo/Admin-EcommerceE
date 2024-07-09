@@ -3,6 +3,21 @@ import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Italic,
+  Mention,
+  Paragraph,
+  Undo,
+  Table,
+  TableToolbar,
+  Image,
+  ImageInsert,
+  AutoImage,
+} from 'ckeditor5';
 
 @Component({
   selector: 'app-create-product',
@@ -138,8 +153,23 @@ export class CreateProductComponent {
     }, 50);
   }
 
-  public onChange(event: any) {
-    this.description = event.editor.getData();
+  // public onChange(event: any) {
+  //   this.description = event.editor.getData();
+  // }
+
+  public Editor = ClassicEditor;
+  public config = {
+    toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'insertTable', 'insertImage',],
+    plugins: [
+      Bold, Essentials, Italic, Mention, Paragraph, Undo, Table, TableToolbar, Image, ImageInsert, AutoImage
+    ],
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+    }
+  }
+
+  public onChange({ editor }: ChangeEvent) {
+    this.description = editor.getData();
   }
 
   onItemSelect(item: any) {

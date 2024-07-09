@@ -7,6 +7,22 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteImagenAddComponent } from './delete-imagen-add/delete-imagen-add.component';
 
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Italic,
+  Mention,
+  Paragraph,
+  Undo,
+  Table,
+  TableToolbar,
+  Image,
+  ImageInsert,
+  AutoImage,
+} from 'ckeditor5';
+
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -131,10 +147,9 @@ export class EditProductComponent {
     this.isShowMultiselect = true;
     let time_date = new Date().getTime();
     this.dropdownList.push({ item_id: time_date, item_text: this.word });
-    this.selectedItems.push({ item_id: time_date, item_text: this.word });
+    // this.selectedItems.push({ item_id: time_date, item_text: this.word });
 
     setTimeout(() => {
-      this.word = '';
       this.isShowMultiselect = false;
       this.isLoadingView();
     }, 100);
@@ -233,8 +248,23 @@ export class EditProductComponent {
     }, 50);
   }
 
-  public onChange(event: any) {
-    this.description = event.editor.getData();
+  // public onChange(event: any) {
+  //   this.description = event.editor.getData();
+  // }
+
+  public Editor = ClassicEditor;
+  public config = {
+    toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'insertTable', 'insertImage',],
+    plugins: [
+      Bold, Essentials, Italic, Mention, Paragraph, Undo, Table, TableToolbar, Image, ImageInsert, AutoImage
+    ],
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+    }
+  }
+
+  public onChange({ editor }: ChangeEvent) {
+    this.description = editor.getData();
   }
 
   onItemSelect(item: any) {
