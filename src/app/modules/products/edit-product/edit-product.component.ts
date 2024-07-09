@@ -156,6 +156,7 @@ export class EditProductComponent {
     // this.selectedItems.push({ item_id: time_date, item_text: this.word });
 
     setTimeout(() => {
+      this.word = '';
       this.isShowMultiselect = false;
       this.isLoadingView();
     }, 100);
