@@ -9,6 +9,7 @@ import { AttributesService } from '../service/attributes.service';
   styleUrls: ['./delete-attribute.component.scss']
 })
 export class DeleteAttributeComponent {
+  
   @Input() attribute: any;
 
   @Output() AttributeD: EventEmitter<any> = new EventEmitter();
@@ -20,7 +21,7 @@ export class DeleteAttributeComponent {
     public modal: NgbActiveModal,
   ) { }
 
-  ngOnit(): void {
+  ngOnInit(): void {
     this.isLoading = this.attributeService.isLoading$;
   }
 

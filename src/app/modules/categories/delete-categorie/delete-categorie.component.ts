@@ -20,7 +20,7 @@ export class DeleteCategorieComponent {
     public modal: NgbActiveModal,
   ) { }
 
-  ngOnit(): void {
+  ngOnInit(): void {
     this.isLoading$ = this.categorieService.isLoading$;
   }
 

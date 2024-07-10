@@ -20,7 +20,7 @@ export class DeleteSlidersComponent {
     public modal: NgbActiveModal,
   ) { }
 
-  ngOnit(): void {
+  ngOnInit(): void {
     this.isLoading$ = this.sliderService.isLoading$;
   }
 

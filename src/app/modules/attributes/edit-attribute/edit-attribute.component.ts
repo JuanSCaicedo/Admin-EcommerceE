@@ -60,7 +60,7 @@ export class EditAttributeComponent {
         return;
       } else {
         this.AttributeE.emit(resp.attribute);
-        this.toastr.success('Éxito', 'Atributo creado correctamente');
+        this.toastr.success('Éxito', 'Atributo actualizado correctamente');
         this.modal.close();
       }
     })
