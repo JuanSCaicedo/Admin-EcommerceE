@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="col-2">
-                        <button class="btn btn-primary btn-sm" (click)="addImagen()">
+                        <button class="btn btn-primary btn-sm" (click)="addImagen()" data-bs-toggle="tooltip" title="Add Images">
                             +
                         </button>
                     </div>
@@ -152,7 +152,7 @@
                                                 <img [src]="imagen_.imagen" width="60" alt="">
                                             </td>
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
-                                                <button class="ml-5 btn btn-sm btn-danger"
+                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete Image"
                                                     (click)="removeImages(imagen_.id)">X</button>
                                             </td>
                                         </tr>
