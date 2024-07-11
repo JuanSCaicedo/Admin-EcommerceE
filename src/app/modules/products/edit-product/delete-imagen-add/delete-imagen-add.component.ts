@@ -21,7 +21,7 @@ export class DeleteImagenAddComponent {
     public modal: NgbActiveModal,
   ) { }
 
-  ngOnit(): void {
+  ngOnInit(): void {
     this.isLoading$ = this.productImagenService.isLoading$;
   }
 
