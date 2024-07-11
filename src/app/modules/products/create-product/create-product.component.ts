@@ -4,6 +4,7 @@ import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+import { Router } from '@angular/router';
 import {
   ClassicEditor,
   Bold,
@@ -22,7 +23,7 @@ import {
   Font,
   Indent, IndentBlock,
   List,
-  BlockQuote, 
+  BlockQuote,
 } from 'ckeditor5';
 
 @Component({
@@ -67,6 +68,7 @@ export class CreateProductComponent {
   constructor(
     public productService: ProductService,
     private toastr: ToastrService,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -196,7 +198,7 @@ export class CreateProductComponent {
       Font,
       Indent, IndentBlock,
       List,
-      BlockQuote, 
+      BlockQuote,
     ],
     table: {
       contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
@@ -275,6 +277,8 @@ export class CreateProductComponent {
         this.dropdownList = [];
 
         this.toastr.success('Exito', 'Producto creado correctamente');
+
+        this.router.navigateByUrl(`/products/list/edit/${resp.id}`);
       }
     });
   }

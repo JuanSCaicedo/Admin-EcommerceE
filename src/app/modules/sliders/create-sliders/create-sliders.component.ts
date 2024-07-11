@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { SlidersService } from '../service/sliders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-sliders',
@@ -23,7 +24,8 @@ export class CreateSlidersComponent {
 
   constructor(
     public sliderService: SlidersService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public router: Router,
   ) {
 
   }
@@ -92,6 +94,8 @@ export class CreateSlidersComponent {
       // Restablecer this.file_imagen
       this.file_imagen = null;
       this.toastr.success('Exito', 'Slider creado correctamente');
+
+      this.router.navigateByUrl(`/sliders/list/edit/${resp.id}`);
     });
   }
 }

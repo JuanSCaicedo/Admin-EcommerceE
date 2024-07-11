@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CategoriesService } from '../service/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-categorie',
@@ -29,7 +30,8 @@ export class CreateCategorieComponent {
 
   constructor(
     public categorieService: CategoriesService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public router: Router,
   ) {
 
   }
@@ -145,6 +147,7 @@ export class CreateCategorieComponent {
       this.categorie_second_id = '';
       this.categorie_third_id = '';
       this.toastr.success('Exito', 'Categoria creada correctamente');
+      this.router.navigateByUrl(`/categories/list/edit/${resp.id}`);
       this.config();
     });
   }
