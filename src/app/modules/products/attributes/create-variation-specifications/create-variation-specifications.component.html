@@ -1,0 +1,65 @@
+<div class="card">
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <!-- Información Básica -->
+        <div class="row mb-6">
+            <div class="col-lg-6 mb-6 mb-lg-0">
+                <label for="title" class="form-label required fw-semibold fs-6">Titulo:</label>
+                <input type="text" id="title" name="title" [(ngModel)]="title" disabled
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Por ejemplo: The best note book collection 2023">
+            </div>
+
+            <div class="col-lg-6">
+                <label for="sku" class="form-label required fw-semibold fs-6">Sku:</label>
+                <input type="text" id="sku" name="sku" [(ngModel)]="sku" disabled
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: ZDR456">
+            </div>
+        </div>
+        <!-- End Información Básica -->
+
+        <div class="row mb-6">
+            <div class="col-6">
+                <label for="sku" class="form-label required fw-semibold fs-6">Espicificaciones:</label> 
+                <div class="row">
+                    <div class="col-12">
+                        <!-- formularios -->
+                    </div>
+                    <div class="col-12">
+                        <!-- tabla de las Espicificaciones seleccionadas para el producto -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label for="sku" class="form-label required fw-semibold fs-6">Variaciones:</label>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- formularios -->
+                    </div>
+                    <div class="col-12">
+                        <!-- tabla de las variaciones seleccionadas para el producto -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de Guardar -->
+        <div class="row mb-sm-6">
+            <div class="col-12 col-sm-12 col-md-3">
+                <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
+                    <ng-container *ngIf="isLoading$ | async">
+                        <span class="indicator-progress" [style.display]="'block'">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="(isLoading$ | async) === false">
+                        <span class="indicator-label">Guardar</span>
+                    </ng-container>
+                </button>
+            </div>
+        </div>
+        <!-- End Botón de Guardar -->
+    </div>
+</div>

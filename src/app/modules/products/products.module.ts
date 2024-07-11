@@ -15,6 +15,12 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DeleteImagenAddComponent } from './edit-product/delete-imagen-add/delete-imagen-add.component';
+import { CreateVariationSpecificationsComponent } from './attributes/create-variation-specifications/create-variation-specifications.component';
+import { EditVariationSpecificationsComponent } from './attributes/edit-variation-specifications/edit-variation-specifications.component';
+import { DeleteVariationSpecificationsComponent } from './attributes/delete-variation-specifications/delete-variation-specifications.component';
+import { CreateAnidadoVariationsComponent } from './attributes/create-anidado-variations/create-anidado-variations.component';
+import { EditAnidadoVariationsComponent } from './attributes/edit-anidado-variations/edit-anidado-variations.component';
+import { DeleteAnidadoVariationsComponent } from './attributes/delete-anidado-variations/delete-anidado-variations.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,13 @@ import { DeleteImagenAddComponent } from './edit-product/delete-imagen-add/delet
     EditProductComponent,
     DeleteProductComponent,
     ListsProductsComponent,
-    DeleteImagenAddComponent
+    DeleteImagenAddComponent,
+    CreateVariationSpecificationsComponent,
+    EditVariationSpecificationsComponent,
+    DeleteVariationSpecificationsComponent,
+    CreateAnidadoVariationsComponent,
+    EditAnidadoVariationsComponent,
+    DeleteAnidadoVariationsComponent
   ],
   imports: [
     CommonModule,
