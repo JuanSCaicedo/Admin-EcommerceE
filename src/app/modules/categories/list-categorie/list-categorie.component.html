@@ -67,7 +67,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-start flex-column">
-                                            <a href="#" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
+                                            <a href="#" [routerLink]="'/categories/list/edit/'+categorie.id"
+                                                class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
                                                 categorie.name }}</a>
                                             <!-- <span class="text-muted fw-semibold text-muted d-block fs-7">HTML, JS, ReactJS</span> -->
                                         </div>

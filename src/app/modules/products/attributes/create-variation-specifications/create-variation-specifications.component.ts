@@ -12,44 +12,38 @@ import { AttributesService } from '../../service/attributes.service';
   styleUrls: ['./create-variation-specifications.component.scss']
 })
 export class CreateVariationSpecificationsComponent {
-  
+
   title!: string;
   sku!: string;
-  resumen!: string;
 
-  price_cop!: number;
-  price_usd!: number;
+  attributes: any = [];
 
-  marca_id: string = '';
-  marcas: any = [];
-
-  categorie_first_id: string = '';
-  categorie_second_id: string = '';
-  categorie_third_id: string = '';
-  categories_first: any = [];
-  categories_seconds: any = [];
-  categories_seconds_backups: any = [];
-  categories_thirds: any = [];
-  categories_thirds_backups: any = [];
+  campo_1: string = '';
+  campo_2: number = 0;
+  campo_3: any = '';
+  campo_1_variation: any = '';
 
   description: any = '';
   dropdownList: any = [];
+  dropdownListVariations: any = [];
   dropdownSettings: IDropdownSettings = {};
 
   isShowMultiselect: Boolean = false;
 
-  imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
-  imagen_add_previsualiza: any = PREVISUALIZA_IMAGEN;
-  file_imagen: any = null;
-
   isLoading$: any;
-  imagen_add: any;
-  images_files: any = [];
   word: string = '';
-  selectedItems: any = [];
+  selectedItems: any = []; //campo_4
+  selectedItemsVariations: any = []; //campo_4
+  stock_add: number = 0;
+
+  especification_attribute_id: string = '';
+  type_attribute_specification: number = 3;
+  type_attribute_variation: number = 3;
 
   PRODUCT_ID: string = '';
   PRODUCT_SELECTED: any = [];
+  precio_add: number = 0;
+  variations_attribute_id: string = '';
 
   constructor(
     public attributeService: AttributesService,
@@ -107,6 +101,13 @@ export class CreateVariationSpecificationsComponent {
       this.isShowMultiselect = false;
       this.isLoadingView();
     }, 100);
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
   isLoadingView() {

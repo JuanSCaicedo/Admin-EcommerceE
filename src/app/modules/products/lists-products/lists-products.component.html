@@ -120,7 +120,7 @@
                                         </div>
 
                                         <div class="d-flex justify-content-start flex-column">
-                                            <a href="#" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
+                                            <a href="#" [routerLink]="'/products/list/edit/'+product.id" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
                                                 product.title }}</a>
                                             <span class="text-muted fw-semibold text-muted d-block fs-7">{{ product.sku
                                                 }}</span>
@@ -130,7 +130,7 @@
 
                                 <!-- Otras celdas de datos -->
                                 <td>
-                                    <span>{{ product.price_usd }} USD / {{ product.price_cop }} COP</span>
+                                    <span>{{ product.price_usd }} USD <br> {{ product.price_cop }} COP</span>                                    
                                 </td>
 
                                 <td>
@@ -156,10 +156,10 @@
                                         *ngIf="product.state == 2">Público</span>
                                 </td>
 
-                                <td class="text-end">
+                                <td class="text-end d-flex d-sm-block">
                                     <a [routerLink]="'/products/list/variations-specifications/'+product.id"
                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        data-bs-toggle="tooltip" title="variations &specifications">
+                                        data-bs-toggle="tooltip" title="Variations & Specifications">
                                         <i class="ki-duotone ki-delivery-3 fs-2"><span class="path1"></span><span
                                                 class="path2"></span><span class="path3"></span></i> </a>
 
