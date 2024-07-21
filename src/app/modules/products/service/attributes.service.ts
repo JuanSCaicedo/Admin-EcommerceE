@@ -46,4 +46,13 @@ export class AttributesService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  listSpecification(product_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/specifications?product_id=' + product_id;
+    return this.http.get(url, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

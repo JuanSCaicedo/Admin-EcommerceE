@@ -34,7 +34,7 @@ export class CreateVariationSpecificationsComponent {
   selectedItemsVariations: any = []; //campo_4
   stock_add: number = 0;
 
-  especification_attribute_id: string = '';
+  specification_attribute_id: string = '';
   type_attribute_specification: number = 3;
   type_attribute_variation: number = 3;
 
@@ -43,6 +43,7 @@ export class CreateVariationSpecificationsComponent {
   precio_add: number = 0;
   properties: any = [];
   propertie_id: any = '';
+  specifications: any = [];
   variations_attribute_id: string = '';
 
   value_add: any = null;
@@ -75,6 +76,7 @@ export class CreateVariationSpecificationsComponent {
 
     this.showProduct();
     this.configAll();
+    this.listSpecification();
   }
 
   configAll() {
@@ -84,13 +86,20 @@ export class CreateVariationSpecificationsComponent {
     });
   }
 
+  listSpecification() {
+    this.attributeService.listSpecification(this.PRODUCT_ID).subscribe((resp: any) => {
+      console.log(resp);
+      this.specifications = resp.specifications;
+    });
+  }
+
   changeSpecifications() {
 
     this.propertie_id = '';
     this.value_add = null;
     this.selectedItems = [];
 
-    let ATTRIBUTE = this.attributes_specifications.find((item: any) => item.id == this.especification_attribute_id);
+    let ATTRIBUTE = this.attributes_specifications.find((item: any) => item.id == this.specification_attribute_id);
 
     if (ATTRIBUTE) {
       this.type_attribute_specification = ATTRIBUTE.type_attribute;
@@ -156,14 +165,23 @@ export class CreateVariationSpecificationsComponent {
 
   save() {
 
-    if (!this.especification_attribute_id || (!this.propertie_id && !this.value_add)) {
+    if (this.type_attribute_specification == 4 && this.selectedItems.length == 0) {
+      this.toastr.error('Validación', 'Seleccione un valor');
+      return;
+    }
+
+    if (this.selectedItems.length > 0) {
+      this.value_add = JSON.stringify(this.selectedItems);
+    }
+
+    if (!this.specification_attribute_id || (!this.propertie_id && !this.value_add)) {
       this.toastr.error('Validación', 'Seleccione un atributo y un valor');
       return;
     }
 
     let data = {
       product_id: this.PRODUCT_ID,
-      attribute_id: this.especification_attribute_id,
+      attribute_id: this.specification_attribute_id,
       propertie_id: this.propertie_id,
       value_add: this.value_add,
     };
@@ -175,12 +193,36 @@ export class CreateVariationSpecificationsComponent {
         this.toastr.error("Validación", resp.message_text);
       } else {
         this.toastr.success("Exito", "Se registro la especificación correctamente");
+        this.specifications.unshift(resp.specification);
         this.value_add = null;
         this.propertie_id = '';
-        this.especification_attribute_id = '';
+        this.specification_attribute_id = '';
         this.properties = [];
         this.type_attribute_specification = 3;
       }
     });
+  }
+
+  getValueAttribute(attribute_special: any) {
+    if (attribute_special.propertie_id) {
+      return attribute_special.propertie.name;
+    }
+
+    if (attribute_special.value_add) {
+      // Verifica si el valor parece un JSON válido
+      if (typeof attribute_special.value_add === 'string' && attribute_special.value_add.startsWith('[') && attribute_special.value_add.endsWith(']')) {
+        try {
+          let values = JSON.parse(attribute_special.value_add);
+          if (Array.isArray(values)) {
+            return values.map(v => v.name).join(', ');
+          }
+        } catch (e) {
+          console.error("Invalid JSON:", attribute_special.value_add);
+        }
+      }
+      return attribute_special.value_add;
+    }
+
+    return "---";
   }
 }
