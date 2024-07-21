@@ -185,6 +185,7 @@ export class CreateVariationSpecificationsComponent {
       attribute_id: this.specification_attribute_id,
       propertie_id: this.propertie_id,
       value_add: this.value_add,
+      state: 2,
     };
 
     this.attributeService.createSpecification(data).subscribe((resp: any) => {

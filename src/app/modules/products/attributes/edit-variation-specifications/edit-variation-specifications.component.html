@@ -45,8 +45,9 @@
                     <label class="fw-semibold fs-6 py-2 required">Campo:</label>
                     <ng-container *ngIf="type_attribute_specification == 1">
                         <!-- texto -->
-                        <input type="text" id="value_add" name="value_add" [(ngModel)]="value_add"
-                            class="form-control form-control-lg form-control-solid" placeholder="Add Text">
+                        <textarea type="text" id="value_add" name="value_add" [(ngModel)]="value_add"
+                            class="form-control form-control-lg form-control-solid" placeholder="Add Text"
+                            style="height: 40px; resize: vertical;"></textarea>
                     </ng-container>
 
                     <ng-container *ngIf="type_attribute_specification == 2">
