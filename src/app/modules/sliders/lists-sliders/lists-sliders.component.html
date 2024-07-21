@@ -69,7 +69,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-start flex-column">
-                                            <a href="#" [routerLink]="'/sliders/list/edit/'+slider.id" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
+                                            <a href="#" [routerLink]="'/sliders/list/edit/'+slider.id"
+                                                class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
                                                 slider.title }}</a>
                                             <!-- <span class="text-muted fw-semibold text-muted d-block fs-7">HTML, JS, ReactJS</span> -->
                                         </div>
@@ -116,8 +117,16 @@
                         <!-- Mensaje para cuando no hay registros -->
                         <ng-template #noRecords>
                             <tr>
-                                <td colspan="8" class="text-center py-4">
-                                    <span class="text-muted">No hay registros disponibles</span>
+                                <td colspan="8" class="text-center py-9">
+                                    <ng-container *ngIf="isLoading$ | async">
+                                        <span class="indicator-progress" [style.display]="'block'">
+                                            Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="(isLoading$ | async) === false"><span class="text-muted">No hay
+                                            registros disponibles</span>
+                                    </ng-container>
                                 </td>
                             </tr>
                         </ng-template>

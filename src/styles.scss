@@ -22,6 +22,10 @@
 // boostrap 5
 @import 'ngx-toastr/toastr-bs5-alert';
 
+.z-index-100 {
+    z-index: 100;
+}
+
 .toast-success {
     background-color: #d4ffd4 !important;
 }

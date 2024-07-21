@@ -120,7 +120,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-start flex-column">
-                                            <a href="#" [routerLink]="'/products/list/edit/'+product.id" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
+                                            <a href="#" [routerLink]="'/products/list/edit/'+product.id"
+                                                class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{
                                                 product.title }}</a>
                                             <span class="text-muted fw-semibold text-muted d-block fs-7">{{ product.sku
                                                 }}</span>
@@ -130,7 +131,7 @@
 
                                 <!-- Otras celdas de datos -->
                                 <td>
-                                    <span>{{ product.price_usd }} USD <br> {{ product.price_cop }} COP</span>                                    
+                                    <span>{{ product.price_usd }} USD <br> {{ product.price_cop }} COP</span>
                                 </td>
 
                                 <td>
@@ -156,25 +157,27 @@
                                         *ngIf="product.state == 2">Público</span>
                                 </td>
 
-                                <td class="text-end d-flex justify-content-end">
-                                    <a [routerLink]="'/products/list/variations-specifications/'+product.id"
-                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        data-bs-toggle="tooltip" title="Variations & Specifications">
-                                        <i class="ki-duotone ki-delivery-3 fs-2"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span></i> </a>
+                                <td class="text-end">
+                                    <div class="d-flex align-items-center">
+                                        <a [routerLink]="'/products/list/variations-specifications/'+product.id"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-delivery-3 fs-2"><span class="path1"></span><span
+                                                    class="path2"></span><span class="path3"></span></i>
+                                        </a>
 
-                                    <a [routerLink]="'/products/list/edit/'+product.id"
-                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                        data-bs-toggle="tooltip" title="Edit">
-                                        <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span
-                                                class="path2"></span></i> </a>
+                                        <a [routerLink]="'/products/list/edit/'+product.id"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </a>
 
-                                    <a href="#" onclick="return false;" (click)="deleteProduct(product)"
-                                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                                        data-bs-toggle="tooltip" title="Delete">
-                                        <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span><span
-                                                class="path4"></span><span class="path5"></span></i> </a>
+                                        <a href="#" onclick="return false;" (click)="deleteProduct(product)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                            <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                                    class="path2"></span><span class="path3"></span><span
+                                                    class="path4"></span><span class="path5"></span></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         </ng-container>
@@ -182,8 +185,16 @@
                         <!-- Mensaje para cuando no hay registros -->
                         <ng-template #noRecords>
                             <tr>
-                                <td colspan="8" class="text-center py-4">
-                                    <span class="text-muted">No hay registros disponibles</span>
+                                <td colspan="8" class="text-center py-9">
+                                    <ng-container *ngIf="isLoading$ | async">
+                                        <span class="indicator-progress" [style.display]="'block'">
+                                            Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                        </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="(isLoading$ | async) === false"><span class="text-muted">No hay
+                                            registros disponibles</span>
+                                    </ng-container>
                                 </td>
                             </tr>
                         </ng-template>
