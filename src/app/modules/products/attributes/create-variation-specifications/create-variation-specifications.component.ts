@@ -17,11 +17,9 @@ export class CreateVariationSpecificationsComponent {
   sku!: string;
 
   attributes: any = [];
+  attributes_specifications: any = [];
 
-  campo_1: string = '';
-  campo_2: number = 0;
-  campo_3: any = '';
-  campo_1_variation: any = '';
+  value_add_variation: any = '';
 
   description: any = '';
   dropdownList: any = [];
@@ -43,7 +41,11 @@ export class CreateVariationSpecificationsComponent {
   PRODUCT_ID: string = '';
   PRODUCT_SELECTED: any = [];
   precio_add: number = 0;
+  properties: any = [];
+  propertie_id: any = '';
   variations_attribute_id: string = '';
+
+  value_add: any = null;
 
   constructor(
     public attributeService: AttributesService,
@@ -58,8 +60,8 @@ export class CreateVariationSpecificationsComponent {
 
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
+      idField: 'id',
+      textField: 'name',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       // itemsShowLimit: 3,
@@ -72,6 +74,40 @@ export class CreateVariationSpecificationsComponent {
     });
 
     this.showProduct();
+    this.configAll();
+  }
+
+  configAll() {
+    this.attributeService.configAll().subscribe((resp: any) => {
+      console.log(resp);
+      this.attributes_specifications = resp.attributes_specifications;
+    });
+  }
+
+  changeSpecifications() {
+
+    this.propertie_id = '';
+    this.value_add = null;
+    this.selectedItems = [];
+
+    let ATTRIBUTE = this.attributes_specifications.find((item: any) => item.id == this.especification_attribute_id);
+
+    if (ATTRIBUTE) {
+      this.type_attribute_specification = ATTRIBUTE.type_attribute;
+
+      if (this.type_attribute_specification == 3 || this.type_attribute_specification == 4) {
+        this.properties = ATTRIBUTE.properties;
+        this.dropdownList = ATTRIBUTE.properties;
+      } else {
+        this.properties = [];
+        this.dropdownList = [];
+      }
+
+    } else {
+      this.type_attribute_specification = 0;
+      this.properties = [];
+      this.dropdownList = [];
+    }
   }
 
   showProduct() {
@@ -120,5 +156,31 @@ export class CreateVariationSpecificationsComponent {
 
   save() {
 
+    if (!this.especification_attribute_id || (!this.propertie_id && !this.value_add)) {
+      this.toastr.error('Validación', 'Seleccione un atributo y un valor');
+      return;
+    }
+
+    let data = {
+      product_id: this.PRODUCT_ID,
+      attribute_id: this.especification_attribute_id,
+      propertie_id: this.propertie_id,
+      value_add: this.value_add,
+    };
+
+    this.attributeService.createSpecification(data).subscribe((resp: any) => {
+      console.log(resp);
+
+      if (resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      } else {
+        this.toastr.success("Exito", "Se registro la especificación correctamente");
+        this.value_add = null;
+        this.propertie_id = '';
+        this.especification_attribute_id = '';
+        this.properties = [];
+        this.type_attribute_specification = 3;
+      }
+    });
   }
 }

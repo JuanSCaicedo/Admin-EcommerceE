@@ -33,9 +33,10 @@
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
                                 <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
                                 <select class="form-control form-select-solid fw-bolder" name="departament"
-                                    placeholder="Selec. Atributo" [(ngModel)]="especification_attribute_id">
+                                    placeholder="Selec. Atributo" [(ngModel)]="especification_attribute_id"
+                                    (change)="changeSpecifications()">
                                     <option value="" disabled selected>-- Seleccione --</option>
-                                    <ng-container *ngFor="let item of attributes">
+                                    <ng-container *ngFor="let item of attributes_specifications">
                                         <option [value]="item.id">{{item.name}}</option>
                                     </ng-container>
                                 </select>
@@ -45,26 +46,26 @@
                                 <label class="fw-semibold fs-6 py-2 required">Campo:</label>
                                 <ng-container *ngIf="type_attribute_specification == 1">
                                     <!-- texto -->
-                                    <input type="text" id="campo_1" name="campo_1" [(ngModel)]="campo_1"
+                                    <input type="text" id="value_add" name="value_add" [(ngModel)]="value_add"
                                         class="form-control form-control-lg form-control-solid"
-                                        placeholder="Por ejemplo: The best">
+                                        placeholder="Add Text">
                                 </ng-container>
 
                                 <ng-container *ngIf="type_attribute_specification == 2">
                                     <!-- Numero -->
-                                    <input type="number" id="campo_2" name="campo_2" [(ngModel)]="campo_2"
+                                    <input type="number" id="value_add" name="value_add" [(ngModel)]="value_add"
                                         class="form-control form-control-lg form-control-solid"
-                                        placeholder="Por ejemplo: 2342">
+                                        placeholder="Add Number">
                                 </ng-container>
 
                                 <ng-container *ngIf="type_attribute_specification == 3">
                                     <!-- Seleccionable -->
                                     <select class="form-control form-select-solid fw-bolder" name="departament"
-                                        [(ngModel)]="campo_3">
+                                        [(ngModel)]="propertie_id">
                                         <option value="" disabled selected>-- Seleccione --</option>
-                                        <!-- <ng-container *ngFor="let item of attributes">
+                                        <ng-container *ngFor="let item of properties">
                                             <option [value]="item.id">{{item.name}}</option>
-                                        </ng-container> -->
+                                        </ng-container>
                                     </select>
                                 </ng-container>
 
@@ -78,15 +79,23 @@
                             </div>
 
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add">
-                                    +
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                    (click)="save()">
+                                    <ng-container *ngIf="isLoading$ | async">
+                                        <span class="indicator-progress" [style.display]="'block'">
+                                            <span class="spinner-border spinner-border-sm align-middle"></span>
+                                        </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="(isLoading$ | async) === false">
+                                        <span class="indicator-label">+</span>
+                                    </ng-container>
                                 </button>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-12 py-6">
-                        <!-- tabla de las Espicificaciones seleccionadas para el producto -->
+                        <!-- tabla de las Variaciones seleccionadas para el producto -->
                         <div class="table-responsive">
                             <!--begin::Table-->
                             <table class="table align-middle gs-0 gy-4">
@@ -182,7 +191,7 @@
                                 <ng-container *ngIf="type_attribute_variation == 3">
                                     <!-- Seleccionable -->
                                     <select class="form-control form-select-solid fw-bolder" name="departament"
-                                        [(ngModel)]="campo_1_variation">
+                                        [(ngModel)]="value_add_variation">
                                         <option value="" disabled selected>-- Seleccione --</option>
                                         <!-- <ng-container *ngFor="let item of attributes">
                                             <option [value]="item.id">{{item.name}}</option>
@@ -218,12 +227,17 @@
 
                     <div class="col-12 col-md-4 mb-6 mb-lg-0">
                         <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add">
-                            +
+                            <ng-container *ngIf="isLoading$ | async">
+                                <span class="indicator-progress" [style.display]="'block'">
+                                    <span class="spinner-border spinner-border-sm align-middle"></span>
+                                </span>
+                            </ng-container>
+                            <ng-container *ngIf="(isLoading$ | async) === false">
+                                <span class="indicator-label">+</span>
+                            </ng-container>
                         </button>
                     </div>
                 </div>
-
-
 
                 <div class="col-12 py-6">
                     <!-- tabla de las Espicificaciones seleccionadas para el producto -->
@@ -292,23 +306,5 @@
                 </div>
             </div>
         </div>
-
-        <!-- Botón de Guardar -->
-        <div class="row mb-sm-6">
-            <div class="col-12 col-sm-12 col-md-3">
-                <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
-                    <ng-container *ngIf="isLoading$ | async">
-                        <span class="indicator-progress" [style.display]="'block'">
-                            Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                        </span>
-                    </ng-container>
-                    <ng-container *ngIf="(isLoading$ | async) === false">
-                        <span class="indicator-label">Guardar</span>
-                    </ng-container>
-                </button>
-            </div>
-        </div>
-        <!-- End Botón de Guardar -->
     </div>
 </div>
