@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
+import { EditVariationSpecificationsComponent } from '../edit-variation-specifications/edit-variation-specifications.component';
+import { DeleteVariationSpecificationsComponent } from '../delete-variation-specifications/delete-variation-specifications.component';
 
 @Component({
   selector: 'app-create-variation-specifications',
@@ -201,6 +202,34 @@ export class CreateVariationSpecificationsComponent {
         this.type_attribute_specification = 3;
       }
     });
+  }
+
+  editSpecification(specification: any) {
+    const modal = this.modalService.open(EditVariationSpecificationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = specification;
+    modal.componentInstance.attributes_specifications = this.attributes_specifications;
+
+    modal.componentInstance.SpecificationE.subscribe((edit: any) => {
+      let INDEX = this.specifications.findIndex((item: any) => item.id == edit.specification.id);
+
+      if (INDEX != -1) {
+        this.specifications[INDEX] = edit.specification;
+      }
+    })
+  }
+
+  deleteSpecification(specification: any) {
+    const modal = this.modalService.open(DeleteVariationSpecificationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = specification;
+    modal.componentInstance.attributes_specifications = this.attributes_specifications;
+
+    modal.componentInstance.SpecificationD.subscribe((edit: any) => {
+      let INDEX = this.specifications.findIndex((item: any) => item.id == specification.id);
+
+      if (INDEX != -1) {
+        this.specifications.splice(INDEX, 1);
+      }
+    })
   }
 
   getValueAttribute(attribute_special: any) {

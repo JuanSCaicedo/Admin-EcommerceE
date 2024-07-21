@@ -1,1 +1,107 @@
-<p>edit-variation-specifications works!</p>
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Edit Especificación : "{{specification.attribute.name}}"</h2>
+
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close"
+            (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+                        fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)"
+                        fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-7">
+        <!--begin::Form-->
+        <form id="kt_modal_add_user_form" class="form" action="#">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-12 col-md-6 mb-6 mb-lg-0">
+                    <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
+                    <select class="form-control form-select-solid fw-bolder" name="specification_attribute_id"
+                        placeholder="Selec. Atributo" [(ngModel)]="specification_attribute_id"
+                        (change)="changeSpecifications()">
+                        <option value="" disabled selected>-- Seleccione --</option>
+                        <ng-container *ngFor="let item of attributes_specifications">
+                            <option [value]="item.id">{{item.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 mb-6 mb-lg-0">
+                    <label class="fw-semibold fs-6 py-2 required">Campo:</label>
+                    <ng-container *ngIf="type_attribute_specification == 1">
+                        <!-- texto -->
+                        <input type="text" id="value_add" name="value_add" [(ngModel)]="value_add"
+                            class="form-control form-control-lg form-control-solid" placeholder="Add Text">
+                    </ng-container>
+
+                    <ng-container *ngIf="type_attribute_specification == 2">
+                        <!-- Numero -->
+                        <input type="number" id="value_add" name="value_add" [(ngModel)]="value_add"
+                            class="form-control form-control-lg form-control-solid" placeholder="Add Number">
+                    </ng-container>
+
+                    <ng-container *ngIf="type_attribute_specification == 3">
+                        <!-- Seleccionable -->
+                        <select class="form-control form-select-solid fw-bolder" name="propertie_id"
+                            [(ngModel)]="propertie_id">
+                            <option value="" disabled selected>-- Seleccione --</option>
+                            <ng-container *ngFor="let item of properties">
+                                <option [value]="item.id">{{item.name}}</option>
+                            </ng-container>
+                        </select>
+                    </ng-container>
+
+                    <ng-container *ngIf="type_attribute_specification == 4">
+                        <!-- MultipleSeleccion -->
+                        <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
+                            [data]="dropdownList" [(ngModel)]="selectedItems" name="selectedItems"
+                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                        </ng-multiselect-dropdown>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="fv-row mb-5">
+                <label class="required fw-bold fs-6 mb-3">Status</label>
+                <div class="form-check form-check-solid form-check-custom form-switch">
+                    <input mdbCheckbox class="form-check-input cursor-pointer" type="checkbox"
+                        id="flexSwitchCheckChecked" [checked]="checked" (change)="onSwitchChange($event)" />
+                    <label class="form-check-label" for="flexSwitchCheckChecked">{{state == '1' ? 'Activo' :
+                        'Inactivo'}}</label>
+                </div>
+            </div>
+
+            <!--begin::Actions-->
+            <div class="text-center pt-2">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+                <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
+                    <span class="indicator-label">Actualizar</span>
+
+                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+                    <!-- <span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+                </button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->
