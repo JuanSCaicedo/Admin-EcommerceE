@@ -1,6 +1,7 @@
 <div class="card">
     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <div class="card-body border-top p-9 pb-0">
+
         <!-- Información Básica -->
         <div class="row mb-9">
             <div class="col-lg-6 mb-6 mb-lg-0">
@@ -18,18 +19,21 @@
         </div>
         <!-- End Información Básica -->
 
+        <!-- Salto de linea -->
         <div class="card-body border-top p-4 d-block d-md-none">
-            <!-- Salto de linea -->
         </div>
+        <!-- End Salto de linea -->
 
-        <div class="row mb-6"> <!--align-items-center-->
+        <!-- Variaciones & Especificaciones -->
+        <div class="row mb-6 align-items-center">
+            <!-- Especificaciones -->
             <div class="col-12 col-md-6">
                 <label for="sku" class="form-label required fw-semibold fs-6 mb-3 fw-bold">Especificaciones:</label>
                 <div class="row mb-3">
 
                     <div class="col-12">
                         <!-- formularios -->
-                        <div class="row align-items-center">
+                        <div class="row align-items-end">
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
                                 <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
                                 <select class="form-control form-select-solid fw-bolder" name="departament"
@@ -78,7 +82,7 @@
                             </div>
 
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                <button class="btn btn-primary btn-md" data-bs-toggle="tooltip" title="Add"
                                     (click)="save()">
                                     <ng-container *ngIf="isLoading$ | async">
                                         <span class="indicator-progress" [style.display]="'block'">
@@ -92,103 +96,16 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 py-6">
-                        <!-- tabla de las Variaciones seleccionadas para el producto -->
-                        <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
-                            <!--begin::Table-->
-                            <table class="table align-middle gs-0 gy-4">
-                                <!--begin::Table head-->
-                                <thead class="sticky-top bg-light z-index-100">
-                                    <tr class="fw-bold text-muted bg-light">
-                                        <th class="min-w-125 ps-4 rounded-start">Atributo E.</th>
-                                        <th class="min-w-100">Valor</th>
-                                        <th class="text-end pe-4 rounded-end min-w-80px min-w-md-100px sorting_disabled" rowspan="1"
-                                            colspan="1" aria-label="Actions">Actions</th>
-                                    </tr>
-                                </thead>
-                                <!--end::Table head-->
-
-                                <!--begin::Table body-->
-                                <tbody>
-                                    <ng-container *ngIf="specifications.length > 0; else noRecords">
-                                        <tr *ngFor="let specification of specifications">
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-25px me-3">
-                                                        <span class="symbol-label bg-light-info">
-                                                            <i class="ki-duotone ki-abstract-2 fs-2x text-info"><span
-                                                                    class="path1"></span><span class="path2"></span></i>
-                                                        </span>
-                                                    </div>
-
-                                                    <div class="d-flex justify-content-start flex-column">
-                                                        <a href="#" onclick="return false;"
-                                                            (click)="editSpecification(specification)"
-                                                            class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">
-                                                            {{specification.attribute.name}}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="p-1">
-                                                <a>
-                                                    {{ getValueAttribute(specification) }}
-                                                </a>
-                                            </td>
-
-                                            <td class="text-end pe-1">
-                                                <a href="#" onclick="return false;"
-                                                    (click)="editSpecification(specification)"
-                                                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
-                                                    data-bs-toggle="tooltip" title="Edit">
-                                                    <i class="ki-duotone ki-pencil fs-2"><span
-                                                            class="path1"></span><span class="path2"></span></i>
-                                                </a>
-
-                                                <a href="#" onclick="return false;"
-                                                    (click)="deleteSpecification(specification)"
-                                                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
-                                                    data-bs-toggle="tooltip" title="Delete">
-                                                    <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
-                                                            class="path2"></span><span class="path3"></span><span
-                                                            class="path4"></span><span class="path5"></span></i> </a>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-
-                                    <!-- Mensaje para cuando no hay registros -->
-                                    <ng-template #noRecords>
-                                        <tr>
-                                            <td colspan="8" class="text-center py-9">
-                                                <ng-container *ngIf="isLoading$ | async">
-                                                    <span class="indicator-progress" [style.display]="'block'">
-                                                        Please wait...
-                                                        <span
-                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                                    </span>
-                                                </ng-container>
-                                                <ng-container *ngIf="(isLoading$ | async) === false"><span
-                                                        class="text-muted">No hay
-                                                        registros disponibles</span>
-                                                </ng-container>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                            <!--end::Table-->
-                        </div>
-                    </div>
                 </div>
             </div>
+            <!-- End Especificaciones -->
 
+            <!-- Salto de linea -->
             <div class="card-body border-top p-4 d-block d-md-none">
-                <!-- Salto de linea -->
             </div>
+            <!-- End Salto de linea -->
 
+            <!-- Variaciones -->
             <div class="col-12 col-md-6">
                 <label for="sku" class="form-label required fw-semibold fs-6 mb-3 fw-bold">Variaciones:</label>
                 <div class="row mb-3">
@@ -199,9 +116,10 @@
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
                                 <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
                                 <select class="form-control form-select-solid fw-bolder" name="departament"
-                                    placeholder="Selec. Atributo" [(ngModel)]="variations_attribute_id">
+                                    placeholder="Selec. Atributo" [(ngModel)]="variations_attribute_id"
+                                    (change)="changeVariations()">
                                     <option value="" disabled selected>-- Seleccione --</option>
-                                    <ng-container *ngFor="let item of attributes">
+                                    <ng-container *ngFor="let item of attributes_variations">
                                         <option [value]="item.id">{{item.name}}</option>
                                     </ng-container>
                                 </select>
@@ -212,29 +130,26 @@
 
                                 <ng-container *ngIf="type_attribute_variation == 3">
                                     <!-- Seleccionable -->
-                                    <select class="form-control form-select-solid fw-bolder" name="departament"
-                                        [(ngModel)]="value_add_variation">
+                                    <select class="form-control form-select-solid fw-bolder" name="propertie_id_v"
+                                        [(ngModel)]="propertie_id_v">
                                         <option value="" disabled selected>-- Seleccione --</option>
-                                        <!-- <ng-container *ngFor="let item of attributes">
+                                        <ng-container *ngFor="let item of properties">
                                             <option [value]="item.id">{{item.name}}</option>
-                                        </ng-container> -->
+                                        </ng-container>
                                     </select>
                                 </ng-container>
 
-                                <ng-container *ngIf="type_attribute_variation == 4">
-                                    <!-- MultipleSeleccion -->
-                                    <ng-multiselect-dropdown [placeholder]="'custom placeholder'"
-                                        [settings]="dropdownSettings" [data]="dropdownListVariations"
-                                        [(ngModel)]="selectedItemsVariations" (onSelect)="onItemSelect($event)"
-                                        (onSelectAll)="onSelectAll($event)">
-                                    </ng-multiselect-dropdown>
+                                <ng-container *ngIf="type_attribute_variation == 1">
+                                    <!-- texto -->
+                                    <input type="text" id="value_add_v" name="value_add_v" [(ngModel)]="value_add_v"
+                                        class="form-control form-control-lg form-control-solid" placeholder="Add Text">
                                 </ng-container>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row align-items-end">
                     <div class="col-12 col-md-4 mb-6 mb-lg-0">
                         <label class="fw-semibold fs-6 py-2">Agregar precio:</label>
                         <input type="number" id="precio_add" name="precio_add" [(ngModel)]="precio_add"
@@ -248,7 +163,8 @@
                     </div>
 
                     <div class="col-12 col-md-4 mb-6 mb-lg-0">
-                        <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add">
+                        <button class="btn btn-primary btn-md" data-bs-toggle="tooltip" title="Add"
+                            (click)="saveVariation()">
                             <ng-container *ngIf="isLoading$ | async">
                                 <span class="indicator-progress" [style.display]="'block'">
                                     <span class="spinner-border spinner-border-sm align-middle"></span>
@@ -260,74 +176,195 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            <!-- End Variaciones -->
+        </div>
+        <!-- End Variaciones & Especificaciones -->
 
-                <div class="col-12 py-6">
-                    <!-- tabla de las Espicificaciones seleccionadas para el producto -->
-                    <div class="table-responsive">
-                        <!--begin::Table-->
-                        <table class="table align-middle gs-0 gy-4">
-                            <!--begin::Table head-->
-                            <thead>
-                                <tr class="fw-bold text-muted bg-light">
-                                    <th class="min-w-125">Product</th>
-                                    <th class="min-w-100">Price</th>
-                                    <th class="text-center min-w-100px sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label="Actions">Actions</th>
-                                </tr>
-                            </thead>
-                            <!--end::Table head-->
+        <!-- Tablas -->
+        <div class="row mb-6">
+            <div class="col-12 col-md-6 py-6">
+                <div class="text-center">
+                    <label class="form-label fw-semibold fs-6 mb-3 fw-bold">Tabla Especificaciones:</label>
+                </div>
 
-                            <!--begin::Table body-->
-                            <tbody>
-                                <tr>
+                <!-- tabla de las Variaciones seleccionadas para el producto -->
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <!--begin::Table-->
+                    <table class="table align-middle gs-0 gy-4">
+                        <!--begin::Table head-->
+                        <thead class="sticky-top bg-light z-index-100">
+                            <tr class="fw-bold text-muted bg-light">
+                                <th class="min-w-125 ps-4 rounded-start">Atributo E.</th>
+                                <th class="min-w-100">Valor</th>
+                                <th class="text-end pe-4 rounded-end min-w-80px min-w-md-100px sorting_disabled"
+                                    rowspan="1" colspan="1" aria-label="Actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <!--end::Table head-->
+
+                        <!--begin::Table body-->
+                        <tbody>
+                            <ng-container *ngIf="specifications.length > 0; else noRecords">
+                                <tr *ngFor="let specification of specifications">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-50px me-5">
-                                                <span class="symbol-label bg-light-warning">
-                                                    <i class="ki-duotone ki-abstract-26 fs-2x text-warning"><span
-                                                            class="path1"></span><span class="path2"></span></i> </span>
+                                            <div class="symbol symbol-25px me-3">
+                                                <span class="symbol-label bg-light-info">
+                                                    <i class="ki-duotone ki-abstract-2 fs-2x text-info"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                </span>
                                             </div>
 
                                             <div class="d-flex justify-content-start flex-column">
-                                                <a href="#"
-                                                    class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">Sant
-                                                    Extreanet Solution</a>
-                                                <span class="text-muted fw-semibold text-muted d-block fs-7">HTML,
-                                                    JS, ReactJS</span>
+                                                <a href="#" onclick="return false;"
+                                                    (click)="editSpecification(specification)"
+                                                    class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">
+                                                    {{specification.attribute.name}}
+                                                </a>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td>
-                                        <a href="#"
-                                            class="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6">$2,790</a>
-                                        <span class="text-muted fw-semibold text-muted d-block fs-7">Paid</span>
+                                    <td class="p-1">
+                                        <a>
+                                            {{ getValueAttribute(specification) }}
+                                        </a>
                                     </td>
 
-                                    <td class="text-end d-flex d-sm-block">
-                                        <a href="#"
-                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                            <i class="ki-duotone ki-switch fs-2"><span class="path1"></span><span
-                                                    class="path2"></span></i> </a>
-
-                                        <a href="#"
-                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                    <td class="text-end pe-1">
+                                        <a href="#" onclick="return false;" (click)="editSpecification(specification)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-bs-toggle="tooltip" title="Edit">
                                             <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span
-                                                    class="path2"></span></i> </a>
+                                                    class="path2"></span></i>
+                                        </a>
 
-                                        <a href="#" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <a href="#" onclick="return false;" (click)="deleteSpecification(specification)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                                            data-bs-toggle="tooltip" title="Delete">
                                             <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
                                                     class="path2"></span><span class="path3"></span><span
                                                     class="path4"></span><span class="path5"></span></i> </a>
                                     </td>
                                 </tr>
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
-                        <!--end::Table-->
-                    </div>
+                            </ng-container>
+
+                            <!-- Mensaje para cuando no hay registros -->
+                            <ng-template #noRecords>
+                                <tr>
+                                    <td colspan="8" class="text-center py-9">
+                                        <ng-container *ngIf="isLoading$ | async">
+                                            <span class="indicator-progress" [style.display]="'block'">
+                                                Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="(isLoading$ | async) === false"><span class="text-muted">No
+                                                hay
+                                                registros disponibles</span>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 py-6">
+                <div class="text-center">
+                    <label class="form-label fw-semibold fs-6 mb-3 fw-bold">Tabla Variaciones:</label>
+                </div>
+
+                <!-- tabla de las Espicificaciones seleccionadas para el producto -->
+                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                    <!--begin::Table-->
+                    <table class="table align-middle gs-0 gy-4">
+                        <!--begin::Table head-->
+                        <thead class="sticky-top bg-light z-index-100">
+                            <tr class="fw-bold text-muted bg-light">
+                                <th class="min-w-125 ps-4 rounded-start">Atributo V.</th>
+                                <th class="min-w-100">Valor</th>
+                                <th class="text-end pe-4 rounded-end min-w-80px min-w-md-100px sorting_disabled"
+                                    rowspan="1" colspan="1" aria-label="Actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <!--end::Table head-->
+
+                        <!--begin::Table body-->
+                        <tbody>
+                            <ng-container *ngIf="variations.length > 0; else noRecords">
+                                <tr *ngFor="let variation of variations">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-25px me-3">
+                                                <span class="symbol-label bg-light-success">
+                                                    <i class="ki-duotone ki-abstract-33 fs-2x text-success"><span
+                                                            class="path1"></span><span class="path2"></span></i>
+                                                </span>
+                                            </div>
+
+                                            <div class="d-flex justify-content-start flex-column">
+                                                <a href="#" onclick="return false;"
+                                                    (click)="editSpecification(variation)"
+                                                    class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">
+                                                    {{variation.attribute.name}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="p-1">
+                                        <a>
+                                            {{ getValueAttribute(variation) }}
+                                        </a>
+                                    </td>
+
+                                    <td class="text-end pe-1">
+                                        <a href="#" onclick="return false;" (click)="editSpecification(variation)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                            data-bs-toggle="tooltip" title="Edit">
+                                            <i class="ki-duotone ki-pencil fs-2"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </a>
+
+                                        <a href="#" onclick="return false;" (click)="deleteSpecification(variation)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+                                            data-bs-toggle="tooltip" title="Delete">
+                                            <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                                    class="path2"></span><span class="path3"></span><span
+                                                    class="path4"></span><span class="path5"></span></i> </a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+
+                            <!-- Mensaje para cuando no hay registros -->
+                            <ng-template #noRecords>
+                                <tr>
+                                    <td colspan="8" class="text-center py-9">
+                                        <ng-container *ngIf="isLoading$ | async">
+                                            <span class="indicator-progress" [style.display]="'block'">
+                                                Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="(isLoading$ | async) === false"><span class="text-muted">No
+                                                hay
+                                                registros disponibles</span>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
                 </div>
             </div>
         </div>
+        <!-- End Tablas -->
     </div>
 </div>

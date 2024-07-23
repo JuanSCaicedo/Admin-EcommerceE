@@ -29,6 +29,15 @@ export class AttributesService {
     );
   }
 
+  showProduct(product_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/products/' + product_id;
+    return this.http.get(url, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
   createSpecification(data: any) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
@@ -47,11 +56,38 @@ export class AttributesService {
     );
   }
 
-  showProduct(product_id: string) {
+  deleteSpecification(specification_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let url = URL_SERVICIOS + '/admin/products/' + product_id;
-    return this.http.get(url, { headers: headers }).pipe(
+    let url = URL_SERVICIOS + '/admin/specifications/' + specification_id;
+    return this.http.delete(url, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  createVariations(data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/variations';
+    return this.http.post(url, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  updateVariations(variation_id: string, data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/variations/' + variation_id;
+    return this.http.put(url, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
+
+  deleteVariations(variation_id: string) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/variations/' + variation_id;
+    return this.http.delete(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
@@ -65,11 +101,11 @@ export class AttributesService {
     );
   }
 
-  deleteSpecification(specification_id: string) {
+  listVariations(product_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
-    let url = URL_SERVICIOS + '/admin/specifications/' + specification_id;
-    return this.http.delete(url, { headers: headers }).pipe(
+    let url = URL_SERVICIOS + '/admin/variations?product_id=' + product_id;
+    return this.http.get(url, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }

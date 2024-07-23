@@ -19,6 +19,7 @@ export class CreateVariationSpecificationsComponent {
 
   attributes: any = [];
   attributes_specifications: any = [];
+  attributes_variations: any = [];
 
   value_add_variation: any = '';
 
@@ -44,10 +45,13 @@ export class CreateVariationSpecificationsComponent {
   precio_add: number = 0;
   properties: any = [];
   propertie_id: any = '';
+  propertie_id_v: any = '';
   specifications: any = [];
+  variations: any = [];
   variations_attribute_id: string = '';
 
   value_add: any = null;
+  value_add_v: any = null;
 
   constructor(
     public attributeService: AttributesService,
@@ -78,12 +82,14 @@ export class CreateVariationSpecificationsComponent {
     this.showProduct();
     this.configAll();
     this.listSpecification();
+    this.listVariations();
   }
 
   configAll() {
     this.attributeService.configAll().subscribe((resp: any) => {
       console.log(resp);
       this.attributes_specifications = resp.attributes_specifications;
+      this.attributes_variations = resp.attributes_variations;
     });
   }
 
@@ -91,6 +97,13 @@ export class CreateVariationSpecificationsComponent {
     this.attributeService.listSpecification(this.PRODUCT_ID).subscribe((resp: any) => {
       console.log(resp);
       this.specifications = resp.specifications;
+    });
+  }
+
+  listVariations() {
+    this.attributeService.listVariations(this.PRODUCT_ID).subscribe((resp: any) => {
+      console.log(resp);
+      this.variations = resp.variations;
     });
   }
 
@@ -117,6 +130,28 @@ export class CreateVariationSpecificationsComponent {
       this.type_attribute_specification = 0;
       this.properties = [];
       this.dropdownList = [];
+    }
+  }
+
+  changeVariations() {
+
+    this.propertie_id_v = '';
+    this.value_add_v = null;
+
+    let ATTRIBUTE = this.attributes_variations.find((item: any) => item.id == this.variations_attribute_id);
+
+    if (ATTRIBUTE) {
+      this.type_attribute_variation = ATTRIBUTE.type_attribute;
+
+      if (this.type_attribute_variation == 3 || this.type_attribute_variation == 4) {
+        this.properties = ATTRIBUTE.properties;
+      } else {
+        this.properties = [];
+      }
+
+    } else {
+      this.type_attribute_variation = 0;
+      this.properties = [];
     }
   }
 
@@ -152,6 +187,7 @@ export class CreateVariationSpecificationsComponent {
   onItemSelect(item: any) {
     console.log(item);
   }
+
   onSelectAll(items: any) {
     console.log(items);
   }
@@ -162,7 +198,6 @@ export class CreateVariationSpecificationsComponent {
       this.attributeService.isLoadingSubject.next(false);
     }, 50);
   }
-
 
   save() {
 
@@ -201,6 +236,52 @@ export class CreateVariationSpecificationsComponent {
         this.specification_attribute_id = '';
         this.properties = [];
         this.type_attribute_specification = 3;
+      }
+    });
+  }
+
+  saveVariation() {
+
+    if (!this.variations_attribute_id || (!this.propertie_id_v && !this.value_add_v)) {
+      this.toastr.error('Validación', 'Seleccione un atributo y un valor');
+      return;
+    }
+
+    if(this.precio_add < 0) {
+      this.toastr.error('Validación', 'El precio debe ser mayor o igual a 0');
+      return;
+    }
+
+    if(this.stock_add <= 0) {
+      this.toastr.error('Validación', 'El stock debe ser mayor a 0');
+      return;
+    }
+
+    let data = {
+      product_id: this.PRODUCT_ID,
+      attribute_id: this.variations_attribute_id,
+      propertie_id: this.propertie_id_v,
+      value_add: this.value_add_v,
+      state: 2,
+      precio_add: this.precio_add,
+      stock_add: this.stock_add,
+    };
+
+    this.attributeService.createVariations(data).subscribe((resp: any) => {
+      console.log(resp);
+
+      if (resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      } else {
+        this.toastr.success("Exito", "Se registro la variación correctamente");
+        this.variations.unshift(resp.variation);
+        this.value_add_v = null;
+        this.propertie_id_v = '';
+        this.variations_attribute_id = '';
+        this.properties = [];
+        this.type_attribute_specification = 3;
+        this.precio_add = 0;
+        this.stock_add = 0;
       }
     });
   }
