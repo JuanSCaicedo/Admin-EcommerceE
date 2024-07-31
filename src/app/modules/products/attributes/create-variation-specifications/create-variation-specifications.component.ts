@@ -51,7 +51,6 @@ export class CreateVariationSpecificationsComponent {
   variations_attribute_id: string = '';
 
   value_add: any = null;
-  value_add_v: any = null;
 
   constructor(
     public attributeService: AttributesService,
@@ -136,7 +135,7 @@ export class CreateVariationSpecificationsComponent {
   changeVariations() {
 
     this.propertie_id_v = '';
-    this.value_add_v = null;
+    this.value_add = null;
 
     let ATTRIBUTE = this.attributes_variations.find((item: any) => item.id == this.variations_attribute_id);
 
@@ -242,7 +241,7 @@ export class CreateVariationSpecificationsComponent {
 
   saveVariation() {
 
-    if (!this.variations_attribute_id || (!this.propertie_id_v && !this.value_add_v)) {
+    if (!this.variations_attribute_id || (!this.propertie_id_v && !this.value_add)) {
       this.toastr.error('Validación', 'Seleccione un atributo y un valor');
       return;
     }
@@ -261,10 +260,10 @@ export class CreateVariationSpecificationsComponent {
       product_id: this.PRODUCT_ID,
       attribute_id: this.variations_attribute_id,
       propertie_id: this.propertie_id_v,
-      value_add: this.value_add_v,
+      value_add: this.value_add,
       state: 2,
-      precio_add: this.precio_add,
-      stock_add: this.stock_add,
+      add_price: this.precio_add,
+      stock: this.stock_add,
     };
 
     this.attributeService.createVariations(data).subscribe((resp: any) => {
@@ -275,7 +274,7 @@ export class CreateVariationSpecificationsComponent {
       } else {
         this.toastr.success("Exito", "Se registro la variación correctamente");
         this.variations.unshift(resp.variation);
-        this.value_add_v = null;
+        this.value_add = null;
         this.propertie_id_v = '';
         this.variations_attribute_id = '';
         this.properties = [];

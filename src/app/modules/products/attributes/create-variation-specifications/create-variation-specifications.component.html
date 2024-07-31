@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <!-- Tabla -->
+                        <!-- Tabla dispositivos mobiles -->
                         <div class="row mb-6 d-flex d-md-none">
                             <div class="col-12 py-6">
                                 <div class="text-center">
@@ -245,7 +245,7 @@
 
                                 <ng-container *ngIf="type_attribute_variation == 1">
                                     <!-- texto -->
-                                    <input type="text" id="value_add_v" name="value_add_v" [(ngModel)]="value_add_v"
+                                    <input type="text" id="value_add" name="value_add" [(ngModel)]="value_add"
                                         class="form-control form-control-lg form-control-solid" placeholder="Add Text">
                                 </ng-container>
                             </div>
@@ -281,7 +281,7 @@
                     </div>
                 </div>
 
-                <!-- Tabla -->
+                <!-- Tabla dispositivos mobiles -->
                 <div class="row mb-6 d-flex d-md-none">
                     <div class="col-12 py-6">
                         <div class="text-center">
@@ -297,6 +297,8 @@
                                     <tr class="fw-bold text-muted bg-light">
                                         <th class="min-w-125 ps-4 rounded-start">Atributo V.</th>
                                         <th class="min-w-100">Valor</th>
+                                        <th class="min-w-100">Precio Adicional</th>
+                                        <th class="min-w-100">Stock</th>
                                         <th class="text-end pe-4 rounded-end min-w-80px min-w-md-100px sorting_disabled"
                                             rowspan="1" colspan="1" aria-label="Actions">Actions</th>
                                     </tr>
@@ -329,6 +331,20 @@
                                             <td class="p-1">
                                                 <a>
                                                     {{ getValueAttribute(variation) }}
+                                                </a>
+                                            </td>
+
+                                            <td class="p-1">
+                                                <a>
+                                                    <span class="text-muted fw-semibold text-muted d-block fs-7">{{
+                                                        variation.add_price }}</span>
+                                                </a>
+                                            </td>
+
+                                            <td class="p-1">
+                                                <a>
+                                                    <span class="text-muted fw-semibold text-muted d-block fs-7">{{
+                                                        variation.stock }}</span>
                                                 </a>
                                             </td>
 
@@ -384,15 +400,15 @@
         </div>
         <!-- End Variaciones & Especificaciones -->
 
-        <!-- Tablas -->
+        <!-- Tablas dispositivos grandes -->
         <div class="row mb-3 d-none d-md-flex">
+            <!-- tabla de las Especificaciones seleccionadas para el producto -->
             <div class="col-12 col-md-6 py-6">
                 <div class="text-center">
                     <label class="form-label fw-semibold fs-6 mb-3 fw-bold">Tabla Especificaciones:</label>
                 </div>
 
-                <!-- tabla de las Variaciones seleccionadas para el producto -->
-                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
                     <!--begin::Table-->
                     <table class="table align-middle gs-0 gy-4">
                         <!--begin::Table head-->
@@ -476,14 +492,15 @@
                     <!--end::Table-->
                 </div>
             </div>
+            <!-- End tabla de las Especificaciones seleccionadas para el producto -->
 
+            <!-- tabla de las Variaciones seleccionadas para el producto -->
             <div class="col-12 col-md-6 py-6">
                 <div class="text-center">
                     <label class="form-label fw-semibold fs-6 mb-3 fw-bold">Tabla Variaciones:</label>
                 </div>
 
-                <!-- tabla de las Espicificaciones seleccionadas para el producto -->
-                <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
                     <!--begin::Table-->
                     <table class="table align-middle gs-0 gy-4">
                         <!--begin::Table head-->
@@ -491,6 +508,8 @@
                             <tr class="fw-bold text-muted bg-light">
                                 <th class="min-w-125 ps-4 rounded-start">Atributo V.</th>
                                 <th class="min-w-100">Valor</th>
+                                <th class="min-w-100">Precio Adicional</th>
+                                <th class="min-w-100">Stock</th>
                                 <th class="text-end pe-4 rounded-end min-w-80px min-w-md-100px sorting_disabled"
                                     rowspan="1" colspan="1" aria-label="Actions">Actions</th>
                             </tr>
@@ -523,6 +542,20 @@
                                     <td class="p-1">
                                         <a>
                                             {{ getValueAttribute(variation) }}
+                                        </a>
+                                    </td>
+
+                                    <td class="p-1">
+                                        <a>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{
+                                                variation.add_price }}</span>
+                                        </a>
+                                    </td>
+
+                                    <td class="p-1">
+                                        <a>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{
+                                                variation.stock }}</span>
                                         </a>
                                     </td>
 
@@ -567,6 +600,7 @@
                     <!--end::Table-->
                 </div>
             </div>
+            <!-- end tabla de las Variaciones seleccionadas para el producto -->
         </div>
         <!-- End Tablas -->
     </div>
