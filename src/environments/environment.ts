@@ -160,9 +160,12 @@ export const environment = {
       thumbnail: './assets/media/demos/demo20.png',
     },
   },
-  URL_BACKEND: 'http://192.168.10.29:8000',
-  URL_SERVICIOS: 'http://192.168.10.29:8000/api',
-  URL_FRONTEND: 'http://192.168.10.29:5000',
+  // URL_BACKEND: 'http://192.168.10.29:8000',
+  // URL_SERVICIOS: 'http://192.168.10.29:8000/api',
+  // URL_FRONTEND: 'http://192.168.10.29:5000',
+  URL_BACKEND: 'http://10.8.0.2:8000',
+  URL_SERVICIOS: 'http://10.8.0.2:8000/api',
+  URL_FRONTEND: 'http://10.8.0.2:5000',
   PREVISUALIZA_IMAGEN: 'https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg',
 };
 
