@@ -285,6 +285,22 @@ export class CreateVariationSpecificationsComponent {
     });
   }
 
+  editVariation(variaton: any) {
+    const modal = this.modalService.open(EditVariationSpecificationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = variaton;
+    modal.componentInstance.attributes_specifications = this.attributes_specifications;
+    modal.componentInstance.attributes_variations = this.attributes_variations;
+    modal.componentInstance.is_variation = 1;
+
+    modal.componentInstance.SpecificationE.subscribe((edit: any) => {
+      let INDEX = this.variations.findIndex((item: any) => item.id == edit.variation.id);
+
+      if (INDEX != -1) {
+        this.variations[INDEX] = edit.variation;
+      }
+    })
+  }
+
   editSpecification(specification: any) {
     const modal = this.modalService.open(EditVariationSpecificationsComponent, { centered: true, size: 'md' });
     modal.componentInstance.specification = specification;

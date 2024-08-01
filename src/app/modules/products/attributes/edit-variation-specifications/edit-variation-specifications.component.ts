@@ -14,6 +14,8 @@ export class EditVariationSpecificationsComponent {
   @Output() SpecificationE: EventEmitter<any> = new EventEmitter<any>();
 
   @Input() specification: any;
+  @Input() attributes_variations: any = [];
+  @Input() is_variation: any; //cuando se false va ser una edición para las especificaciones y si es true una edición para las variaciones
 
   isLoading$: any;
   state!: string;
@@ -33,8 +35,11 @@ export class EditVariationSpecificationsComponent {
 
   properties: any = [];
   propertie_id: any = '';
+  propertie_id_v: any = '';
   specifications: any = [];
   selectedItems: any = []; //campo_4
+  stock_add: number = 0;
+  precio_add: number = 0;
   value_add: any = null;
 
   constructor(
@@ -66,10 +71,16 @@ export class EditVariationSpecificationsComponent {
       this.checked = false;
     }
 
-    this.specification_attribute_id = this.specification.attribute_id;
-
     setTimeout(() => {
-      this.changeSpecifications();
+
+      if (!this.is_variation) {
+        this.specification_attribute_id = this.specification.attribute_id;
+        this.changeSpecifications();
+      } else {
+        this.variations_attribute_id = this.specification.attribute_id;
+        this.changeVariations();
+      }
+
       setTimeout(() => {
         this.propertie_id = this.specification.propertie_id ? this.specification.propertie_id : null;
 
@@ -82,6 +93,10 @@ export class EditVariationSpecificationsComponent {
       }, 25);
     }, 50);
 
+      if(this.is_variation){
+        this.precio_add = this.specification.add_price;
+        this.stock_add =this.specification.stock;
+      }
   }
 
   changeSpecifications() {
@@ -110,7 +125,37 @@ export class EditVariationSpecificationsComponent {
     }
   }
 
+  changeVariations() {
+
+    this.propertie_id_v = '';
+    this.value_add = null;
+
+    let ATTRIBUTE = this.attributes_variations.find((item: any) => item.id == this.variations_attribute_id);
+
+    if (ATTRIBUTE) {
+      this.type_attribute_specification = ATTRIBUTE.type_attribute;
+
+      if (this.type_attribute_specification == 3 || this.type_attribute_specification == 4) {
+        this.properties = ATTRIBUTE.properties;
+      } else {
+        this.properties = [];
+      }
+
+    } else {
+      this.type_attribute_specification = 0;
+      this.properties = [];
+    }
+  }
+
   store() {
+    if (!this.is_variation) {
+      this.storeSpecification();
+    } else {
+      this.storeVariation();
+    }
+  }
+
+  storeSpecification() {
 
     if (!this.state) {
       this.toastr.error('Validación', 'Todos los campos son requeridos');
@@ -145,6 +190,40 @@ export class EditVariationSpecificationsComponent {
         this.toastr.error("Validación", resp.message_text);
       } else {
         this.toastr.success("Exito", "Se actualizó la especificación correctamente");
+        this.SpecificationE.emit(resp);
+        this.modal.close();
+      }
+    })
+  }
+
+  storeVariation() {
+
+    if (!this.state) {
+      this.toastr.error('Validación', 'Todos los campos son requeridos');
+      return;
+    }
+
+    if (!this.variations_attribute_id || (!this.propertie_id && !this.value_add)) {
+      this.toastr.error('Validación', 'Seleccione un atributo y un valor');
+      return;
+    }
+
+    let data = {
+      attribute_id: this.variations_attribute_id,
+      propertie_id: this.propertie_id,
+      value_add: this.value_add,
+      state: this.state,
+      add_price: this.precio_add,
+      stock: this.stock_add,
+    };
+
+    this.attributeService.updateVariations(this.specification.id, data).subscribe((resp: any) => {
+      console.log(resp);
+
+      if (resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      } else {
+        this.toastr.success("Exito", "Se actualizó la variación correctamente");
         this.SpecificationE.emit(resp);
         this.modal.close();
       }

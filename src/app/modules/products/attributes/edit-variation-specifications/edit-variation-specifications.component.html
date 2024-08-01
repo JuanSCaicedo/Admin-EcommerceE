@@ -3,7 +3,8 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Edit Especificación : "{{specification.attribute.name}}"</h2>
+        <h2 class="fw-bolder">Edit {{ is_variation ? 'Variacion' : 'Especificación'}} :
+            "{{specification.attribute.name}}"</h2>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -29,8 +30,8 @@
         <form id="kt_modal_add_user_form" class="form" action="#">
 
             <div class="row align-items-center mb-5">
-                <div class="col-12 col-md-6 mb-6 mb-lg-0">
-                    <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
+                <div class="col-12 col-md-6 mb-4" *ngIf="!is_variation">
+                    <label class="fw-semibold fs-6 py-2 required">Atributos E:</label>
                     <select class="form-control form-select-solid fw-bolder" name="specification_attribute_id"
                         placeholder="Selec. Atributo" [(ngModel)]="specification_attribute_id"
                         (change)="changeSpecifications()">
@@ -41,7 +42,19 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-6 mb-6 mb-lg-0">
+                <div class="col-12 col-md-6 mb-4" *ngIf="is_variation">
+                    <label class="fw-semibold fs-6 py-2 required">Atributos V:</label>
+                    <select class="form-control form-select-solid fw-bolder" name="variations_attribute_id"
+                        placeholder="Selec. Atributo" [(ngModel)]="variations_attribute_id"
+                        (change)="changeVariations()">
+                        <option value="" disabled selected>-- Seleccione --</option>
+                        <ng-container *ngFor="let item of attributes_variations">
+                            <option [value]="item.id">{{item.name}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 mb-4">
                     <label class="fw-semibold fs-6 py-2 required">Campo:</label>
                     <ng-container *ngIf="type_attribute_specification == 1">
                         <!-- texto -->
@@ -74,6 +87,18 @@
                             (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                         </ng-multiselect-dropdown>
                     </ng-container>
+                </div>
+
+                <div class="col-12 col-md-6 mb-6 mb-lg-0" *ngIf="is_variation">
+                    <label class="fw-semibold fs-6 py-2">Agregar precio:</label>
+                    <input type="number" id="precio_add" name="precio_add" [(ngModel)]="precio_add"
+                        class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 2342">
+                </div>
+
+                <div class="col-12 col-md-6 mb-6 mb-lg-0" *ngIf="is_variation">
+                    <label class="fw-semibold fs-6 py-2 required">Agregar stock:</label>
+                    <input type="number" id="stock_add" name="stock_add" [(ngModel)]="stock_add"
+                        class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 2342">
                 </div>
             </div>
 
