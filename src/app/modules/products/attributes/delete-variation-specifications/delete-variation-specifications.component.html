@@ -3,7 +3,7 @@
     <!--begin::Modal header-->
     <div class="modal-header" id="kt_modal_add_user_header">
         <!--begin::Modal title-->
-        <h2 class="fw-bolder">Delete Specification: {{ specification.attribute.name }}</h2>
+        <h2 class="fw-bolder">Delete {{ is_variation ? 'Variation' : 'Specification' }}: {{ specification.attribute.name }}</h2>
 
         <!--end::Modal title-->
         <!--begin::Close-->
@@ -28,7 +28,7 @@
         <!--begin::Form-->
         <form id="kt_modal_add_user_form" class="form" action="#">
             <p>
-                ¿ESTAS SEGURO DE ELIMINAR ESTA ESPECIFICACIÓN?
+                ¿ESTAS SEGURO DE ELIMINAR ESTA {{ is_variation ? 'VARIACION' : 'ESPECIFICACIÓN' }}?
             </p>
             <div class="text-center pt-15">
                 <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>

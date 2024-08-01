@@ -35,7 +35,6 @@ export class EditVariationSpecificationsComponent {
 
   properties: any = [];
   propertie_id: any = '';
-  propertie_id_v: any = '';
   specifications: any = [];
   selectedItems: any = []; //campo_4
   stock_add: number = 0;
@@ -127,7 +126,7 @@ export class EditVariationSpecificationsComponent {
 
   changeVariations() {
 
-    this.propertie_id_v = '';
+    this.propertie_id = '';
     this.value_add = null;
 
     let ATTRIBUTE = this.attributes_variations.find((item: any) => item.id == this.variations_attribute_id);
@@ -177,6 +176,7 @@ export class EditVariationSpecificationsComponent {
     }
 
     let data = {
+      product_id: this.specification.product_id,
       attribute_id: this.specification_attribute_id,
       propertie_id: this.propertie_id,
       value_add: this.value_add,
@@ -209,6 +209,7 @@ export class EditVariationSpecificationsComponent {
     }
 
     let data = {
+      product_id: this.specification.product_id,
       attribute_id: this.variations_attribute_id,
       propertie_id: this.propertie_id,
       value_add: this.value_add,

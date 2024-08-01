@@ -246,12 +246,12 @@ export class CreateVariationSpecificationsComponent {
       return;
     }
 
-    if(this.precio_add < 0) {
+    if (this.precio_add < 0) {
       this.toastr.error('Validación', 'El precio debe ser mayor o igual a 0');
       return;
     }
 
-    if(this.stock_add <= 0) {
+    if (this.stock_add <= 0) {
       this.toastr.error('Validación', 'El stock debe ser mayor a 0');
       return;
     }
@@ -325,6 +325,21 @@ export class CreateVariationSpecificationsComponent {
 
       if (INDEX != -1) {
         this.specifications.splice(INDEX, 1);
+      }
+    })
+  }
+
+  deleteVariation(variation: any) {
+    const modal = this.modalService.open(DeleteVariationSpecificationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = variation;
+    modal.componentInstance.attributes_specifications = this.attributes_specifications;
+    modal.componentInstance.is_variation = 1;
+
+    modal.componentInstance.SpecificationD.subscribe((edit: any) => {
+      let INDEX = this.variations.findIndex((item: any) => item.id == variation.id);
+
+      if (INDEX != -1) {
+        this.variations.splice(INDEX, 1);
       }
     })
   }
