@@ -33,6 +33,9 @@ export class SubAttributeDeleteComponent {
         this.modal.close();
         this.toastr.success('Exito', 'Propiedad eliminada correctamente');
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

@@ -36,7 +36,7 @@
                         <div class="row align-items-end">
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
                                 <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
-                                <select class="form-control form-select-solid fw-bolder" name="departament"
+                                <select class="form-control form-select-solid fw-bolder" name="specification_attribute_id"
                                     placeholder="Selec. Atributo" [(ngModel)]="specification_attribute_id"
                                     (change)="changeSpecifications()">
                                     <option value="" disabled selected>-- Seleccione --</option>
@@ -63,7 +63,7 @@
 
                                 <ng-container *ngIf="type_attribute_specification == 3">
                                     <!-- Seleccionable -->
-                                    <select class="form-control form-select-solid fw-bolder" name="departament"
+                                    <select class="form-control form-select-solid fw-bolder" name="propertie_id"
                                         [(ngModel)]="propertie_id">
                                         <option value="" disabled selected>-- Seleccione --</option>
                                         <ng-container *ngFor="let item of properties">
@@ -219,7 +219,7 @@
                         <div class="row align-items-center">
                             <div class="col-12 col-md-4 mb-6 mb-lg-0">
                                 <label class="fw-semibold fs-6 py-2 required">Atributos:</label>
-                                <select class="form-control form-select-solid fw-bolder" name="departament"
+                                <select class="form-control form-select-solid fw-bolder" name="variations_attribute_id"
                                     placeholder="Selec. Atributo" [(ngModel)]="variations_attribute_id"
                                     (change)="changeVariations()">
                                     <option value="" disabled selected>-- Seleccione --</option>
@@ -237,7 +237,7 @@
                                     <select class="form-control form-select-solid fw-bolder" name="propertie_id_v"
                                         [(ngModel)]="propertie_id_v">
                                         <option value="" disabled selected>-- Seleccione --</option>
-                                        <ng-container *ngFor="let item of properties">
+                                        <ng-container *ngFor="let item of properties_v">
                                             <option [value]="item.id">{{item.name}}</option>
                                         </ng-container>
                                     </select>

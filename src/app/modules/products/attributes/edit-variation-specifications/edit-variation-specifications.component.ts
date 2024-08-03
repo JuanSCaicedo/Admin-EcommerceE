@@ -92,10 +92,10 @@ export class EditVariationSpecificationsComponent {
       }, 25);
     }, 50);
 
-      if(this.is_variation){
-        this.precio_add = this.specification.add_price;
-        this.stock_add =this.specification.stock;
-      }
+    if (this.is_variation) {
+      this.precio_add = this.specification.add_price;
+      this.stock_add = this.specification.stock;
+    }
   }
 
   changeSpecifications() {
@@ -193,6 +193,9 @@ export class EditVariationSpecificationsComponent {
         this.SpecificationE.emit(resp);
         this.modal.close();
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 
@@ -228,6 +231,9 @@ export class EditVariationSpecificationsComponent {
         this.SpecificationE.emit(resp);
         this.modal.close();
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 

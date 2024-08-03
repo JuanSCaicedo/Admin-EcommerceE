@@ -33,6 +33,9 @@ export class DeleteBrandComponent {
         this.modal.close();
         this.toastr.success('Exito', 'Marca eliminada correctamente');
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

@@ -23,7 +23,7 @@ export class CreateBrandComponent {
 
   }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.isLoading$ = this.brandService.isLoading$;
   }
 
@@ -48,6 +48,9 @@ export class CreateBrandComponent {
         this.toastr.success('Éxito', 'Marca creada correctamente');
         this.modal.close();
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

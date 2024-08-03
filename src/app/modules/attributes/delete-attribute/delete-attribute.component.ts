@@ -34,6 +34,9 @@ export class DeleteAttributeComponent {
         this.modal.close();
         this.toastr.success('Exito', 'Categoria eliminada correctamente');
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

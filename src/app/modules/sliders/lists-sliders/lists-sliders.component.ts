@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SlidersService } from '../service/sliders.service';
 import { DeleteSlidersComponent } from '../delete-sliders/delete-sliders.component';
 import { URL_BACKEND } from 'src/app/config/config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lists-sliders',
@@ -20,6 +21,7 @@ export class ListsSlidersComponent {
   constructor(
     public sliderService: SlidersService,
     public modalService: NgbModal,
+    private toastr: ToastrService,
   ) {
 
   }
@@ -42,6 +44,9 @@ export class ListsSlidersComponent {
 
       this.totalPages = resp.total;
       this.currentPage = page;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 

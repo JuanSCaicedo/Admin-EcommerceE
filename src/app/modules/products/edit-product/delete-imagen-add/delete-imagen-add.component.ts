@@ -30,6 +30,9 @@ export class DeleteImagenAddComponent {
       this.ImagenD.emit({ message: 200 });
       this.modal.close();
       this.toastr.success('Exito', 'Imagen eliminada correctamente');
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

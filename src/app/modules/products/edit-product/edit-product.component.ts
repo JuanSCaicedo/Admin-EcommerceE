@@ -112,6 +112,9 @@ export class EditProductComponent {
       this.categories_thirds = resp.categories_thirds;
 
       this.showProduct();
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -177,12 +180,21 @@ export class EditProductComponent {
       this.imagen_add = null;
       this.imagen_add_previsualiza = PREVISUALIZA_IMAGEN;
       const imageInput = <HTMLInputElement>document.getElementById('customFileOImagenes');
+      
       if (imageInput) {
         imageInput.value = '';
       }
+
+      if (resp.message == 403) {
+        this.toastr.error('Validación', resp.message_text);
+      } else {
+        this.toastr.success('Exito', 'Imagen agregada correctamente');
+      }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
 
-    this.toastr.success('Exito', 'Imagen agregada correctamente');
   }
 
   processFile($event: any) {
@@ -359,6 +371,9 @@ export class EditProductComponent {
       } else {
         this.toastr.success('Exito', 'Producto editado correctamente');
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 }

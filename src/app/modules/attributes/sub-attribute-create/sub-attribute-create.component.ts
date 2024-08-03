@@ -66,6 +66,9 @@ export class SubAttributeCreateComponent {
         this.color = '';
         this.type_action = 0;
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 

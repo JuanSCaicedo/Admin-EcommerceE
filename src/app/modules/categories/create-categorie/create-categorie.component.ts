@@ -45,6 +45,9 @@ export class CreateCategorieComponent {
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_first = resp.categories_first;
       this.categories_seconds = resp.categories_seconds;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 
@@ -75,7 +78,7 @@ export class CreateCategorieComponent {
 
   changeDepartament() {
     this.categorie_second_id = '';
-    this.categories_seconds_backups = this.categories_seconds.filter((item:any) => item.categorie_second_id == this.categorie_third_id)
+    this.categories_seconds_backups = this.categories_seconds.filter((item: any) => item.categorie_second_id == this.categorie_third_id)
   }
 
   save() {
@@ -149,6 +152,9 @@ export class CreateCategorieComponent {
       this.toastr.success('Exito', 'Categoria creada correctamente');
       this.router.navigateByUrl(`/categories/list/edit/${resp.id}`);
       this.config();
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 }

@@ -96,6 +96,9 @@ export class CreateSlidersComponent {
       this.toastr.success('Exito', 'Slider creado correctamente');
 
       this.router.navigateByUrl(`/sliders/list/edit/${resp.id}`);
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 }

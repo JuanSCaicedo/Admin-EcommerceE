@@ -39,6 +39,9 @@ export class ListsBrandsComponent {
       this.brands = resp.brands;
       this.totalPages = resp.total;
       this.currentPage = page;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 

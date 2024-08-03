@@ -2,6 +2,7 @@ import { Component, NgModuleRef } from '@angular/core';
 import { CategoriesService } from '../service/categories.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteCategorieComponent } from '../delete-categorie/delete-categorie.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-categorie',
@@ -20,9 +21,8 @@ export class ListCategorieComponent {
   constructor(
     public categorieService: CategoriesService,
     public modalService: NgbModal,
-  ) {
-
-  }
+    public toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this.listCategories();
@@ -35,6 +35,9 @@ export class ListCategorieComponent {
       this.categories = resp.categories.data;
       this.totalPages = resp.total;
       this.currentPage = page;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 

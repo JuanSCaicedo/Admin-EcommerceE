@@ -44,6 +44,7 @@ export class CreateVariationSpecificationsComponent {
   PRODUCT_SELECTED: any = [];
   precio_add: number = 0;
   properties: any = [];
+  properties_v: any = [];
   propertie_id: any = '';
   propertie_id_v: any = '';
   specifications: any = [];
@@ -96,6 +97,9 @@ export class CreateVariationSpecificationsComponent {
     this.attributeService.listSpecification(this.PRODUCT_ID).subscribe((resp: any) => {
       console.log(resp);
       this.specifications = resp.specifications;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -103,6 +107,9 @@ export class CreateVariationSpecificationsComponent {
     this.attributeService.listVariations(this.PRODUCT_ID).subscribe((resp: any) => {
       console.log(resp);
       this.variations = resp.variations;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -143,14 +150,14 @@ export class CreateVariationSpecificationsComponent {
       this.type_attribute_variation = ATTRIBUTE.type_attribute;
 
       if (this.type_attribute_variation == 3 || this.type_attribute_variation == 4) {
-        this.properties = ATTRIBUTE.properties;
+        this.properties_v = ATTRIBUTE.properties;
       } else {
-        this.properties = [];
+        this.properties_v = [];
       }
 
     } else {
       this.type_attribute_variation = 0;
-      this.properties = [];
+      this.properties_v = [];
     }
   }
 
@@ -236,6 +243,9 @@ export class CreateVariationSpecificationsComponent {
         this.properties = [];
         this.type_attribute_specification = 3;
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -277,11 +287,14 @@ export class CreateVariationSpecificationsComponent {
         this.value_add = null;
         this.propertie_id_v = '';
         this.variations_attribute_id = '';
-        this.properties = [];
+        this.properties_v = [];
         this.type_attribute_specification = 3;
         this.precio_add = 0;
         this.stock_add = 0;
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 

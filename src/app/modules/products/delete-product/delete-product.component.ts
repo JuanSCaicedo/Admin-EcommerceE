@@ -30,6 +30,9 @@ export class DeleteProductComponent {
       this.ProductD.emit({ message: 200 });
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

@@ -60,6 +60,9 @@ export class EditBrandComponent {
         this.toastr.success('Éxito', 'Marca actualizada correctamente');
         this.modal.close();
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 

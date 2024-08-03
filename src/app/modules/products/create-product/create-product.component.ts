@@ -94,6 +94,9 @@ export class CreateProductComponent {
       this.categories_first = resp.categories_first;
       this.categories_seconds = resp.categories_seconds;
       this.categories_thirds = resp.categories_thirds;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -280,6 +283,9 @@ export class CreateProductComponent {
 
         this.router.navigateByUrl(`/products/list/edit/${resp.id}`);
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 }

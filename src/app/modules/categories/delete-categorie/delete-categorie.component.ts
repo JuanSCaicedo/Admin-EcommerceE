@@ -24,15 +24,18 @@ export class DeleteCategorieComponent {
     this.isLoading$ = this.categorieService.isLoading$;
   }
 
-  delete(){
-    this.categorieService.daleteCategorie(this.categorie.id).subscribe((resp:any) => {
-      if(resp.message == 403){
-        this.toastr.error("Validación",resp.message_text);
-      }else{
-        this.CategorieD.emit({message: 200});
+  delete() {
+    this.categorieService.daleteCategorie(this.categorie.id).subscribe((resp: any) => {
+      if (resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      } else {
+        this.CategorieD.emit({ message: 200 });
         this.modal.close();
         this.toastr.success('Exito', 'Categoria eliminada correctamente');
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

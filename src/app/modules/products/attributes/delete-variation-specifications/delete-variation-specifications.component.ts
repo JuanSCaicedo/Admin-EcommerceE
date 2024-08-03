@@ -26,7 +26,7 @@ export class DeleteVariationSpecificationsComponent {
     this.isLoading$ = this.attributeService.isLoading$;
   }
 
-  delete(){
+  delete() {
     if (this.is_variation) {
       this.deleteVariation();
     } else {
@@ -39,6 +39,9 @@ export class DeleteVariationSpecificationsComponent {
       this.SpecificationD.emit({ message: 200 });
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 
@@ -47,6 +50,9 @@ export class DeleteVariationSpecificationsComponent {
       this.SpecificationD.emit({ message: 200 });
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

@@ -50,6 +50,9 @@ export class CreateAttributeComponent {
         this.toastr.success('Éxito', 'Atributo creado correctamente');
         this.modal.close();
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     })
   }
 }

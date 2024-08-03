@@ -69,6 +69,9 @@ export class EditSlidersComponent {
         this.checked = false;
       }
 
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 
@@ -140,6 +143,9 @@ export class EditSlidersComponent {
     this.sliderService.updateSliders(this.slider_id, formData).subscribe((resp: any) => {
       console.log(resp);
       this.toastr.success('Exito', 'Slider actualizado correctamente');
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
     });
   }
 }
