@@ -99,7 +99,7 @@ export class CreateVariationSpecificationsComponent {
       this.specifications = resp.specifications;
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -109,7 +109,7 @@ export class CreateVariationSpecificationsComponent {
       this.variations = resp.variations;
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -245,7 +245,7 @@ export class CreateVariationSpecificationsComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -294,7 +294,7 @@ export class CreateVariationSpecificationsComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 

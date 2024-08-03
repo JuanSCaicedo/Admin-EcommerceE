@@ -76,7 +76,7 @@ export class EditCategorieComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     })
   }
 
@@ -85,7 +85,7 @@ export class EditCategorieComponent {
       this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -105,7 +105,7 @@ export class EditCategorieComponent {
       );
     }), (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     };
   }
 
@@ -212,7 +212,7 @@ export class EditCategorieComponent {
       this.config();
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 }

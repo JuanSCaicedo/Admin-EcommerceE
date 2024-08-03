@@ -37,7 +37,7 @@ export class ListCategorieComponent {
       this.currentPage = page;
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 

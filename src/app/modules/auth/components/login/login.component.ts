@@ -91,6 +91,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else {
           this.hasError = true;
         }
+      }, (err: any) => {
+        console.log(err);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', err.message);
       });
     this.unsubscribe.push(loginSubscr);
   }

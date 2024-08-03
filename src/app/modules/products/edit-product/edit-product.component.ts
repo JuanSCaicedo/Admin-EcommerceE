@@ -114,7 +114,7 @@ export class EditProductComponent {
       this.showProduct();
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -192,7 +192,7 @@ export class EditProductComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     })
 
   }
@@ -373,7 +373,7 @@ export class EditProductComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 }

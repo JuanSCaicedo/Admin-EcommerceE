@@ -47,7 +47,7 @@ export class CreateCategorieComponent {
       this.categories_seconds = resp.categories_seconds;
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     })
   }
 
@@ -154,7 +154,7 @@ export class CreateCategorieComponent {
       this.config();
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 }

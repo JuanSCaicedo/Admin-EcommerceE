@@ -98,7 +98,7 @@ export class CreateSlidersComponent {
       this.router.navigateByUrl(`/sliders/list/edit/${resp.id}`);
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 }

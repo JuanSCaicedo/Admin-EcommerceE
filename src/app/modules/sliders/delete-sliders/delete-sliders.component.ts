@@ -35,7 +35,7 @@ export class DeleteSlidersComponent {
       }
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     })
   }
 }

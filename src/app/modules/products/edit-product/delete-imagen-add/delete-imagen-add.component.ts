@@ -32,7 +32,7 @@ export class DeleteImagenAddComponent {
       this.toastr.success('Exito', 'Imagen eliminada correctamente');
     }, (error: any) => {
       console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     })
   }
 }
