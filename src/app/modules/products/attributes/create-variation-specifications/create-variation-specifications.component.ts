@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
 import { EditVariationSpecificationsComponent } from '../edit-variation-specifications/edit-variation-specifications.component';
 import { DeleteVariationSpecificationsComponent } from '../delete-variation-specifications/delete-variation-specifications.component';
+import { CreateAnidadoVariationsComponent } from '../create-anidado-variations/create-anidado-variations.component';
 
 @Component({
   selector: 'app-create-variation-specifications',
@@ -378,5 +379,11 @@ export class CreateVariationSpecificationsComponent {
     }
 
     return "---";
+  }
+
+  openAnidado(variation: any) {
+    const modal = this.modalService.open(CreateAnidadoVariationsComponent, { centered: true, size: 'lg' });
+    modal.componentInstance.variation = variation;
+    modal.componentInstance.attributes_variations = this.attributes_variations;
   }
 }
