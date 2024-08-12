@@ -15,7 +15,7 @@ export class CreateAnidadoVariationsComponent {
   specification_attribute_id: string = '';
   type_attribute_specification: number = 2;
   variations_attribute_id: string = '';
-  type_attribute_variation: number = 4;
+  type_attribute_variation: number = 3;
   attributes: any = [];
 
   precio_add: number = 0;
@@ -24,7 +24,7 @@ export class CreateAnidadoVariationsComponent {
   attributes_specifications: any = [];
   @Input() attributes_variations: any = [];
   properties: any = [];
-  propertie_id: any = null;
+  propertie_id: any = '';
   value_add: any = null;
   specifications: any = [];
   variations: any = [];
