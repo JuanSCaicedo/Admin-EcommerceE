@@ -38,8 +38,19 @@ export class CreateAnidadoVariationsComponent {
   ) { }
 
   ngOnInit(): void {
-    this.isLoading$ = this.attributeService.isLoading$;
-    console.log(this.variation);
+    setTimeout(() => {
+      this.isLoading$ = this.attributeService.isLoading$;
+      this.listVariationsAnidadas();
+    });
+  }
+
+  listVariationsAnidadas() {
+    this.attributeService.listVariationsAnidadas(this.variation.product_id, this.variation.id).subscribe((resp: any) => {
+      this.variations = resp.variations;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+    })
   }
 
   changeVariations() {
@@ -65,9 +76,53 @@ export class CreateAnidadoVariationsComponent {
   }
 
   saveVariation() {
-  }
 
-  store() {
+    if (!this.variations_attribute_id || (!this.propertie_id && !this.value_add)) {
+      this.toastr.error('Validación', 'Seleccione un atributo y un valor');
+      return;
+    }
+
+    if (this.precio_add < 0) {
+      this.toastr.error('Validación', 'El precio debe ser mayor o igual a 0');
+      return;
+    }
+
+    if (this.stock_add <= 0) {
+      this.toastr.error('Validación', 'El stock debe ser mayor a 0');
+      return;
+    }
+
+    let data = {
+      product_id: this.variation.product_id,
+      attribute_id: this.variations_attribute_id,
+      propertie_id: this.propertie_id,
+      value_add: this.value_add,
+      state: 2,
+      add_price: this.precio_add,
+      stock: this.stock_add,
+      product_variation_id: this.variation.id,
+    };
+
+    this.attributeService.createVariationsAnidadas(data).subscribe((resp: any) => {
+      console.log(resp);
+
+      if (resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      } else {
+        this.toastr.success("Exito", "Se registro la variación anidada correctamente");
+        this.variations.unshift(resp.variation);
+        this.value_add = null;
+        this.propertie_id = '';
+        this.variations_attribute_id = '';
+        this.properties = [];
+        this.type_attribute_specification = 3;
+        this.precio_add = 0;
+        this.stock_add = 0;
+      }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+    });
   }
 
   getValueAttribute(attribute_special: any) {
