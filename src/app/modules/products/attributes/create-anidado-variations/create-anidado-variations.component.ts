@@ -1,7 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
+import { EditAnidadoVariationsComponent } from '../edit-anidado-variations/edit-anidado-variations.component';
+import { DeleteAnidadoVariationsComponent } from '../delete-anidado-variations/delete-anidado-variations.component';
+import { DeleteVariationSpecificationsComponent } from '../delete-variation-specifications/delete-variation-specifications.component';
 
 @Component({
   selector: 'app-create-anidado-variations',
@@ -35,6 +39,7 @@ export class CreateAnidadoVariationsComponent {
     public attributeService: AttributesService,
     public modal: NgbActiveModal,
     private toastr: ToastrService,
+    public modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -149,9 +154,31 @@ export class CreateAnidadoVariationsComponent {
   }
 
   editVariation(variation: any) {
+    const modal = this.modalService.open(EditAnidadoVariationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = variation;
+    modal.componentInstance.attributes_variations = this.attributes_variations;
+    modal.componentInstance.is_variation = 1;
 
+    modal.componentInstance.SpecificationE.subscribe((edit: any) => {
+      let INDEX = this.variations.findIndex((item: any) => item.id == edit.variation.id);
+
+      if (INDEX != -1) {
+        this.variations[INDEX] = edit.variation;
+      }
+    })
   }
   deleteVariation(variation: any) {
+    const modal = this.modalService.open(DeleteVariationSpecificationsComponent, { centered: true, size: 'md' });
+    modal.componentInstance.specification = variation;
+    modal.componentInstance.attributes_specifications = this.attributes_specifications;
+    modal.componentInstance.is_variation = 1;
 
+    modal.componentInstance.SpecificationD.subscribe((edit: any) => {
+      let INDEX = this.variations.findIndex((item: any) => item.id == variation.id);
+
+      if (INDEX != -1) {
+        this.variations.splice(INDEX, 1);
+      }
+    })
   }
 }

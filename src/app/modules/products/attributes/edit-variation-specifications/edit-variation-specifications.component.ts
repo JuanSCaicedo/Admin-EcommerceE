@@ -201,7 +201,7 @@ export class EditVariationSpecificationsComponent {
 
   storeVariation() {
 
-    if (!this.state) {
+    if (!this.state || !this.precio_add || !this.stock_add) {
       this.toastr.error('Validación', 'Todos los campos son requeridos');
       return;
     }

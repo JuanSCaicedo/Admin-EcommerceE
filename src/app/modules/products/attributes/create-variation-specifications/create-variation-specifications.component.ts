@@ -299,9 +299,9 @@ export class CreateVariationSpecificationsComponent {
     });
   }
 
-  editVariation(variaton: any) {
+  editVariation(variation: any) {
     const modal = this.modalService.open(EditVariationSpecificationsComponent, { centered: true, size: 'md' });
-    modal.componentInstance.specification = variaton;
+    modal.componentInstance.specification = variation;
     modal.componentInstance.attributes_specifications = this.attributes_specifications;
     modal.componentInstance.attributes_variations = this.attributes_variations;
     modal.componentInstance.is_variation = 1;
