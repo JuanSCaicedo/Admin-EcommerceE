@@ -71,6 +71,10 @@ export class EditProductComponent {
   word: string = '';
   selectedItems: any = [];
 
+  stock: number = 0;
+  state!: string;
+  checked!: boolean;
+
   PRODUCT_ID: string = '';
   PRODUCT_SELECTED: any = [];
 
@@ -138,6 +142,14 @@ export class EditProductComponent {
       this.dropdownList = resp.product.tags;
       this.selectedItems = resp.product.tags;
       this.images_files = resp.product.images;
+      this.stock = resp.product.stock;
+      this.state = resp.product.state;
+
+      if (this.state == '2') {
+        this.checked = true;
+      } else if (this.state == '1') {
+        this.checked = false;
+      }
 
       this.categories_seconds_backups = this.categories_seconds.filter((item: any) =>
         item.categorie_second_id == this.categorie_first_id);
@@ -318,8 +330,13 @@ export class EditProductComponent {
   onItemSelect(item: any) {
     console.log(item);
   }
+
   onSelectAll(items: any) {
     console.log(items);
+  }
+
+  onSwitchChange(event: any) {
+    this.state = event.target.checked ? '2' : '1';
   }
 
   save() {
@@ -328,6 +345,8 @@ export class EditProductComponent {
       || !this.marca_id || !this.categorie_first_id
       || !this.description || !this.resumen
       || this.selectedItems.length == 0
+      || !this.state
+      || this.stock < 0
     ) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;
@@ -339,6 +358,8 @@ export class EditProductComponent {
     formData.append('price_cop', this.price_cop + "");
     formData.append('price_usd', this.price_usd + "");
     formData.append('brand_id', this.marca_id);
+    formData.append('stock', this.stock + "");
+    formData.append('state', this.state);
 
     if (this.file_imagen) {
       formData.append('portada', this.file_imagen);

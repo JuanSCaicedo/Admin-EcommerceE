@@ -3,17 +3,23 @@
     <div class="card-body border-top p-9">
         <!-- Información Básica -->
         <div class="row mb-6">
-            <div class="col-lg-6 mb-6 mb-lg-0">
+            <div class="col-lg-4 mb-6 mb-lg-0">
                 <label for="title" class="form-label required fw-semibold fs-6">Titulo:</label>
                 <input type="text" id="title" name="title" [(ngModel)]="title"
                     class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: The best note book collection 2023">
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-4 mb-6 mb-lg-0">
                 <label for="sku" class="form-label required fw-semibold fs-6">Sku:</label>
                 <input type="text" id="sku" name="sku" [(ngModel)]="sku"
                     class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: ZDR456">
+            </div>
+
+            <div class="col-lg-4">
+                <label class="form-label required fw-semibold fs-6">Stock:</label>
+                <input type="number" name="stock" [(ngModel)]="stock"
+                    class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: 6">
             </div>
         </div>
 
@@ -87,24 +93,37 @@
 
         <!-- Tags -->
         <div class="row mb-6">
-            <div class="col-lg-4 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
+            <div class="col-lg-3 col-md-6 col-sm-12 my-2 mb-6 mb-md-0">
                 <label for="word" class="form-label fw-semibold fs-6">Word:</label>
                 <input type="text" id="word" name="word" (keyup.enter)="addItems()" [(ngModel)]="word"
-                    class="form-control form-control-lg form-control-solid" placeholder="Presione enter o Add para agregar">
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Presione enter o Add para agregar">
             </div>
 
-            <div class="d-flex justify-content-center align-items-end col-12 col-sm-12 col-md-2">
+            <div class="d-flex justify-content-center align-items-end col-3 col-sm-12 col-md-2">
                 <button class="btn btn-primary w-100 w-md-auto btn-sm" (click)="addItems()">
                     Add Tags +
                 </button>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 my-2 mb-6 mb-lg-0" *ngIf="!isShowMultiselect">
+            <div class="col-lg-3 col-md-6 col-sm-12 my-2 mb-6 mb-lg-0" *ngIf="!isShowMultiselect">
                 <label class="fw-semibold fs-6 py-2 required">Tags:</label>
                 <ng-multiselect-dropdown [placeholder]="'custom placeholder'" [settings]="dropdownSettings"
                     [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
                     (onSelectAll)="onSelectAll($event)">
                 </ng-multiselect-dropdown>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-6 mb-lg-0">
+                <div class="fv-row my-2">
+                    <label class="required fw-bold fs-6 py-2">Status</label>
+                    <div class="form-check form-check-solid form-check-custom form-switch">
+                        <input mdbCheckbox class="form-check-input cursor-pointer" type="checkbox"
+                            id="flexSwitchCheckChecked" [checked]="checked" (change)="onSwitchChange($event)" />
+                        <label class="form-check-label" for="flexSwitchCheckChecked">{{state == '2' ? 'Público' :
+                            'Pendiente'}}</label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -112,7 +131,8 @@
         <div class="row mb-6">
             <div class="col-lg-6 mb-6 mb-lg-0">
                 <label class="fs-6 fw-semibold mb-2 required">Descripción:</label>
-                <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="description" (change)="onChange($event)"></ckeditor>
+                <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="description" (change)="onChange($event)">
+                </ckeditor>
             </div>
 
 
@@ -130,7 +150,8 @@
                     </div>
 
                     <div class="col-2">
-                        <button class="btn btn-primary btn-sm" (click)="addImagen()" data-bs-toggle="tooltip" title="Add Images">
+                        <button class="btn btn-primary btn-sm" (click)="addImagen()" data-bs-toggle="tooltip"
+                            title="Add Images">
                             +
                         </button>
                     </div>
@@ -138,7 +159,7 @@
                     <div class="col-12 pt-3">
                         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
-                                    <table class="table align-middle gs-0 gy-4">
+                                <table class="table align-middle gs-0 gy-4">
                                     <thead class="mb-6 sticky-top bg-light z-index-100">
                                         <tr> <!-- Modified: Added "text-center" class -->
                                             <th class="text-center">IMAGEN</th>
@@ -151,8 +172,8 @@
                                                 <img [src]="imagen_.imagen" width="60" alt="">
                                             </td>
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
-                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete Image"
-                                                    (click)="removeImages(imagen_.id)">X</button>
+                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                                    title="Delete Image" (click)="removeImages(imagen_.id)">X</button>
                                             </td>
                                         </tr>
                                     </tbody>
