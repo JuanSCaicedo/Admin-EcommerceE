@@ -346,7 +346,7 @@ export class EditProductComponent {
       || !this.description || !this.resumen
       || this.selectedItems.length == 0
       || !this.state
-      || this.stock < 0
+      || this.stock == null || this.stock == undefined || this.stock < 0
     ) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;

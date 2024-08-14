@@ -201,7 +201,7 @@ export class EditAnidadoVariationsComponent {
 
   storeVariation() {
 
-    if (!this.state || this.precio_add < 0 || !this.stock_add) {
+    if (!this.state || this.precio_add == null || this.precio_add == undefined || this.precio_add < 0 || this.stock_add == null || this.stock_add == undefined || this.stock_add < 0) {
       this.toastr.error('Validación', 'Todos los campos son requeridos');
       return;
     }
