@@ -11,21 +11,21 @@ import { CuponesService } from '../service/cupones.service';
 })
 export class CreateCuponeComponent {
 
-  brands:any = [];
+  brands: any = [];
   brand_id: any = '';
-  brands_add:any = [];
+  brands_add: any = [];
   code: any;
-  categories_first:any = [];
-  categorie_id:any = '';
-  categories_add:any = [];
+  categories_first: any = [];
+  categorie_id: any = '';
+  categories_add: any = [];
   discount: number = 0;
   num_use: number = 0;
   type_discount: number = 1;
   type_count: number = 1;
   type_cupone: number = 1;
-  products:any = [];
-  product_id:any = '';
-  products_add:any = [];
+  products: any = [];
+  product_id: any = '';
+  products_add: any = [];
 
   isLoading$: any;
 
@@ -38,7 +38,13 @@ export class CreateCuponeComponent {
   }
 
   ngOnInit(): void {
-    // this.isLoading$ = this.cuponesService.isLoading$;
+    this.isLoading$ = this.cuponesService.isLoading$;
+
+    this.cuponesService.configCupones().subscribe((response: any) => {
+      this.categories_first = response.categories;
+      this.products = response.products;
+      this.brands = response.brands;
+    });
   }
 
   changeTypeDiscount(value: number) {
@@ -51,21 +57,108 @@ export class CreateCuponeComponent {
 
   changeTypeCupone(value: number) {
     this.type_cupone = value;
+    this.product_id = '';
+    this.categorie_id = '';
+    this.brand_id = '';
+    this.products_add = [];
+    this.categories_add = [];
+    this.brands_add = [];
   }
 
-  removeProduct(product:any) {
+  removeProduct(product: any) {
+    let INDEX = this.products_add.findIndex((prod: any) => prod.id == product.id);
 
+    if (INDEX != -1) {
+      this.products_add.splice(INDEX, 1);
+      this.toastr.success("Éxito", "Producto eliminado correctamente");
+    }
   }
 
   removeCategorie(categorie: any) {
+    let INDEX = this.categories_add.findIndex((prod: any) => prod.id == categorie.id);
 
+    if (INDEX != -1) {
+      this.categories_add.splice(INDEX, 1);
+      this.toastr.success("Éxito", "Categoria eliminada correctamente");
+    }
   }
 
   removeBrand(brand: any) {
+    let INDEX = this.brands_add.findIndex((prod: any) => prod.id == brand.id);
 
+    if (INDEX != -1) {
+      this.brands_add.splice(INDEX, 1);
+      this.toastr.success("Éxito", "Marca eliminada correctamente");
+    }
   }
 
   save() {
 
+  }
+
+  AddProduct() {
+    if (!this.product_id) {
+      this.toastr.error("Validación", "Seleccione un producto");
+      return;
+    }
+
+    let INDEX = this.products_add.findIndex((prod: any) => prod.id == this.product_id);
+
+    if (INDEX != -1) {
+      this.toastr.error("Validación", "El producto ya se encuentra agregado");
+      return;
+    }
+
+    let DATA = this.products.find((product: any) => product.id == this.product_id);
+
+    if (DATA) {
+      this.products_add.push(DATA);
+      this.product_id = '';
+      this.toastr.success("Éxito", "Producto agregado correctamente");
+    }
+  }
+
+  AddCategorie() {
+    if (!this.categorie_id) {
+      this.toastr.error("Validación", "Seleccione una categoria");
+      return;
+    }
+
+    let INDEX = this.categories_add.findIndex((prod: any) => prod.id == this.categorie_id);
+
+    if (INDEX != -1) {
+      this.toastr.error("Validación", "La categoria ya se encuentra agregada");
+      return;
+    }
+
+    let DATA = this.categories_first.find((categorie: any) => categorie.id == this.categorie_id);
+
+    if (DATA) {
+      this.categories_add.push(DATA);
+      this.categorie_id = '';
+      this.toastr.success("Éxito", "Categoria agregadacorrectamente");
+    }
+  }
+
+  AddBrand() {
+    if (!this.brand_id) {
+      this.toastr.error("Validación", "Seleccione una marca");
+      return;
+    }
+
+    let INDEX = this.brands_add.findIndex((prod: any) => prod.id == this.brand_id);
+
+    if (INDEX != -1) {
+      this.toastr.error("Validación", "La marca ya se encuentra agregada");
+      return;
+    }
+
+    let DATA = this.brands.find((brand: any) => brand.id == this.brand_id);
+
+    if (DATA) {
+      this.brands_add.push(DATA);
+      this.brand_id = '';
+      this.toastr.success("Éxito", "Marca agregada correctamente");
+    }
   }
 }

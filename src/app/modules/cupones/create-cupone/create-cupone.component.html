@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="row mb-6">
+        <div class="row mb-9">
             <label class="form-label fw-semibold fs-6 required">Seleccione la aplicación:</label>
             <div class="col-12 col-md-4 mb-6 mb-md-0">
                 <div class="row">
@@ -104,7 +104,7 @@
                                     name="type_cupone" value="1" [checked]="type_cupone == 1">
                             </span>
                             <span class="ms-5">
-                                <span class="fs-6 fw-bolder mb-1 d-block">Prodcutos</span>
+                                <span class="fs-6 fw-bolder mb-1 d-block">Productos</span>
                             </span>
                         </label>
                     </div>
@@ -142,36 +142,69 @@
             <div class="col-12 col-md-4 mb-12 mb-md-0">
                 <div class="row">
                     <div class="col-12" *ngIf="type_cupone == 1">
-                        <label class="fw-semibold fs-6 required">Productos:</label>
-                        <select class="form-control form-select-solid fw-bolder" name="product_id"
-                            placeholder="Selec. Producto" [(ngModel)]="product_id">
-                            <option value="" disabled selected>-- Seleccione --</option>
-                            <ng-container *ngFor="let item of products">
-                                <option [value]="item.id">{{item.title}}</option>
-                            </ng-container>
-                        </select>
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Productos:</label>
+                                <select class="form-control form-select-solid fw-bolder" name="product_id"
+                                    placeholder="Selec. Producto" [(ngModel)]="product_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of products">
+                                        <option [value]="item.id">{{item.title}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Add"
+                                (click)="AddProduct()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-12" *ngIf="type_cupone == 2">
-                        <label class="fw-semibold fs-6 py-2 required">Departamento:(Primer nivel)</label>
-                        <select class="form-control form-select-solid fw-bolder" name="categorie_id"
-                            placeholder="Selec. Departamento" [(ngModel)]="categorie_id">
-                            <option value="" disabled selected>-- Seleccione --</option>
-                            <ng-container *ngFor="let item of categories_first">
-                                <option [value]="item.id">{{item.name}}</option>
-                            </ng-container>
-                        </select>
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Departamento:(Primer nivel)</label>
+                                <select class="form-control form-select-solid fw-bolder" name="categorie_id"
+                                    placeholder="Selec. Departamento" [(ngModel)]="categorie_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of categories_first">
+                                        <option [value]="item.id">{{item.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                (click)="AddCategorie()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-12" *ngIf="type_cupone == 3">
-                        <label class="fw-semibold fs-6 py-2 required">Marcas:</label>
-                        <select class="form-control form-select-solid fw-bolder" name="brand_id"
-                            placeholder="Selec. Marca" [(ngModel)]="brand_id">
-                            <option value="" disabled selected>-- Seleccione --</option>
-                            <ng-container *ngFor="let item of brands">
-                                <option [value]="item.id">{{item.name}}</option>
-                            </ng-container>
-                        </select>
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Marcas:</label>
+                                <select class="form-control form-select-solid fw-bolder" name="brand_id"
+                                    placeholder="Selec. Marca" [(ngModel)]="brand_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of brands">
+                                        <option [value]="item.id">{{item.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                (click)="AddBrand()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,7 +234,7 @@
 
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
                                                 <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
-                                                    title="Delete Image" (click)="removeProduct(product)">X</button>
+                                                    title="Delete" (click)="removeProduct(product)">X</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -228,16 +261,16 @@
                                     <tbody>
                                         <tr *ngFor="let categorie of categories_add; let i = index">
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
-                                                <img [src]="categorie.name" width="60" alt="">
+                                                <img [src]="categorie.imagen" width="60" alt="">
                                             </td>
 
                                             <td>
-                                                {{categorie.title}}
+                                                {{categorie.name}}
                                             </td>
 
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
                                                 <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
-                                                    title="Delete Image" (click)="removeCategorie(categorie)">X</button>
+                                                    title="Delete" (click)="removeCategorie(categorie)">X</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -252,7 +285,7 @@
 
                     <div class="col-12" *ngIf="type_cupone == 3">
                         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                            <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
+                            <div class="table-responsive w-100" style="max-height: 270px; overflow-y: auto;">
                                 <table class="table align-middle gs-0 gy-4">
                                     <thead class="mb-6 sticky-top bg-light z-index-100">
                                         <tr> <!-- Modified: Added "text-center" class -->
@@ -262,17 +295,14 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let brand of brands_add; let i = index">
-                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
-                                                <img [src]="brand.imagen" width="60" alt="">
-                                            </td>
 
                                             <td>
-                                                {{brand.title}}
+                                                {{brand.name}}
                                             </td>
 
                                             <td class="text-center"> <!-- Modified: Added "text-center" class -->
                                                 <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
-                                                    title="Delete Image" (click)="removeBrand(brand)">X</button>
+                                                    title="Delete" (click)="removeBrand(brand)">X</button>
                                             </td>
                                         </tr>
                                     </tbody>
