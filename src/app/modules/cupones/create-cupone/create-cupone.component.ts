@@ -93,7 +93,69 @@ export class CreateCuponeComponent {
   }
 
   save() {
+    if(!this.code || !this.discount) {
+      this.toastr.error("Validación", "Complete todos los campos");
+      return;
+    }
 
+    if (this.discount <= 0) {
+      this.toastr.error("Validación", "El descuento debe ser mayor a 0");
+      return;
+    }
+
+    if (this.type_count == 2 && this.num_use <= 0) {
+      this.toastr.error("Validación", "El número de usos debe ser mayor a 0");
+      return;
+    }
+
+    if (this.type_cupone == 1 && this.products_add.length == 0) {
+      this.toastr.error("Validación", "Debe agregar al menos un producto");
+      return;
+    }
+
+    if (this.type_cupone == 2 && this.categories_add.length == 0) {
+      this.toastr.error("Validación", "Debe agregar al menos una categoria");
+      return;
+    }
+
+    if (this.type_cupone == 3 && this.brands_add.length == 0) {
+      this.toastr.error("Validación", "Debe agregar al menos una marca");
+      return;
+    }
+
+    let data = {
+      type_discount: this.type_discount,
+      type_count: this.type_count,
+      type_cupone: this.type_cupone,
+      num_use: this.num_use,
+      discount: this.discount,
+      code: this.code,
+      product_selected: this.products_add,
+      categorie_selected: this.categories_add,
+      brand_selected: this.brands_add,
+    }
+
+    this.cuponesService.createCupones(data).subscribe((resp: any) => {
+      console.log(resp);
+
+      if(resp.message == 403) {
+        this.toastr.error("Validación", resp.message_text);
+      }else {
+        this.toastr.success("Éxito", "Cupón creado correctamente");
+        this.type_discount = 1;
+        this.type_count = 1;
+        this.type_cupone = 1;
+        this.num_use = 0;
+        this.discount = 0;
+        this.code = null;
+        this.product_id = '';
+        this.categorie_id = '';
+        this.brand_id = '';
+        this.products_add = [];
+        this.categories_add = [];
+        this.brands_add = [];
+      }
+    });
   }
 
   AddProduct() {
