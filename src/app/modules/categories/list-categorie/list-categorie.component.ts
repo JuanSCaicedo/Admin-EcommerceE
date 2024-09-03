@@ -1,4 +1,4 @@
-import { Component, NgModuleRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CategoriesService } from '../service/categories.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteCategorieComponent } from '../delete-categorie/delete-categorie.component';

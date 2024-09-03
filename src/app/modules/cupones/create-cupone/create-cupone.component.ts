@@ -155,6 +155,9 @@ export class CreateCuponeComponent {
         this.categories_add = [];
         this.brands_add = [];
       }
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
