@@ -69,9 +69,9 @@ export class ListCuponeComponent {
 
   deleteCupone(cupone: any) {
     const modalRef = this.modalService.open(DeleteCuponeComponent, { centered: true, size: 'md' });
-    modalRef.componentInstance.categorie = cupone;
+    modalRef.componentInstance.cupone = cupone;
 
-    modalRef.componentInstance.CategorieD.subscribe((resp: any) => {
+    modalRef.componentInstance.CuponD.subscribe((resp: any) => {
       let INDEX = this.cupones.findIndex((item: any) => item.id == cupone.id);
       if (INDEX != -1) {
         this.cupones.splice(INDEX, 1)

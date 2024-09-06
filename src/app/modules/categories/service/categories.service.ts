@@ -65,7 +65,7 @@ export class CategoriesService {
     );
   }
 
-  daleteCategorie(categorie_id: string) {
+  deleteCategorie(categorie_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/categories/' + categorie_id;

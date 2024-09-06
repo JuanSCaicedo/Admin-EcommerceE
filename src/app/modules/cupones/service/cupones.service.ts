@@ -60,12 +60,12 @@ export class CuponesService {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/cupones/' + cupone_id;
-    return this.http.post(url, data, { headers: headers }).pipe(
+    return this.http.put(url, data, { headers: headers }).pipe(
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
 
-  daleteCupone(cupone_id: string) {
+  deleteCupone(cupone_id: string) {
     this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
     let url = URL_SERVICIOS + '/admin/cupones/' + cupone_id;

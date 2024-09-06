@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CuponesService } from '../service/cupones.service';
 
-
 @Component({
   selector: 'app-create-cupone',
   templateUrl: './create-cupone.component.html',
@@ -44,6 +43,9 @@ export class CreateCuponeComponent {
       this.categories_first = response.categories;
       this.products = response.products;
       this.brands = response.brands;
+    }, (error: any) => {
+      console.log(error);
+      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
   }
 
@@ -154,6 +156,8 @@ export class CreateCuponeComponent {
         this.products_add = [];
         this.categories_add = [];
         this.brands_add = [];
+
+        this.router.navigateByUrl(`/cupones/list/edit/${resp.id}`);
       }
     }, (error: any) => {
       console.log(error);
