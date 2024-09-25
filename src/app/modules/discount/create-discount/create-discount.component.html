@@ -3,7 +3,7 @@
     <div class="card-body border-top p-9">
         <label class="form-label fw-semibold fs-6 required">Gestión de descuento:</label>
 
-        <div class="row mb-9">
+        <div class="row mb-6">
 
             <!-- Seleccionar campaña -->
             <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
@@ -101,13 +101,14 @@
                     <!-- End Descuento -->
 
                     <div class="col-12 my-2">
-                        <label class="form-label fw-semibold fs-6 required">Seleccione las fechas:</label>
+                        <label class="form-label fw-semibold fs-6 required py-2">Seleccione las fechas:</label>
 
                         <!-- Fechas -->
-                        <div class="row mb-9">
+                        <div class="row">
                             <!-- Fecha inicio -->
                             <div class="col-lg-6 mb-3 mb-6 mb-lg-0">
                                 <div class="col-12">
+                                    <label class="form-label fw-semibold fs-6">Fecha Inicio</label>
                                     <div class="input-group input-group-solid">
                                         <input type="date" class="form-control form-control-lg form-control-solid"
                                             [(ngModel)]="start_date" />
@@ -119,6 +120,7 @@
                             <!-- Fecha Fin -->
                             <div class="col-lg-6 mb-6 mb-lg-0">
                                 <div class="col-12">
+                                    <label class="form-label fw-semibold fs-6">Fecha Fin</label>
                                     <div class="input-group input-group-solid">
                                         <input type="date" class="form-control form-control-lg form-control-solid"
                                             [(ngModel)]="end_date" />
