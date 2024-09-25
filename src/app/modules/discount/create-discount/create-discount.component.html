@@ -5,7 +5,8 @@
 
         <div class="row mb-9">
 
-            <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
+            <!-- Seleccionar campaña -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
                 <div class="row">
                     <div class="col-12 my-2">
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
@@ -50,69 +51,87 @@
                     </div>
                 </div>
             </div>
+            <!-- End Seleccionar campaña -->
 
-            <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
-                <div class="col-12">
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                        [ngClass]="{'active': type_discount == 1}" data-kt-button="true">
-                        <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" (click)="changeTypeDiscount(1)"
-                                name="type_discount" value="1" [checked]="type_discount == 1">
-                        </span>
-                        <span class="ms-5">
-                            <span class="fs-6 fw-bolder mb-1 d-block">Porcentaje %</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
+            <!-- Porcentaje & Monto Fijo -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_discount == 1}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(1)"
+                                    name="type_discount" value="1" [checked]="type_discount == 1">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Porcentaje %</span>
+                            </span>
+                        </label>
+                    </div>
 
-            <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
-                <div class="col-12">
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                        [ngClass]="{'active': type_discount == 2}" data-kt-button="true">
-                        <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" (click)="changeTypeDiscount(2)"
-                                name="type_discount" value="2">
-                        </span>
-                        <span class="ms-5">
-                            <span class="fs-6 fw-bolder mb-1 d-block">Monto fijo $</span>
-                        </span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-lg-2 mb-3 mb-6 mb-lg-0">
-                <label for="discount" class="form-label fw-semibold fs-6 required">Descuento:</label>
-                <input type="number" min="1" id="discount" name="discount" [(ngModel)]="discount"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Ejemplo: 50%">
-            </div>
-        </div>
-
-        <label class="form-label fw-semibold fs-6 required">Gestión de fechas:</label>
-
-        <div class="row mb-9">
-            <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
-                <div class="col-12">
-                    <div class="input-group input-group-solid">
-                        <input type="date" class="form-control form-control-lg form-control-solid"
-                            [(ngModel)]="start_date" />
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_discount == 2}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(2)"
+                                    name="type_discount" value="2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Monto fijo $</span>
+                            </span>
+                        </label>
                     </div>
                 </div>
             </div>
+            <!-- End Porcentaje -->
 
-            <div class="col-lg-3 mb-6 mb-lg-0">
-                <div class="col-12">
-                    <div class="input-group input-group-solid">
-                        <input type="date" class="form-control form-control-lg form-control-solid"
-                            [(ngModel)]="end_date" />
+            <!-- Descuento & Fechas -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label for="discount" class="form-label fw-semibold fs-6 required">Descuento:</label>
+                        <input type="number" min="1" id="discount" name="discount" [(ngModel)]="discount"
+                            class="form-control-solid form-control form-control-lg form-control-solid"
+                            placeholder="Ejemplo: 50%">
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="form-label fw-semibold fs-6 required">Gestión de fechas:</label>
+
+                        <!-- Fechas -->
+                        <div class="row mb-9">
+                            <!-- Fecha inicio -->
+                            <div class="col-lg-6 mb-3 mb-6 mb-lg-0">
+                                <div class="col-12">
+                                    <div class="input-group input-group-solid">
+                                        <input type="date" class="form-control form-control-lg form-control-solid"
+                                            [(ngModel)]="start_date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Fecha inicio -->
+
+                            <!-- Fecha Fin -->
+                            <div class="col-lg-6 mb-6 mb-lg-0">
+                                <div class="col-12">
+                                    <div class="input-group input-group-solid">
+                                        <input type="date" class="form-control form-control-lg form-control-solid"
+                                            [(ngModel)]="end_date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Fecha Fin -->
+                        </div>
+                        <!-- End Fechas -->
                     </div>
                 </div>
             </div>
+            <!-- End Descuento -->
         </div>
 
+        <!-- Aplicación -->
         <div class="row mb-9">
             <label class="form-label fw-semibold fs-6 required">Seleccione la aplicación:</label>
             <div class="col-12 col-md-4 mb-6 mb-md-0">
@@ -339,7 +358,9 @@
                 </div>
             </div>
         </div>
+        <!-- End Aplicación -->
 
+        <!-- Boton Guardar -->
         <div class="row mb-sm-6">
             <div class="col-12 col-sm-12 col-md-3">
                 <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
@@ -355,5 +376,6 @@
                 </button>
             </div>
         </div>
+        <!-- End Boton Guardar -->
     </div>
 </div>
