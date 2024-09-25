@@ -80,6 +80,11 @@ const Routing: Routes = [
   },
 
   {
+    path: 'discount',
+    loadChildren: () => import('../modules/discount/discount.module').then((m) => m.DiscountModule),
+  },
+
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

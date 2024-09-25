@@ -6,6 +6,52 @@
         <div class="row mb-9">
 
             <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 1}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(1)"
+                                    name="type_campaing" value="1" [checked]="type_campaing == 1">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Normal</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 2}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(2)"
+                                    name="type_campaing" value="2" [checked]="type_campaing == 2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Flash</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 3}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(3)"
+                                    name="type_campaing" value="3" [checked]="type_campaing == 3">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Link</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
                 <div class="col-12">
                     <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
                         [ngClass]="{'active': type_discount == 1}" data-kt-button="true">
@@ -43,54 +89,27 @@
                     class="form-control-solid form-control form-control-lg form-control-solid"
                     placeholder="Ejemplo: 50%">
             </div>
-
-            <div class="col-lg-4 mb-3 mb-6 mb-6 mb-lg-0">
-                <label for="code" class="form-label fw-semibold fs-6 required">Código del cupón:</label>
-                <input type="text" id="code" name="code" [(ngModel)]="code"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Por ejemplo: PROMOCIONES2024">
-            </div>
         </div>
 
-        <label class="form-label fw-semibold fs-6 required">Gestión de usos:</label>
+        <label class="form-label fw-semibold fs-6 required">Gestión de fechas:</label>
+
         <div class="row mb-9">
             <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
                 <div class="col-12">
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                        [ngClass]="{'active': type_count == 1}" data-kt-button="true">
-                        <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" (click)="changeTypeCount(1)" name="type_count"
-                                value="1" [checked]="type_count == 1">
-                        </span>
-                        <span class="ms-5">
-                            <span class="fs-6 fw-bolder mb-1 d-block">Ilimitado</span>
-                        </span>
-                    </label>
+                    <div class="input-group input-group-solid">
+                        <input type="date" class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="start_date" />
+                    </div>
                 </div>
             </div>
 
             <div class="col-lg-3 mb-6 mb-lg-0">
                 <div class="col-12">
-                    <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                        [ngClass]="{'active': type_count == 2}" data-kt-button="true">
-                        <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" (click)="changeTypeCount(2)" name="type_count"
-                                value="2">
-                        </span>
-                        <span class="ms-5">
-                            <span class="fs-6 fw-bolder mb-1 d-block">Limitado</span>
-                        </span>
-                    </label>
+                    <div class="input-group input-group-solid">
+                        <input type="date" class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="end_date" />
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-2 mb-6 mb-lg-0" *ngIf="type_count == 2">
-                <label class="form-label fw-semibold fs-6 required">N° de usos:</label>
-                <input type="number" id="num_use" name="num_use" [(ngModel)]="num_use"
-                    class="form-control-solid form-control form-control-lg form-control-solid"
-                    placeholder="Ejemplo: 50%">
             </div>
         </div>
 
