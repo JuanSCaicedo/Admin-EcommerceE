@@ -139,15 +139,17 @@
         <!-- Aplicación -->
         <div class="row mb-9">
             <label class="form-label fw-semibold fs-6 required">Seleccione la aplicación:</label>
+
+            <!-- Tipos de aplicacion -->
             <div class="col-12 col-md-4 mb-6 mb-md-0">
                 <div class="row">
                     <div class="col-12 my-2">
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                            [ngClass]="{'active': type_cupone == 1}" data-kt-button="true">
+                            [ngClass]="{'active': discount_type == 1}" data-kt-button="true">
                             <span
                                 class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                 <input class="form-check-input" type="radio" (click)="changeTypeCupone(1)"
-                                    name="type_cupone" value="1" [checked]="type_cupone == 1">
+                                    name="discount_type" value="1" [checked]="discount_type == 1">
                             </span>
                             <span class="ms-5">
                                 <span class="fs-6 fw-bolder mb-1 d-block">Productos</span>
@@ -157,11 +159,11 @@
 
                     <div class="col-12 my-2">
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                            [ngClass]="{'active': type_cupone == 2}" data-kt-button="true">
+                            [ngClass]="{'active': discount_type == 2}" data-kt-button="true">
                             <span
                                 class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                 <input class="form-check-input" type="radio" (click)="changeTypeCupone(2)"
-                                    name="type_cupone" value="2" [checked]="type_cupone == 2">
+                                    name="discount_type" value="2" [checked]="discount_type == 2">
                             </span>
                             <span class="ms-5">
                                 <span class="fs-6 fw-bolder mb-1 d-block">Categorias</span>
@@ -171,11 +173,11 @@
 
                     <div class="col-12 my-2">
                         <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
-                            [ngClass]="{'active': type_cupone == 3}" data-kt-button="true">
+                            [ngClass]="{'active': discount_type == 3}" data-kt-button="true">
                             <span
                                 class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                 <input class="form-check-input" type="radio" (click)="changeTypeCupone(3)"
-                                    name="type_cupone" value="3" [checked]="type_cupone == 3">
+                                    name="discount_type" value="3" [checked]="discount_type == 3">
                             </span>
                             <span class="ms-5">
                                 <span class="fs-6 fw-bolder mb-1 d-block">Marcas</span>
@@ -184,10 +186,12 @@
                     </div>
                 </div>
             </div>
+            <!-- End Tipos de aplicacion -->
 
+            <!-- Add item -->
             <div class="col-12 col-md-4 mb-12 mb-md-0">
                 <div class="row">
-                    <div class="col-12" *ngIf="type_cupone == 1">
+                    <div class="col-12" *ngIf="discount_type == 1">
                         <div class="row align-items-center">
                             <div class="col-10">
                                 <label class="fw-semibold fs-6 mb-2 required">Productos:</label>
@@ -209,7 +213,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" *ngIf="type_cupone == 2">
+                    <div class="col-12" *ngIf="discount_type == 2">
                         <div class="row align-items-center">
                             <div class="col-10">
                                 <label class="fw-semibold fs-6 mb-2 required">Departamento:(Primer nivel)</label>
@@ -231,7 +235,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" *ngIf="type_cupone == 3">
+                    <div class="col-12" *ngIf="discount_type == 3">
                         <div class="row align-items-center">
                             <div class="col-10">
                                 <label class="fw-semibold fs-6 mb-2 required">Marcas:</label>
@@ -254,10 +258,13 @@
                     </div>
                 </div>
             </div>
+            <!-- End Add item -->
 
             <div class="col-12 col-md-4">
                 <div class="row">
-                    <div class="col-12" *ngIf="type_cupone == 1">
+
+                    <!-- Tabla de productos -->
+                    <div class="col-12" *ngIf="discount_type == 1">
                         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
                                 <table class="table align-middle gs-0 gy-4">
@@ -292,8 +299,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End Tabla de productos -->
 
-                    <div class="col-12" *ngIf="type_cupone == 2">
+                    <!-- Tabla de categorias -->
+                    <div class="col-12" *ngIf="discount_type == 2">
                         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
                                 <table class="table align-middle gs-0 gy-4">
@@ -328,8 +337,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End Tabla de categorias -->
 
-                    <div class="col-12" *ngIf="type_cupone == 3">
+                    <!-- Tabla de marcas -->
+                    <div class="col-12" *ngIf="discount_type == 3">
                         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                             <div class="table-responsive w-100" style="max-height: 270px; overflow-y: auto;">
                                 <table class="table align-middle gs-0 gy-4">
@@ -360,6 +371,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End Tabla de marcas -->
                 </div>
             </div>
         </div>

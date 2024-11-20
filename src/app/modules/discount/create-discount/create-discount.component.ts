@@ -16,7 +16,7 @@ export class CreateDiscountComponent {
   categories_add: any = [];
   discount: number = 0;
   type_discount: number = 1;
-  type_cupone: number = 1;
+  discount_type: number = 1;
   type_campaing: number = 1;
   products: any = [];
   product_id: any = '';
@@ -57,7 +57,7 @@ export class CreateDiscountComponent {
   }
 
   changeTypeCupone(value: number) {
-    this.type_cupone = value;
+    this.discount_type = value;
     this.product_id = '';
     this.categorie_id = '';
     this.brand_id = '';
@@ -94,7 +94,7 @@ export class CreateDiscountComponent {
   }
 
   save() {
-    if (!this.discount) {
+    if (!this.discount || !this.start_date || !this.end_date) {
       this.toastr.error("Validación", "Complete todos los campos");
       return;
     }
@@ -104,28 +104,31 @@ export class CreateDiscountComponent {
       return;
     }
 
-    if (this.type_cupone == 1 && this.products_add.length == 0) {
+    if (this.discount_type == 1 && this.products_add.length == 0) {
       this.toastr.error("Validación", "Debe agregar al menos un producto");
       return;
     }
 
-    if (this.type_cupone == 2 && this.categories_add.length == 0) {
+    if (this.discount_type == 2 && this.categories_add.length == 0) {
       this.toastr.error("Validación", "Debe agregar al menos una categoria");
       return;
     }
 
-    if (this.type_cupone == 3 && this.brands_add.length == 0) {
+    if (this.discount_type == 3 && this.brands_add.length == 0) {
       this.toastr.error("Validación", "Debe agregar al menos una marca");
       return;
     }
 
     let data = {
       type_discount: this.type_discount,
-      type_cupone: this.type_cupone,
+      discount_type: this.discount_type,
       discount: this.discount,
       product_selected: this.products_add,
       categorie_selected: this.categories_add,
       brand_selected: this.brands_add,
+      start_date: this.start_date,
+      end_date: this.end_date,
+      type_campaing: this.type_campaing
     }
 
     this.discountService.createDiscounts(data).subscribe((resp: any) => {
@@ -134,18 +137,18 @@ export class CreateDiscountComponent {
       if (resp.message == 403) {
         this.toastr.error("Validación", resp.message_text);
       } else {
-        this.toastr.success("Éxito", "Cupón creado correctamente");
-        this.type_discount = 1;
-        this.type_cupone = 1;
-        this.discount = 0;
-        this.product_id = '';
-        this.categorie_id = '';
-        this.brand_id = '';
-        this.products_add = [];
-        this.categories_add = [];
-        this.brands_add = [];
+        this.toastr.success("Éxito", "Campaña de descuento creada correctamente");
+        // this.type_discount = 1;
+        // this.discount_type = 1;
+        // this.discount = 0;
+        // this.product_id = '';
+        // this.categorie_id = '';
+        // this.brand_id = '';
+        // this.products_add = [];
+        // this.categories_add = [];
+        // this.brands_add = [];
 
-        this.router.navigateByUrl(`/cupones/list/edit/${resp.id}`);
+        // this.router.navigateByUrl(`/cupones/list/edit/${resp.id}`);
       }
     }, (error: any) => {
       console.log(error);
