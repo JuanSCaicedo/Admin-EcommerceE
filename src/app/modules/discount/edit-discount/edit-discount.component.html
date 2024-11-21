@@ -1,1 +1,410 @@
-<p>edit-discount works!</p>
+<div class="card">
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <label class="form-label fw-semibold fs-6 required">Gestión de descuento:</label>
+
+        <div class="row mb-6">
+
+            <!-- Seleccionar campaña -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 1}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(1)"
+                                    name="type_campaing" value="1" [checked]="type_campaing == 1">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Normal</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 2}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(2)"
+                                    name="type_campaing" value="2" [checked]="type_campaing == 2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Flash</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_campaing == 3}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(3)"
+                                    name="type_campaing" value="3" [checked]="type_campaing == 3">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Link</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- End Seleccionar campaña -->
+
+            <!-- Porcentaje & Monto Fijo -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_discount == 1}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(1)"
+                                    name="type_discount" value="1" [checked]="type_discount == 1">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Porcentaje %</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': type_discount == 2}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(2)"
+                                    name="type_discount" value="2" [checked]="type_discount == 2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Monto fijo $</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-6 mb-lg-0">
+                            <label class="required fw-bold fs-6 mb-3">Status</label>
+                            <div class="form-check form-check-solid form-check-custom form-switch">
+                                <input mdbCheckbox class="form-check-input cursor-pointer" type="checkbox"
+                                    id="flexSwitchCheckChecked" [checked]="checked" (change)="onSwitchChange($event)" />
+                                <label class="form-check-label" for="flexSwitchCheckChecked">{{state == '1' ? 'Activo' :
+                                    'Inactivo'}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Porcentaje -->
+
+            <!-- Descuento & Fechas -->
+            <div class="col-lg-4 mb-3 mb-6 mb-lg-0">
+                <div class="row">
+
+                    <!-- Descuento -->
+                    <div class="col-12 my-2">
+                        <label for="discount" class="form-label fw-semibold fs-6 required">Descuento:</label>
+                        <input type="number" min="1" id="discount" name="discount" [(ngModel)]="discount"
+                            class="form-control-solid form-control form-control-lg form-control-solid"
+                            placeholder="Ejemplo: 50%">
+                    </div>
+                    <!-- End Descuento -->
+
+                    <div class="col-12 my-2">
+                        <label class="form-label fw-semibold fs-6 required py-2">Seleccione las fechas:</label>
+
+                        <!-- Fechas -->
+                        <div class="row">
+                            <!-- Fecha inicio -->
+                            <div class="col-lg-6 mb-3 mb-6 mb-lg-0">
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold fs-6">Fecha Inicio</label>
+                                    <div class="input-group input-group-solid">
+                                        <input type="date" class="form-control form-control-lg form-control-solid"
+                                            [(ngModel)]="start_date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Fecha inicio -->
+
+                            <!-- Fecha Fin -->
+                            <div class="col-lg-6 mb-6 mb-lg-0">
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold fs-6">Fecha Fin</label>
+                                    <div class="input-group input-group-solid">
+                                        <input type="date" class="form-control form-control-lg form-control-solid"
+                                            [(ngModel)]="end_date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Fecha Fin -->
+                        </div>
+                        <!-- End Fechas -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Descuento -->
+        </div>
+
+        <!-- Aplicación -->
+        <div class="row mb-9">
+            <label class="form-label fw-semibold fs-6 required">Seleccione la aplicación:</label>
+
+            <!-- Tipos de aplicacion -->
+            <div class="col-12 col-md-4 mb-6 mb-md-0">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': discount_type == 1}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(1)"
+                                    name="discount_type" value="1" [checked]="discount_type == 1">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Productos</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': discount_type == 2}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(2)"
+                                    name="discount_type" value="2" [checked]="discount_type == 2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Categorias</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-8"
+                            [ngClass]="{'active': discount_type == 3}" data-kt-button="true">
+                            <span
+                                class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(3)"
+                                    name="discount_type" value="3" [checked]="discount_type == 3">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Marcas</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- End Tipos de aplicacion -->
+
+            <!-- Add item -->
+            <div class="col-12 col-md-4 mb-12 mb-md-0">
+                <div class="row">
+                    <div class="col-12" *ngIf="discount_type == 1">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Productos:</label>
+                                <select class="form-control form-select-solid fw-bolder" name="product_id"
+                                    placeholder="Selec. Producto" [(ngModel)]="product_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of products">
+                                        <option [value]="item.id">{{item.title}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Add"
+                                    (click)="AddProduct()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" *ngIf="discount_type == 2">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Departamento:(Primer nivel)</label>
+                                <select class="form-control form-select-solid fw-bolder" name="categorie_id"
+                                    placeholder="Selec. Departamento" [(ngModel)]="categorie_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of categories_first">
+                                        <option [value]="item.id">{{item.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                    (click)="AddCategorie()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" *ngIf="discount_type == 3">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 mb-2 required">Marcas:</label>
+                                <select class="form-control form-select-solid fw-bolder" name="brand_id"
+                                    placeholder="Selec. Marca" [(ngModel)]="brand_id">
+                                    <option value="" disabled selected>-- Seleccione --</option>
+                                    <ng-container *ngFor="let item of brands">
+                                        <option [value]="item.id">{{item.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Add"
+                                    (click)="AddBrand()">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Add item -->
+
+            <div class="col-12 col-md-4">
+                <div class="row">
+
+                    <!-- Tabla de productos -->
+                    <div class="col-12" *ngIf="discount_type == 1">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
+                                <table class="table align-middle gs-0 gy-4">
+                                    <thead class="mb-6 sticky-top bg-light z-index-100">
+                                        <tr> <!-- Modified: Added "text-center" class -->
+                                            <th class="text-center">IMAGEN</th>
+                                            <th class="text-center">PRODUCTO</th>
+                                            <th class="text-center">ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of products_add; let i = index">
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <img [src]="product.imagen" width="60" alt="">
+                                            </td>
+
+                                            <td>
+                                                {{product.title}}
+                                            </td>
+
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                                    title="Delete" (click)="removeProduct(product)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div *ngIf="!(products_add && products_add.length > 0)" class="text-center pt-9">
+                                    <p>No hay registros para mostrar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabla de productos -->
+
+                    <!-- Tabla de categorias -->
+                    <div class="col-12" *ngIf="discount_type == 2">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100" style="max-height: 200px; overflow-y: auto;">
+                                <table class="table align-middle gs-0 gy-4">
+                                    <thead class="mb-6 sticky-top bg-light z-index-100">
+                                        <tr> <!-- Modified: Added "text-center" class -->
+                                            <th class="text-center">IMAGEN</th>
+                                            <th class="text-center">TITULO</th>
+                                            <th class="text-center">ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let categorie of categories_add; let i = index">
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <img [src]="categorie.imagen" width="60" alt="">
+                                            </td>
+
+                                            <td>
+                                                {{categorie.name}}
+                                            </td>
+
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                                    title="Delete" (click)="removeCategorie(categorie)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div *ngIf="!(categories_add && categories_add.length > 0)" class="text-center pt-9">
+                                    <p>No hay registros para mostrar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabla de categorias -->
+
+                    <!-- Tabla de marcas -->
+                    <div class="col-12" *ngIf="discount_type == 3">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100" style="max-height: 270px; overflow-y: auto;">
+                                <table class="table align-middle gs-0 gy-4">
+                                    <thead class="mb-6 sticky-top bg-light z-index-100">
+                                        <tr> <!-- Modified: Added "text-center" class -->
+                                            <th class="text-center">NOMBRE</th>
+                                            <th class="text-center">ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let brand of brands_add; let i = index">
+
+                                            <td>
+                                                {{brand.name}}
+                                            </td>
+
+                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
+                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                                    title="Delete" (click)="removeBrand(brand)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div *ngIf="!(brands_add && brands_add.length > 0)" class="text-center pt-9">
+                                    <p>No hay registros para mostrar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabla de marcas -->
+                </div>
+            </div>
+        </div>
+        <!-- End Aplicación -->
+
+        <!-- Boton Guardar -->
+        <div class="row mb-sm-6">
+            <div class="col-12 col-sm-12 col-md-3">
+                <button class="btn btn-primary w-100 w-md-auto" (click)="save()">
+                    <ng-container *ngIf="isLoading$ | async">
+                        <span class="indicator-progress" [style.display]="'block'">
+                            Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="(isLoading$ | async) === false">
+                        <span class="indicator-label">Guardar</span>
+                    </ng-container>
+                </button>
+            </div>
+        </div>
+        <!-- End Boton Guardar -->
+    </div>
+</div>

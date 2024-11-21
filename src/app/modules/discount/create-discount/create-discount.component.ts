@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DiscountService } from '../service/discount.service';
+
 @Component({
   selector: 'app-create-discount',
   templateUrl: './create-discount.component.html',
@@ -138,19 +139,19 @@ export class CreateDiscountComponent {
         this.toastr.error("Validación", resp.message_text);
       } else {
         this.toastr.success("Éxito", "Campaña de descuento creada correctamente");
-        this.type_discount = 1;
-        this.discount_type = 1;
-        this.discount = 0;
-        this.product_id = '';
-        this.categorie_id = '';
-        this.brand_id = '';
-        this.products_add = [];
-        this.categories_add = [];
-        this.brands_add = [];
-        this.start_date = '';
+        // this.type_discount = 1;
+        // this.discount_type = 1;
+        // this.discount = 0;
+        // this.product_id = '';
+        // this.categorie_id = '';
+        // this.brand_id = '';
+        // this.products_add = [];
+        // this.categories_add = [];
+        // this.brands_add = [];
+        // this.start_date = '';
         this.end_date = '';
 
-        // this.router.navigateByUrl(`/cupones/list/edit/${resp.id}`);
+        this.router.navigateByUrl(`/discount/list/edit/${resp.id}`);
       }
     }, (error: any) => {
       console.log(error);
