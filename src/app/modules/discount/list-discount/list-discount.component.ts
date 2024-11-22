@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DiscountService } from '../service/discount.service';
 import { DeleteDiscountComponent } from '../delete-discount/delete-discount.component';
+import { URL_TIENDA } from 'src/app/config/config';
 
 @Component({
   selector: 'app-list-discount',
@@ -66,7 +67,7 @@ export class ListDiscountComponent {
 
     return NAME;
   }
-  
+
   getNameTypeCampaing(type_campaign: number) {
     let NAME = '';
 
@@ -84,6 +85,15 @@ export class ListDiscountComponent {
     return NAME;
   }
 
+  copyLink(discount: any) {
+    var aux = document.createElement("input");
+    aux.setAttribute("value", URL_TIENDA+"/discount/"+discount.code);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+    this.toastr.info('Link copiado al portapapeles');
+  }
 
   deleteDiscount(discount: any) {
     const modalRef = this.modalService.open(DeleteDiscountComponent, { centered: true, size: 'md' });

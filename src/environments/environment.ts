@@ -167,6 +167,7 @@ export const environment = {
   URL_SERVICIOS: 'http://10.8.0.2:8000/api',
   URL_FRONTEND: 'http://10.8.0.2:5000',
   PREVISUALIZA_IMAGEN: 'https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg',
+  URL_TIENDA: 'http://10.8.0.2:4200',
 };
 
 /*

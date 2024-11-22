@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DiscountService } from '../service/discount.service';
+import { URL_TIENDA } from 'src/app/config/config';
 
 @Component({
   selector: 'app-edit-discount',
@@ -268,5 +269,15 @@ export class EditDiscountComponent {
 
   onSwitchChange(event: any) {
     this.state = event.target.checked ? '1' : '2';
+  }
+
+  copyLink(product: any) {
+    var aux = document.createElement("input");
+    aux.setAttribute("value", URL_TIENDA+"/producto/"+product.slug+"?discount="+this.DISCOUNT_SELECTED.code);
+    document.body.appendChild(aux);
+    aux.select();
+    document.execCommand("copy");
+    document.body.removeChild(aux);
+    this.toastr.info('Link copiado al portapapeles');
   }
 }

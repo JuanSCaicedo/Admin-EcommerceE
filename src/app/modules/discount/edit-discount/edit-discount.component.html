@@ -297,9 +297,17 @@
                                                 {{product.title}}
                                             </td>
 
-                                            <td class="text-center"> <!-- Modified: Added "text-center" class -->
-                                                <button class="ml-5 btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                            <td class="text-end"> <!-- Modified: Added "text-center" class -->
+                                                <button class="ml-5 btn btn-sm btn-danger me-3" data-bs-toggle="tooltip"
                                                     title="Delete" (click)="removeProduct(product)">X</button>
+
+                                                <a href="#" onclick="return false;" (click)="copyLink(product)"
+                                                    class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+                                                    data-bs-toggle="tooltip" title="Copiar Link">
+                                                    <i class="ki-duotone ki-toggle-on fs-2"><span
+                                                            class="path1"></span><span class="path2"></span><span
+                                                            class="path3"></span><span class="path4"></span><span
+                                                            class="path5"></span></i> </a>
                                             </td>
                                         </tr>
                                     </tbody>
