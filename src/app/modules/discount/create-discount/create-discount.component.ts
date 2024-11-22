@@ -100,6 +100,16 @@ export class CreateDiscountComponent {
       return;
     }
 
+    if(this.start_date > this.end_date){
+      this.toastr.error("Validación", "La fecha de inicio no puede ser mayor a la fecha de fin");
+      return;
+    }
+
+    if(this.start_date < new Date().toISOString().split('T')[0]){
+      this.toastr.error("Validación", "La fecha de inicio no puede ser menor a la fecha actual");
+      return;
+    }
+    
     if (this.discount <= 0) {
       this.toastr.error("Validación", "El descuento debe ser mayor a 0");
       return;
