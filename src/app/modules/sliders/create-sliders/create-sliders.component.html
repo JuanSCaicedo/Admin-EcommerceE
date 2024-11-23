@@ -1,7 +1,7 @@
 <div class="card">
     <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
     <div class="card-body border-top p-9">
-        <div class="row mb-3">
+        <div class="row mb-6">
             <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="title" class="form-label fw-semibold fs-6 required">Titulo:</label>
                 <input type="text" id="title" name="title" [(ngModel)]="title"
@@ -15,9 +15,9 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-6">
             <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
-                <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional)</label>
+                <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional. Aplica solo para Principal)</label>
                 <input type="text" id="label" name="label" [(ngModel)]="label" class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: Starting at $999,99">
             </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-6">
             <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="customFile" class="form-label fw-semibold fs-6 required">Sube tu imagen:</label>
                 <input type="file" class="form-control mb-6" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
@@ -37,11 +37,35 @@
                     <img [src]="imagen_previsualiza" class="img-fluid py-2" width="200" alt="Imagen previsualizada">
                 </div>
             </div>
-            <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
+            <div class="col-lg-3 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="color" class="form-label fw-semibold fs-6 required">Color:</label>
                 <input type="color" id="color" name="color" [(ngModel)]="color"
                     class="cursor-pointer form-control form-control-lg">
             </div>
+
+            <div class="col-lg-3 mb-3 mb-6 mb-6 mb-lg-0">
+                <label class="required fw-bold fs-6 mb-2">Selec. Un tipo de slider</label>
+                <select class="form-control form-select-solid fw-bolder" name="type_slider" placeholder="Select"
+                    [(ngModel)]="type_slider">
+                    <option value="0" disabled selected>-- Seleccione --</option>
+                    <option value="1">Principal</option>
+                    <option value="2">Secundario</option>
+                    <option value="3">Por productos</option>
+                </select>
+
+                <div class="row mt-6">
+                    <div class="col-12 mb-6" *ngIf="type_slider == 3">
+                        <label for="color" class="form-label fw-semibold fs-6 required">Precio original:</label>
+                        <input type="number" id="price_original" name="price_original" [(ngModel)]="price_original"
+                            class="cursor-pointer form-control form-control-lg">
+                    </div>
+                    <div class="col-12" *ngIf="type_slider == 3">
+                        <label for="color" class="form-label fw-semibold fs-6 required">Precio campaña:</label>
+                        <input type="number" id="price_campaing" name="price_campaing" [(ngModel)]="price_campaing"
+                            class="cursor-pointer form-control form-control-lg">
+                    </div>
+                </div>
+            </div> 
         </div>
 
         <div class="row mb-sm-6">
