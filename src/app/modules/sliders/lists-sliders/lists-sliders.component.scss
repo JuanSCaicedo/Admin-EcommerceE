@@ -1,0 +1,7 @@
+td span.truncate {
+    display: block;          /* Asegura que el contenido ocupe toda la línea */
+    width: 200px;            /* Establece un ancho fijo para el contenedor */
+    white-space: nowrap;     /* Evita que el texto se divida en varias líneas */
+    overflow: hidden;        /* Oculta el texto que se desborda */
+    text-overflow: ellipsis; /* Muestra '...' al final si el texto es demasiado largo */
+}
