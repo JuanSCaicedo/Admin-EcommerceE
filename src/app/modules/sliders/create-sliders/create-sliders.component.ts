@@ -57,7 +57,7 @@ export class CreateSlidersComponent {
   }
 
   save() {
-    if (!this.title || !this.subtitle || !this.file_imagen) {
+    if (!this.title || !this.subtitle || !this.file_imagen || !this.type_slider) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;
     }
