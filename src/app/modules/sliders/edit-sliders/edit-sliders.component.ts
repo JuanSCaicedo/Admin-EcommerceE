@@ -25,6 +25,7 @@ export class EditSlidersComponent {
   imagen_previsualiza_bk: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
   type_slider: any = 0;
+  type_width: any = 0;
   price_original: any = null;
   price_campaing: any = null;
 
@@ -73,6 +74,7 @@ export class EditSlidersComponent {
       }
 
       this.type_slider = resp.slider.type_slider;
+      this.type_width = resp.slider.type_width;
       this.price_original = resp.slider.price_original;
       this.price_campaing = resp.slider.price_campaing;
 
@@ -80,6 +82,12 @@ export class EditSlidersComponent {
       console.log(error);
       this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
     });
+  }
+
+  onSliderTypeChange() {
+    if (this.type_slider !== 1) {
+      this.label = ''; // Limpiar el contenido del campo 'label'
+    }
   }
 
   processFile($event: any) {
@@ -148,6 +156,8 @@ export class EditSlidersComponent {
     }
 
     formData.append('type_slider', this.type_slider);
+
+    formData.append('type_width', this.type_width);
 
     if (this.price_original) {
       formData.append('price_original', this.price_original);

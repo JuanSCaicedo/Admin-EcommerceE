@@ -17,26 +17,40 @@
 
         <div class="row mb-6">
             <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
-                <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional. Aplica solo para Principal)</label>
-                <input type="text" id="label" name="label" [(ngModel)]="label" class="form-control form-control-lg form-control-solid"
+                <label for="label" class="form-label fw-semibold fs-6">Label: (Opcional. Aplica solo para
+                    Principal)</label>
+                <input [disabled]="type_slider != 1" type="text" id="label" name="label" [(ngModel)]="label"
+                    class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: Starting at $999,99">
             </div>
             <div class="col-lg-6 mb-3  mb-6 mb-6 mb-lg-0">
                 <label for="link" class="form-label fw-semibold fs-6">Link: (Opcional)</label>
-                <input type="text" id="link" name="link" [(ngModel)]="link" class="form-control form-control-lg form-control-solid"
+                <input type="text" id="link" name="link" [(ngModel)]="link"
+                    class="form-control form-control-lg form-control-solid"
                     placeholder="Por ejemplo: http://dominio.com">
             </div>
         </div>
 
         <div class="row mb-6">
-            <div class="col-lg-6 mb-3 mb-6 mb-6 mb-lg-0">
+            <div class="col-lg-4 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="customFile" class="form-label fw-semibold fs-6 required">Sube tu imagen:</label>
-                <input type="file" class="form-control mb-6" id="customFile" accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"
-                    (change)="processFile($event)">
+                <input type="file" class="form-control mb-6" id="customFile"
+                    accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
                 <div class="mt-3">
                     <img [src]="imagen_previsualiza" class="img-fluid py-2" width="200" alt="Imagen previsualizada">
                 </div>
             </div>
+
+            <div class="col-lg-2 mb-3 mb-6 mb-6 mb-lg-0">
+                <label class="required fw-bold fs-6 mb-2">Tipo de ancho de imagen</label>
+                <select class="form-control form-select-solid fw-bolder" name="type_width" placeholder="Select"
+                    [(ngModel)]="type_width">
+                    <option value="0" disabled selected>-- Seleccione --</option>
+                    <option value="1">Ancho normal</option>
+                    <option value="2">Ancho extra</option>
+                </select>
+            </div>
+
             <div class="col-lg-3 mb-3 mb-6 mb-6 mb-lg-0">
                 <label for="color" class="form-label fw-semibold fs-6 required">Color:</label>
                 <input type="color" id="color" name="color" [(ngModel)]="color"
@@ -46,7 +60,7 @@
             <div class="col-lg-3 mb-3 mb-6 mb-6 mb-lg-0">
                 <label class="required fw-bold fs-6 mb-2">Selec. Un tipo de slider</label>
                 <select class="form-control form-select-solid fw-bolder" name="type_slider" placeholder="Select"
-                    [(ngModel)]="type_slider">
+                    (change)="onSliderTypeChange()" [(ngModel)]="type_slider">
                     <option value="0" disabled selected>-- Seleccione --</option>
                     <option value="1">Principal</option>
                     <option value="2">Secundario</option>
@@ -65,7 +79,7 @@
                             class="cursor-pointer form-control form-control-lg">
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
 
         <div class="row mb-sm-6">

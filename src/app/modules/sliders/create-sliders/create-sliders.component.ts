@@ -20,6 +20,7 @@ export class CreateSlidersComponent {
   imagen_previsualiza: any = PREVISUALIZA_IMAGEN;
   file_imagen: any = null;
   type_slider: any = 0;
+  type_width: any = 0;
   price_original: any = null;
   price_campaing: any = null;
 
@@ -56,8 +57,14 @@ export class CreateSlidersComponent {
     }, 50);
   }
 
+  onSliderTypeChange() {
+    if (this.type_slider !== 1) {
+      this.label = ''; // Limpiar el contenido del campo 'label'
+    }
+  }
+
   save() {
-    if (!this.title || !this.subtitle || !this.file_imagen || !this.type_slider) {
+    if (!this.title || !this.subtitle || !this.file_imagen || !this.type_slider || !this.type_width) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;
     }
@@ -73,6 +80,8 @@ export class CreateSlidersComponent {
     formData.append('image', this.file_imagen);
 
     formData.append('type_slider', this.type_slider);
+
+    formData.append('type_width', this.type_width);
 
     if (this.price_original) {
       formData.append('price_original', this.price_original);
@@ -93,20 +102,20 @@ export class CreateSlidersComponent {
     this.sliderService.createSliders(formData).subscribe((resp: any) => {
       console.log(resp);
 
-      this.title = '';
-      this.label = '';
-      this.subtitle = '';
-      this.link = '';
-      this.color = '';
-      this.imagen_previsualiza = PREVISUALIZA_IMAGEN;
-      // Restablecer el campo de entrada de archivo
-      const imageInput = <HTMLInputElement>document.getElementById('customFile');
-      if (imageInput) {
-        imageInput.value = '';
-      }
-      // Restablecer this.file_imagen
-      this.file_imagen = null;
-      this.toastr.success('Exito', 'Slider creado correctamente');
+      // this.title = '';
+      // this.label = '';
+      // this.subtitle = '';
+      // this.link = '';
+      // this.color = '';
+      // this.imagen_previsualiza = PREVISUALIZA_IMAGEN;
+      // // Restablecer el campo de entrada de archivo
+      // const imageInput = <HTMLInputElement>document.getElementById('customFile');
+      // if (imageInput) {
+      //   imageInput.value = '';
+      // }
+      // // Restablecer this.file_imagen
+      // this.file_imagen = null;
+      // this.toastr.success('Exito', 'Slider creado correctamente');
 
       this.router.navigateByUrl(`/sliders/list/edit/${resp.id}`);
     }, (error: any) => {
