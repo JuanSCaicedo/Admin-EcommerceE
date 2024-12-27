@@ -161,6 +161,14 @@ export class EditDiscountComponent {
       return;
     }
 
+    const date = new Date();
+    const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+    if (this.start_date < today) {
+      this.toastr.error("Validación", "La fecha de inicio no puede ser menor a la fecha actual");
+      return;
+    }
+
     let data = {
       type_discount: this.type_discount,
       discount_type: this.discount_type,
@@ -273,7 +281,7 @@ export class EditDiscountComponent {
 
   copyLink(product: any) {
     var aux = document.createElement("input");
-    aux.setAttribute("value", URL_TIENDA+"/producto/"+product.slug+"?discount="+this.DISCOUNT_SELECTED.code);
+    aux.setAttribute("value", URL_TIENDA + "/producto/" + product.slug + "?discount=" + this.DISCOUNT_SELECTED.code);
     document.body.appendChild(aux);
     aux.select();
     document.execCommand("copy");

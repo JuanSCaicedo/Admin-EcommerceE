@@ -105,7 +105,10 @@ export class CreateDiscountComponent {
       return;
     }
 
-    if(this.start_date < new Date().toISOString().split('T')[0]){
+    const date = new Date();
+    const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    
+    if (this.start_date < today) {
       this.toastr.error("Validación", "La fecha de inicio no puede ser menor a la fecha actual");
       return;
     }
