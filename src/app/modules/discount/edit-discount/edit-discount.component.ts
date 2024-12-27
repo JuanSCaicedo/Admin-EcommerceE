@@ -146,6 +146,11 @@ export class EditDiscountComponent {
       return;
     }
 
+    if(this.type_discount == 1 && this.discount > 100) {
+      this.toastr.error("Validación", "El descuento no puede ser mayor al 100%");
+      return;
+    }
+
     if (this.discount_type == 1 && this.products_add.length == 0) {
       this.toastr.error("Validación", "Debe agregar al menos un producto");
       return;

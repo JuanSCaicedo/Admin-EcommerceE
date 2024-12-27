@@ -100,21 +100,26 @@ export class CreateDiscountComponent {
       return;
     }
 
-    if(this.start_date > this.end_date){
+    if (this.start_date > this.end_date) {
       this.toastr.error("Validación", "La fecha de inicio no puede ser mayor a la fecha de fin");
       return;
     }
 
     const date = new Date();
     const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    
+
     if (this.start_date < today) {
       this.toastr.error("Validación", "La fecha de inicio no puede ser menor a la fecha actual");
       return;
     }
-    
+
     if (this.discount <= 0) {
       this.toastr.error("Validación", "El descuento debe ser mayor a 0");
+      return;
+    }
+
+    if (this.type_discount == 1 && this.discount > 100) {
+      this.toastr.error("Validación", "El descuento no puede ser mayor al 100%");
       return;
     }
 
