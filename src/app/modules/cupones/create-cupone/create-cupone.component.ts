@@ -105,6 +105,11 @@ export class CreateCuponeComponent {
       return;
     }
 
+    if (this.type_discount == 1 && this.discount > 100) {
+      this.toastr.error("Validación", "El descuento no puede ser mayor al 100%");
+      return;
+    }
+
     if (this.type_count == 2 && this.num_use <= 0) {
       this.toastr.error("Validación", "El número de usos debe ser mayor a 0");
       return;
