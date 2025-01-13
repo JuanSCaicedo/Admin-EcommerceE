@@ -88,6 +88,10 @@ export class EditSlidersComponent {
     if (this.type_slider !== 1) {
       this.label = ''; // Limpiar el contenido del campo 'label'
     }
+
+    if (this.type_slider !== 2) {
+      this.type_width = 0;
+    }
   }
 
   processFile($event: any) {

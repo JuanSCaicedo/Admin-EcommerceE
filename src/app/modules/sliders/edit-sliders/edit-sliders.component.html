@@ -48,12 +48,13 @@
 
             <div class="col-lg-2 mb-3 mb-6 mb-6 mb-lg-0">
                 <label class="required fw-bold fs-6 mb-2">Tipo de ancho de imagen</label>
-                <select class="form-control form-select-solid fw-bolder" name="type_width" placeholder="Select"
-                    [(ngModel)]="type_width">
+                <select class="form-control form-select-solid fw-bolder" [disabled]="type_slider != 2" name="type_width"
+                    placeholder="Select" [(ngModel)]="type_width">
                     <option value="0" disabled selected>-- Seleccione --</option>
                     <option value="1">Ancho normal</option>
                     <option value="2">Ancho extra</option>
                 </select>
+                <p class="pt-3">¡Tipo de ancho. Aplica solo para slider secundario!</p>
             </div>
 
             <div class="col-lg-3 mb-3 mb-6 mb-lg-0">

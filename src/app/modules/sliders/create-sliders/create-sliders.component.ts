@@ -61,10 +61,14 @@ export class CreateSlidersComponent {
     if (this.type_slider !== 1) {
       this.label = ''; // Limpiar el contenido del campo 'label'
     }
+
+    if (this.type_slider !== 2) {
+      this.type_width = 0;
+    }
   }
 
   save() {
-    if (!this.title || !this.subtitle || !this.file_imagen || !this.type_slider || !this.type_width) {
+    if (!this.title || !this.subtitle || !this.file_imagen || !this.type_slider) {
       this.toastr.error('validacion', 'Todos los campos son requeridos');
       return;
     }
@@ -81,7 +85,9 @@ export class CreateSlidersComponent {
 
     formData.append('type_slider', this.type_slider);
 
-    formData.append('type_width', this.type_width);
+    if (this.type_width) {
+      formData.append('type_width', this.type_width);
+    }
 
     if (this.price_original) {
       formData.append('price_original', this.price_original);
