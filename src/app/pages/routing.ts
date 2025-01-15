@@ -85,6 +85,11 @@ const Routing: Routes = [
   },
 
   {
+    path: 'home-view',
+    loadChildren: () => import('../modules/home-view/home-view.module').then((m) => m.HomeViewModule),
+  },
+
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
