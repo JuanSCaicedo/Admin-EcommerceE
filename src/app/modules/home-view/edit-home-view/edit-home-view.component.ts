@@ -42,13 +42,12 @@ export class EditHomeViewComponent {
   }
 
   store() {
-    if (!this.name || !this.state) {
+    if (!this.state) {
       this.toastr.error('Validación', 'Todos los campos son requeridos');
       return;
     }
 
     let data = {
-      name: this.name,
       state: this.state,
     };
 
