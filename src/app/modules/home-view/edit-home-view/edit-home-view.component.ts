@@ -17,6 +17,7 @@ export class EditHomeViewComponent {
   name!: string;
   isLoading$: any;
   state!: string;
+  updated_at!: string;
   checked!: boolean;
 
   constructor(
@@ -31,6 +32,7 @@ export class EditHomeViewComponent {
     this.isLoading$ = this.homeService.isLoading$;
     this.name = this.homeView.name;
     this.state = this.homeView.state;
+    this.updated_at = this.homeView.updated_at;
 
     if (this.state == '1') {
       this.checked = true;
