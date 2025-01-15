@@ -29,4 +29,13 @@ export class HomeService {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+
+  updateHomeViews(homeView_id: string, data: any) {
+    this.isLoadingSubject.next(true);
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authservice.token });
+    let url = URL_SERVICIOS + '/admin/home-view/' + homeView_id;
+    return this.http.put(url, data, { headers: headers }).pipe(
+      finalize(() => this.isLoadingSubject.next(false))
+    );
+  }
 }

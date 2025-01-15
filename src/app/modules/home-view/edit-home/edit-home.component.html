@@ -99,6 +99,9 @@
                         </ng-template>
                     </tbody>
                 </table>
+
+                <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="20" [rotate]="true"
+                    [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
             </div>
         </div>
     </div>

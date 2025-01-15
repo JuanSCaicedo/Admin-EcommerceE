@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg-2';
+import { EditHomeViewComponent } from './edit-home-view/edit-home-view.component';
 
 
 @NgModule({
   declarations: [
     HomeViewComponent,
-    EditHomeComponent
+    EditHomeComponent,
+    EditHomeViewComponent
   ],
   imports: [
     CommonModule,
