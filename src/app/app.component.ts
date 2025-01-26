@@ -10,6 +10,7 @@ import { locale as frLang } from './modules/i18n/vocabs/fr';
 import { ThemeModeService } from './_metronic/partials/layout/theme-mode-switcher/theme-mode.service';
 import { PageInfoService, PageLink } from './_metronic/layout';
 import { Observable } from 'rxjs';
+import { AuthService } from './modules/auth';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
   constructor(
     private translationService: TranslationService,
     private modeService: ThemeModeService,
-    private pageInfo: PageInfoService
+    private pageInfo: PageInfoService,
+    private auth: AuthService,
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
       deLang,
       frLang
     );
+    this.auth.validarToken();
   }
 
   ngOnInit() {

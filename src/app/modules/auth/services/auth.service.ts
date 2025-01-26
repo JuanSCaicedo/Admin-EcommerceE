@@ -34,6 +34,7 @@ export class AuthService implements OnDestroy {
 
   user: any = null;
   token: any = null;
+  private readonly apiUrl = URL_SERVICIOS + "/auth/me";
 
   constructor(
     private authHttpService: AuthHTTPService,
@@ -98,6 +99,48 @@ export class AuthService implements OnDestroy {
         this.isLoadingSubject.next(false); // Desactivar estado de carga en caso de error
         console.error('Error en logout:', err);
       }
+    });
+  }
+
+  me(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('No se encontró el token'); // Debug
+      return of(null); // Devolver un Observable vacío
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    return this.http.post(this.apiUrl, {}, { headers }).pipe(
+      catchError((err) => {
+        console.error('Error en la solicitud:', err); // Log de error
+        return of(null); // Retornar un Observable con valor `null` en caso de error
+      })
+    );
+  }
+
+  validarToken(): void {
+    this.me().subscribe({
+      next: (response: any) => {
+        if (!response) {
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+
+          // Verificar si ya estás en la página de login
+          if (window.location.pathname !== '/auth/login') {
+            setTimeout(() => {
+              window.location.href = '/auth/login';
+            }, 100);
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error al validar el token:', err);
+      },
     });
   }
 
