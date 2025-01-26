@@ -2,11 +2,10 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, of, Subscription, throwError } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
-import { AuthModel } from '../models/auth.model';
 import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 
 export type UserType = UserModel | undefined;
@@ -33,8 +32,8 @@ export class AuthService implements OnDestroy {
     this.currentUserSubject.next(user);
   }
 
-  user:any = null;
-  token:any = null;
+  user: any = null;
+  token: any = null;
 
   constructor(
     private authHttpService: AuthHTTPService,
@@ -52,7 +51,7 @@ export class AuthService implements OnDestroy {
   // public methods
   login(email: string, password: string): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.post(URL_SERVICIOS + "/auth/login", {email, password}).pipe(
+    return this.http.post(URL_SERVICIOS + "/auth/login", { email, password }).pipe(
       map((auth: any) => {
         const result = this.setAuthFromLocalStorage(auth);
         return result;
@@ -65,13 +64,43 @@ export class AuthService implements OnDestroy {
     );
   }
 
+
   logout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    this.router.navigate(['/auth/login'], {
-      queryParams: {},
+    // Obtener el token del almacenamiento local
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('No se encontró el token'); // Para debug
+      return; // Si no hay token, no hacer nada
+    }
+
+    // URL de la API de logout
+    const api = URL_SERVICIOS + "/auth/logout";
+
+    // Crear los encabezados para la solicitud HTTP
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    // Realizar la solicitud POST para hacer logout
+    this.isLoadingSubject.next(true); // Activar estado de carga
+
+    this.http.post(api, {}, { headers: headers }).subscribe({
+      next: (res) => {
+        localStorage.clear(); // Limpiar localStorage
+        this.isLoadingSubject.next(false); // Desactivar estado de carga
+
+        // Redirigir a la página de login
+        window.location.href = '/auth/login';
+      },
+      error: (err) => {
+        this.isLoadingSubject.next(false); // Desactivar estado de carga en caso de error
+        console.error('Error en logout:', err);
+      }
     });
   }
+
 
   getUserByToken(): Observable<any> {
     const auth = this.getAuthFromLocalStorage();

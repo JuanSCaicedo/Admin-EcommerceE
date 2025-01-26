@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard  {
-  constructor(private authService: AuthService) {}
+export class AuthGuard {
+  constructor(private authService: AuthService,
+    private router: Router,
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (!this.authService.user || !this.authService.token) {
-      this.authService.logout();
+      this.router.navigateByUrl("/auth/login");
       return false;
     }
-    
+
     let token = this.authService.token;
     let expiration = (JSON.parse(atob(token.split(".")[1]))).exp;
 
-    if (Math.floor((new Date().getTime()/1000)) >= expiration) {
+    if (Math.floor((new Date().getTime() / 1000)) >= expiration) {
       this.authService.logout();
       return false;
     }
