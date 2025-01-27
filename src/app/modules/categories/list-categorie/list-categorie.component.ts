@@ -3,7 +3,6 @@ import { CategoriesService } from '../service/categories.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteCategorieComponent } from '../delete-categorie/delete-categorie.component';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-list-categorie',
@@ -23,14 +22,13 @@ export class ListCategorieComponent {
     public categorieService: CategoriesService,
     public modalService: NgbModal,
     public toastr: ToastrService,
-    private auth: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.listCategories();
-    this.auth.validarToken();
     this.isLoading$ = this.categorieService.isLoading$;
   }
+
   listCategories(page = 1) {
     this.categorieService.listCategories(page, this.search).subscribe((resp: any) => {
       console.log(resp);
