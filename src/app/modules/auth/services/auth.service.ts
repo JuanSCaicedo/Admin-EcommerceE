@@ -96,10 +96,6 @@ export class AuthService implements OnDestroy {
           // Redirigir a la página de login
           window.location.href = '/auth/login';
         },
-        error: (err) => {
-          this.isLoadingSubject.next(false); // Desactivar estado de carga en caso de error
-          console.error('Error en logout:', err);
-        }
       });
     }
   }
