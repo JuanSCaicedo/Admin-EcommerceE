@@ -11,6 +11,8 @@ import { ThemeModeService } from './_metronic/partials/layout/theme-mode-switche
 import { PageInfoService, PageLink } from './_metronic/layout';
 import { Observable } from 'rxjs';
 import { AuthService } from './modules/auth';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,6 +32,8 @@ export class AppComponent implements OnInit {
     private modeService: ThemeModeService,
     private pageInfo: PageInfoService,
     private auth: AuthService,
+    public activatedRoute: ActivatedRoute,
+    private router: Router  // Añade el Router al constructor
   ) {
     // register translations
     this.translationService.loadTranslations(
@@ -40,7 +44,13 @@ export class AppComponent implements OnInit {
       deLang,
       frLang
     );
-    this.auth.validarToken();
+
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event) => {
+      // Aquí puedes ejecutar la lógica que necesites cuando cambie la ruta
+      this.auth.validarToken();
+    });
   }
 
   ngOnInit() {

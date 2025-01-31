@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
+import { ToastrService } from 'ngx-toastr';
 
 export type UserType = UserModel | undefined;
 
@@ -40,6 +41,7 @@ export class AuthService implements OnDestroy {
     private authHttpService: AuthHTTPService,
     private router: Router,
     private http: HttpClient,
+    private toastr: ToastrService,
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
@@ -72,34 +74,34 @@ export class AuthService implements OnDestroy {
     if (!token) {
       console.log('No se encontró el token'); // Para debug
       return; // Si no hay token, no hacer nada
+    } else {
+      // URL de la API de logout
+      const api = URL_SERVICIOS + "/auth/logout";
+
+      // Crear los encabezados para la solicitud HTTP
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+
+      // Realizar la solicitud POST para hacer logout
+      this.isLoadingSubject.next(true); // Activar estado de carga
+
+      this.http.post(api, {}, { headers: headers }).subscribe({
+        next: (res) => {
+          localStorage.clear(); // Limpiar localStorage
+          this.isLoadingSubject.next(false); // Desactivar estado de carga
+
+          // Redirigir a la página de login
+          window.location.href = '/auth/login';
+        },
+        error: (err) => {
+          this.isLoadingSubject.next(false); // Desactivar estado de carga en caso de error
+          console.error('Error en logout:', err);
+        }
+      });
     }
-
-    // URL de la API de logout
-    const api = URL_SERVICIOS + "/auth/logout";
-
-    // Crear los encabezados para la solicitud HTTP
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    });
-
-    // Realizar la solicitud POST para hacer logout
-    this.isLoadingSubject.next(true); // Activar estado de carga
-
-    this.http.post(api, {}, { headers: headers }).subscribe({
-      next: (res) => {
-        localStorage.clear(); // Limpiar localStorage
-        this.isLoadingSubject.next(false); // Desactivar estado de carga
-
-        // Redirigir a la página de login
-        window.location.href = '/auth/login';
-      },
-      error: (err) => {
-        this.isLoadingSubject.next(false); // Desactivar estado de carga en caso de error
-        console.error('Error en logout:', err);
-      }
-    });
   }
 
   me(): Observable<any> {
@@ -117,7 +119,6 @@ export class AuthService implements OnDestroy {
 
     return this.http.post(this.apiUrl, {}, { headers }).pipe(
       catchError((err) => {
-        console.error('Error en la solicitud:', err); // Log de error
         return of(null); // Retornar un Observable con valor `null` en caso de error
       })
     );
@@ -133,8 +134,9 @@ export class AuthService implements OnDestroy {
           // Verificar si ya estás en la página de login
           if (window.location.pathname !== '/auth/login') {
             setTimeout(() => {
-              window.location.href = '/auth/login';
-            }, 100);
+              this.router.navigateByUrl('/auth/login');
+              this.toastr.warning('Sesión expirada', 'Por favor, inicia sesión de nuevo');
+            }, 1000);
           }
         }
       },
@@ -143,7 +145,6 @@ export class AuthService implements OnDestroy {
       },
     });
   }
-
 
   getUserByToken(): Observable<any> {
     const auth = this.getAuthFromLocalStorage();
