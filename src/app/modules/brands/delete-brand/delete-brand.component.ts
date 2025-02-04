@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BrandService } from '../service/brand.service';
+import { AuthService } from '../../auth';
 @Component({
   selector: 'app-delete-brand',
   templateUrl: './delete-brand.component.html',
@@ -18,6 +19,7 @@ export class DeleteBrandComponent {
     public brandService: BrandService,
     private toastr: ToastrService,
     public modal: NgbActiveModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +36,12 @@ export class DeleteBrandComponent {
         this.toastr.success('Exito', 'Marca eliminada correctamente');
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AttributesService } from '../service/attributes.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-sub-attribute-delete',
@@ -18,6 +19,7 @@ export class SubAttributeDeleteComponent {
     public attributeService: AttributesService,
     private toastr: ToastrService,
     public modal: NgbActiveModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +36,12 @@ export class SubAttributeDeleteComponent {
         this.toastr.success('Exito', 'Propiedad eliminada correctamente');
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

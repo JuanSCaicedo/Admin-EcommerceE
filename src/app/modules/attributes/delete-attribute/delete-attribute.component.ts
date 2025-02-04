@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../service/attributes.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-delete-attribute',
@@ -9,7 +10,7 @@ import { AttributesService } from '../service/attributes.service';
   styleUrls: ['./delete-attribute.component.scss']
 })
 export class DeleteAttributeComponent {
-  
+
   @Input() attribute: any;
 
   @Output() AttributeD: EventEmitter<any> = new EventEmitter();
@@ -19,6 +20,7 @@ export class DeleteAttributeComponent {
     public attributeService: AttributesService,
     private toastr: ToastrService,
     public modal: NgbActiveModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -35,8 +37,12 @@ export class DeleteAttributeComponent {
         this.toastr.success('Exito', 'Categoria eliminada correctamente');
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

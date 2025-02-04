@@ -25,6 +25,7 @@ import {
   List,
   BlockQuote,
 } from 'ckeditor5';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-create-product',
@@ -69,6 +70,7 @@ export class CreateProductComponent {
     public productService: ProductService,
     private toastr: ToastrService,
     public router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -95,8 +97,12 @@ export class CreateProductComponent {
       this.categories_seconds = resp.categories_seconds;
       this.categories_thirds = resp.categories_thirds;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -284,8 +290,12 @@ export class CreateProductComponent {
         this.router.navigateByUrl(`/products/list/edit/${resp.id}`);
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

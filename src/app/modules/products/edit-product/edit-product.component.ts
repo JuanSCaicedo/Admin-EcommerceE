@@ -28,6 +28,7 @@ import {
   List,
   BlockQuote,
 } from 'ckeditor5';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-product',
@@ -83,6 +84,7 @@ export class EditProductComponent {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     public modalService: NgbModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -117,8 +119,12 @@ export class EditProductComponent {
 
       this.showProduct();
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -192,7 +198,7 @@ export class EditProductComponent {
       this.imagen_add = null;
       this.imagen_add_previsualiza = PREVISUALIZA_IMAGEN;
       const imageInput = <HTMLInputElement>document.getElementById('customFileOImagenes');
-      
+
       if (imageInput) {
         imageInput.value = '';
       }
@@ -203,8 +209,12 @@ export class EditProductComponent {
         this.toastr.success('Exito', 'Imagen agregada correctamente');
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
 
   }
@@ -393,8 +403,12 @@ export class EditProductComponent {
         this.toastr.success('Exito', 'Producto editado correctamente');
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

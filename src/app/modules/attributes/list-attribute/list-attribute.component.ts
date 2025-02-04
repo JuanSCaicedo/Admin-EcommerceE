@@ -6,6 +6,7 @@ import { CreateAttributeComponent } from '../create-attribute/create-attribute.c
 import { EditAttributeComponent } from '../edit-attribute/edit-attribute.component';
 import { SubAttributeCreateComponent } from '../sub-attribute-create/sub-attribute-create.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-list-attribute',
@@ -25,6 +26,7 @@ export class ListAttributeComponent {
     public attributesService: AttributesService,
     public modalService: NgbModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -54,8 +56,12 @@ export class ListAttributeComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

@@ -3,6 +3,7 @@ import { CategoriesService } from '../service/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-categorie',
@@ -39,6 +40,7 @@ export class EditCategorieComponent {
     public categorieService: CategoriesService,
     private toastr: ToastrService,
     public ActivatedRoute: ActivatedRoute,
+    private authService: AuthService,
   ) {
 
   }
@@ -75,8 +77,12 @@ export class EditCategorieComponent {
         this.imagen_previsualiza = resp.categorie.imagen;
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 
@@ -84,8 +90,12 @@ export class EditCategorieComponent {
     this.categorieService.configCategories().subscribe((resp: any) => {
       this.categories_first = resp.categories_first.filter((item: any) => item.id != this.CATEGORIE_ID);
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -104,8 +114,12 @@ export class EditCategorieComponent {
         item.id != this.CATEGORIE_ID
       );
     }), (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     };
   }
 
@@ -211,8 +225,12 @@ export class EditCategorieComponent {
       this.toastr.success('Exito', 'Categoria actualizada correctamente');
       this.config();
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

@@ -90,56 +90,29 @@ export class AuthService implements OnDestroy {
 
       this.http.post(api, {}, { headers: headers }).subscribe({
         next: (res) => {
-          localStorage.clear(); // Limpiar localStorage
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          this.user = null;
+          this.token = null;
           this.isLoadingSubject.next(false); // Desactivar estado de carga
 
           // Redirigir a la página de login
-          window.location.href = '/auth/login';
+          this.router.navigateByUrl('/auth/login');
         },
       });
     }
   }
 
-  me(): Observable<any> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('No se encontró el token'); // Debug
-      return of(null); // Devolver un Observable vacío
-    }
+  sessionExpired() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.user = null;
+    this.token = null;
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-
-    return this.http.post(this.apiUrl, {}, { headers }).pipe(
-      catchError((err) => {
-        return of(null); // Retornar un Observable con valor `null` en caso de error
-      })
-    );
-  }
-
-  validarToken(): void {
-    this.me().subscribe({
-      next: (response: any) => {
-        if (!response) {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-
-          // Verificar si ya estás en la página de login
-          if (window.location.pathname !== '/auth/login') {
-            setTimeout(() => {
-              this.router.navigateByUrl('/auth/login');
-              this.toastr.warning('Sesión expirada', 'Por favor, inicia sesión de nuevo');
-            }, 1000);
-          }
-        }
-      },
-      error: (err) => {
-        console.error('Error al validar el token:', err);
-      },
-    });
+    setTimeout(() => {
+      this.toastr.warning('Por favor, inicia sesión de nuevo', 'Sesión expirada');
+      this.router.navigateByUrl('/auth/login');
+    }, 50);
   }
 
   getUserByToken(): Observable<any> {
@@ -191,6 +164,8 @@ export class AuthService implements OnDestroy {
     if (auth && auth.access_token) {
       localStorage.setItem('user', JSON.stringify(auth.user));
       localStorage.setItem('token', auth.access_token);
+      this.user = JSON.stringify(auth.user);
+      this.token = auth.access_token;
       return true;
     }
     return false;

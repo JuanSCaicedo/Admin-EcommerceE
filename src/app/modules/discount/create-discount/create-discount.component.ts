@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DiscountService } from '../service/discount.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-create-discount',
@@ -32,6 +33,7 @@ export class CreateDiscountComponent {
     public discountService: DiscountService,
     public toastr: ToastrService,
     public router: Router,
+    private authService: AuthService,
   ) {
 
   }
@@ -44,8 +46,12 @@ export class CreateDiscountComponent {
       this.products = response.products;
       this.brands = response.brands;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -172,8 +178,12 @@ export class CreateDiscountComponent {
         this.router.navigateByUrl(`/discount/list/edit/${resp.id}`);
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

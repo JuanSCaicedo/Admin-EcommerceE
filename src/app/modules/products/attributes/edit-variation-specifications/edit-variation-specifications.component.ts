@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { AuthService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-edit-variation-specifications',
@@ -45,6 +46,7 @@ export class EditVariationSpecificationsComponent {
     public attributeService: AttributesService,
     public modal: NgbActiveModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -194,8 +196,12 @@ export class EditVariationSpecificationsComponent {
         this.modal.close();
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 
@@ -232,8 +238,12 @@ export class EditVariationSpecificationsComponent {
         this.modal.close();
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 

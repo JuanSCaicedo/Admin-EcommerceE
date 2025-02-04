@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from '../service/home.service';
 import { EditHomeViewComponent } from '../edit-home-view/edit-home-view.component';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-home',
@@ -21,6 +22,7 @@ export class EditHomeComponent {
     public homeService: HomeService,
     public modalService: NgbModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -35,8 +37,12 @@ export class EditHomeComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

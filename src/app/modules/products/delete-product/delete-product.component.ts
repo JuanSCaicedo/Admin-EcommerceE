@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from '../service/product.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-delete-product',
@@ -19,6 +20,7 @@ export class DeleteProductComponent {
     public productService: ProductService,
     private toastr: ToastrService,
     public modal: NgbActiveModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -31,8 +33,12 @@ export class DeleteProductComponent {
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

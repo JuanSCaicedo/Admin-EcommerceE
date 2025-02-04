@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
+import { AuthService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-delete-variation-specifications',
@@ -20,6 +21,7 @@ export class DeleteVariationSpecificationsComponent {
     public attributeService: AttributesService,
     private toastr: ToastrService,
     public modal: NgbActiveModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +42,12 @@ export class DeleteVariationSpecificationsComponent {
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 
@@ -51,8 +57,12 @@ export class DeleteVariationSpecificationsComponent {
       this.modal.close();
       this.toastr.success('Exito', 'Producto eliminado correctamente');
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

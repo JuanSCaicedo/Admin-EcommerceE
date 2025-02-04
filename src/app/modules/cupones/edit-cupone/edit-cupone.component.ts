@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuponesService } from '../service/cupones.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-cupone',
@@ -38,6 +39,7 @@ export class EditCuponeComponent {
     public toastr: ToastrService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    private authService: AuthService,
   ) {
 
   }
@@ -54,8 +56,12 @@ export class EditCuponeComponent {
     this.activatedRoute.params.subscribe((resp: any) => {
       this.CUPONE_ID = resp.id;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
 
     this.cuponesService.showCupone(this.CUPONE_ID).subscribe((resp: any) => {
@@ -81,8 +87,12 @@ export class EditCuponeComponent {
         this.checked = false;
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -189,8 +199,12 @@ export class EditCuponeComponent {
         this.toastr.success("Éxito", "Cupón actualizado correctamente");
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

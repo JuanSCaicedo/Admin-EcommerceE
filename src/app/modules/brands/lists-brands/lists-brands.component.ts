@@ -5,6 +5,7 @@ import { BrandService } from '../service/brand.service';
 import { CreateBrandComponent } from '../create-brand/create-brand.component';
 import { EditBrandComponent } from '../edit-brand/edit-brand.component';
 import { DeleteBrandComponent } from '../delete-brand/delete-brand.component';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-lists-brands',
@@ -24,6 +25,7 @@ export class ListsBrandsComponent {
     public brandService: BrandService,
     public modalService: NgbModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -40,8 +42,12 @@ export class ListsBrandsComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

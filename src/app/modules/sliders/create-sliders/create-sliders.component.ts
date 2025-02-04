@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { SlidersService } from '../service/sliders.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-create-sliders',
@@ -30,6 +31,7 @@ export class CreateSlidersComponent {
     public sliderService: SlidersService,
     public toastr: ToastrService,
     public router: Router,
+    private authService: AuthService,
   ) {
 
   }
@@ -108,25 +110,14 @@ export class CreateSlidersComponent {
     this.sliderService.createSliders(formData).subscribe((resp: any) => {
       console.log(resp);
 
-      // this.title = '';
-      // this.label = '';
-      // this.subtitle = '';
-      // this.link = '';
-      // this.color = '';
-      // this.imagen_previsualiza = PREVISUALIZA_IMAGEN;
-      // // Restablecer el campo de entrada de archivo
-      // const imageInput = <HTMLInputElement>document.getElementById('customFile');
-      // if (imageInput) {
-      //   imageInput.value = '';
-      // }
-      // // Restablecer this.file_imagen
-      // this.file_imagen = null;
-      // this.toastr.success('Exito', 'Slider creado correctamente');
-
       this.router.navigateByUrl(`/sliders/list/edit/${resp.id}`);
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

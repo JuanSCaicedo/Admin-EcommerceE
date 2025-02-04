@@ -4,6 +4,7 @@ import { SlidersService } from '../service/sliders.service';
 import { DeleteSlidersComponent } from '../delete-sliders/delete-sliders.component';
 import { URL_BACKEND } from 'src/app/config/config';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-lists-sliders',
@@ -22,6 +23,7 @@ export class ListsSlidersComponent {
     public sliderService: SlidersService,
     public modalService: NgbModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -45,8 +47,12 @@ export class ListsSlidersComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

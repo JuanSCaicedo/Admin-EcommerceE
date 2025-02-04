@@ -4,6 +4,7 @@ import { URL_BACKEND } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
 import { DeleteProductComponent } from '../delete-product/delete-product.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-lists-products',
@@ -32,7 +33,8 @@ export class ListsProductsComponent {
   constructor(
     public productService: ProductService,
     public modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -115,8 +117,12 @@ export class ListsProductsComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

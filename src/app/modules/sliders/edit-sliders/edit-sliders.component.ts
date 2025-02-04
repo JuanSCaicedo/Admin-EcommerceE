@@ -4,6 +4,7 @@ import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { URL_BACKEND } from 'src/app/config/config';
 import { SlidersService } from '../service/sliders.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-sliders',
@@ -39,6 +40,7 @@ export class EditSlidersComponent {
     public sliderService: SlidersService,
     public toastr: ToastrService,
     public activedRoute: ActivatedRoute,
+    private authService: AuthService,
   ) {
 
   }
@@ -79,8 +81,12 @@ export class EditSlidersComponent {
       this.price_campaing = resp.slider.price_campaing;
 
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -175,8 +181,12 @@ export class EditSlidersComponent {
       console.log(resp);
       this.toastr.success('Exito', 'Slider actualizado correctamente');
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

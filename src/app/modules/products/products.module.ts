@@ -20,7 +20,6 @@ import { EditVariationSpecificationsComponent } from './attributes/edit-variatio
 import { DeleteVariationSpecificationsComponent } from './attributes/delete-variation-specifications/delete-variation-specifications.component';
 import { CreateAnidadoVariationsComponent } from './attributes/create-anidado-variations/create-anidado-variations.component';
 import { EditAnidadoVariationsComponent } from './attributes/edit-anidado-variations/edit-anidado-variations.component';
-import { DeleteAnidadoVariationsComponent } from './attributes/delete-anidado-variations/delete-anidado-variations.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { DeleteAnidadoVariationsComponent } from './attributes/delete-anidado-va
     DeleteVariationSpecificationsComponent,
     CreateAnidadoVariationsComponent,
     EditAnidadoVariationsComponent,
-    DeleteAnidadoVariationsComponent
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CuponesService } from '../service/cupones.service';
 import { DeleteCuponeComponent } from '../delete-cupone/delete-cupone.component';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-list-cupone',
@@ -22,6 +23,7 @@ export class ListCuponeComponent {
     public cuponeService: CuponesService,
     public modalService: NgbModal,
     public toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +38,12 @@ export class ListCuponeComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

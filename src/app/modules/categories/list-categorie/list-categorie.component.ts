@@ -3,6 +3,7 @@ import { CategoriesService } from '../service/categories.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteCategorieComponent } from '../delete-categorie/delete-categorie.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-list-categorie',
@@ -22,6 +23,7 @@ export class ListCategorieComponent {
     public categorieService: CategoriesService,
     public modalService: NgbModal,
     public toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +38,12 @@ export class ListCategorieComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

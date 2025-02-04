@@ -3,6 +3,7 @@ import { CategoriesService } from '../service/categories.service';
 import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-create-categorie',
@@ -32,6 +33,7 @@ export class CreateCategorieComponent {
     public categorieService: CategoriesService,
     public toastr: ToastrService,
     public router: Router,
+    private authService: AuthService,
   ) {
 
   }
@@ -46,8 +48,12 @@ export class CreateCategorieComponent {
       this.categories_first = resp.categories_first;
       this.categories_seconds = resp.categories_seconds;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 
@@ -153,8 +159,12 @@ export class CreateCategorieComponent {
       this.router.navigateByUrl(`/categories/list/edit/${resp.id}`);
       this.config();
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 }

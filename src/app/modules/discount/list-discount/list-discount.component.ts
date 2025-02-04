@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DiscountService } from '../service/discount.service';
 import { DeleteDiscountComponent } from '../delete-discount/delete-discount.component';
 import { URL_TIENDA } from 'src/app/config/config';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-list-discount',
@@ -23,6 +24,7 @@ export class ListDiscountComponent {
     public discountService: DiscountService,
     public modalService: NgbModal,
     public toastr: ToastrService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +39,12 @@ export class ListDiscountComponent {
       this.totalPages = resp.total;
       this.currentPage = page;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -87,7 +93,7 @@ export class ListDiscountComponent {
 
   copyLink(discount: any) {
     var aux = document.createElement("input");
-    aux.setAttribute("value", URL_TIENDA+"/discount/"+discount.code);
+    aux.setAttribute("value", URL_TIENDA + "/discount/" + discount.code);
     document.body.appendChild(aux);
     aux.select();
     document.execCommand("copy");

@@ -3,6 +3,7 @@ import { AttributesService } from '../service/attributes.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubAttributeDeleteComponent } from '../sub-attribute-delete/sub-attribute-delete.component';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-sub-attribute-create',
@@ -26,6 +27,7 @@ export class SubAttributeCreateComponent {
     public modal: NgbActiveModal,
     private toastr: ToastrService,
     public modalService: NgbModal,
+    private authService: AuthService,
   ) {
 
   }
@@ -67,8 +69,12 @@ export class SubAttributeCreateComponent {
         this.type_action = 0;
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 

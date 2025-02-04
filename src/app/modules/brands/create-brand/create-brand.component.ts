@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BrandService } from '../service/brand.service';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-create-brand',
@@ -19,6 +20,7 @@ export class CreateBrandComponent {
     public brandService: BrandService,
     public modal: NgbActiveModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -49,8 +51,12 @@ export class CreateBrandComponent {
         this.modal.close();
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 }

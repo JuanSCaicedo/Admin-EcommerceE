@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AttributesService } from '../service/attributes.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-attribute',
@@ -24,6 +25,7 @@ export class EditAttributeComponent {
     public attributeService: AttributesService,
     public modal: NgbActiveModal,
     private toastr: ToastrService,
+    private authService: AuthService,
   ) {
 
   }
@@ -64,8 +66,12 @@ export class EditAttributeComponent {
         this.modal.close();
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 

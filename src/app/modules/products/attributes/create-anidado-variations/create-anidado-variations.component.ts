@@ -4,8 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AttributesService } from '../../service/attributes.service';
 import { EditAnidadoVariationsComponent } from '../edit-anidado-variations/edit-anidado-variations.component';
-import { DeleteAnidadoVariationsComponent } from '../delete-anidado-variations/delete-anidado-variations.component';
 import { DeleteVariationSpecificationsComponent } from '../delete-variation-specifications/delete-variation-specifications.component';
+import { AuthService } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-create-anidado-variations',
@@ -40,6 +40,7 @@ export class CreateAnidadoVariationsComponent {
     public modal: NgbActiveModal,
     private toastr: ToastrService,
     public modalService: NgbModal,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -53,8 +54,12 @@ export class CreateAnidadoVariationsComponent {
     this.attributeService.listVariationsAnidadas(this.variation.product_id, this.variation.id).subscribe((resp: any) => {
       this.variations = resp.variations;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     })
   }
 
@@ -125,8 +130,12 @@ export class CreateAnidadoVariationsComponent {
         this.stock_add = 0;
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 

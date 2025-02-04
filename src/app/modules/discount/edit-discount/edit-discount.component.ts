@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DiscountService } from '../service/discount.service';
 import { URL_TIENDA } from 'src/app/config/config';
+import { AuthService } from '../../auth';
 
 @Component({
   selector: 'app-edit-discount',
@@ -39,6 +40,7 @@ export class EditDiscountComponent {
     public toastr: ToastrService,
     public router: Router,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
   ) {
 
   }
@@ -48,9 +50,14 @@ export class EditDiscountComponent {
 
     this.activatedRoute.params.subscribe((resp: any) => {
       this.DISCOUNT_ID = resp.id;
+      console.log(this.DISCOUNT_ID);
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
 
     this.discountService.showDiscount(this.DISCOUNT_ID).subscribe((resp: any) => {
@@ -76,8 +83,12 @@ export class EditDiscountComponent {
       }
 
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
 
     this.discountService.configDiscounts().subscribe((response: any) => {
@@ -85,8 +96,12 @@ export class EditDiscountComponent {
       this.products = response.products;
       this.brands = response.brands;
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
@@ -146,7 +161,7 @@ export class EditDiscountComponent {
       return;
     }
 
-    if(this.type_discount == 1 && this.discount > 100) {
+    if (this.type_discount == 1 && this.discount > 100) {
       this.toastr.error("Validación", "El descuento no puede ser mayor al 100%");
       return;
     }
@@ -209,8 +224,12 @@ export class EditDiscountComponent {
         // this.router.navigateByUrl(`/cupones/list/edit/${resp.id}`);
       }
     }, (error: any) => {
-      console.log(error);
-      this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      if (error.status == 401) {
+        this.authService.sessionExpired();
+      } else {
+        console.log(error);
+        this.toastr.error('API Response - Comuniquese con el desarrollador', error.error.message || error.message);
+      }
     });
   }
 
