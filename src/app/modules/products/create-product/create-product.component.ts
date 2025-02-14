@@ -3,28 +3,28 @@ import { ToastrService } from 'ngx-toastr';
 import { PREVISUALIZA_IMAGEN } from 'src/app/config/config';
 import { ProductService } from '../service/product.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import { Router } from '@angular/router';
-import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Italic,
-  Paragraph,
-  Undo,
-  Table, TableToolbar,
-  Image, ImageInsert, AutoImage,
-  Alignment,
-  SpecialCharacters, SpecialCharactersEssentials,
-  SelectAll,
-  MediaEmbed,
-  Link, AutoLink,
-  Heading,
-  Font,
-  Indent, IndentBlock,
-  List,
-  BlockQuote,
-} from 'ckeditor5';
+// import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
+// import {
+//   ClassicEditor,
+//   Bold,
+//   Essentials,
+//   Italic,
+//   Paragraph,
+//   Undo,
+//   Table, TableToolbar,
+//   Image, ImageInsert, AutoImage,
+//   Alignment,
+//   SpecialCharacters, SpecialCharactersEssentials,
+//   SelectAll,
+//   MediaEmbed,
+//   Link, AutoLink,
+//   Heading,
+//   Font,
+//   Indent, IndentBlock,
+//   List,
+//   BlockQuote,
+// } from 'ckeditor5';
 import { AuthService } from '../../auth';
 
 @Component({
@@ -174,48 +174,48 @@ export class CreateProductComponent {
   //   this.description = event.editor.getData();
   // }
 
-  public Editor = ClassicEditor;
-  public config = {
-    toolbar: ['undo', 'redo', '|',
-      'heading', '|',
-      'bold',
-      'italic', '|',
-      'link',
-      'insertTable',
-      'insertImage',
-      'blockQuote',
-      'mediaEmbed', '|',
-      'alignment',
-      'specialCharacters',
-      'selectAll', '|',
-      'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
-      'outdent', 'indent',
-      'bulletedList', 'numberedList',
-    ],
-    plugins: [
-      Undo,
-      Bold, Essentials,
-      Italic, Paragraph,
-      Heading,
-      Table, TableToolbar,
-      Image, ImageInsert, AutoImage,
-      Alignment,
-      SpecialCharacters, SpecialCharactersEssentials,
-      SelectAll,
-      MediaEmbed,
-      Link, AutoLink,
-      Font,
-      Indent, IndentBlock,
-      List,
-      BlockQuote,
-    ],
-    table: {
-      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-    }
-  }
+  // public Editor = ClassicEditor;
+  // public config = {
+  //   toolbar: ['undo', 'redo', '|',
+  //     'heading', '|',
+  //     'bold',
+  //     'italic', '|',
+  //     'link',
+  //     'insertTable',
+  //     'insertImage',
+  //     'blockQuote',
+  //     'mediaEmbed', '|',
+  //     'alignment',
+  //     'specialCharacters',
+  //     'selectAll', '|',
+  //     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
+  //     'outdent', 'indent',
+  //     'bulletedList', 'numberedList',
+  //   ],
+  //   plugins: [
+  //     Undo,
+  //     Bold, Essentials,
+  //     Italic, Paragraph,
+  //     Heading,
+  //     Table, TableToolbar,
+  //     Image, ImageInsert, AutoImage,
+  //     Alignment,
+  //     SpecialCharacters, SpecialCharactersEssentials,
+  //     SelectAll,
+  //     MediaEmbed,
+  //     Link, AutoLink,
+  //     Font,
+  //     Indent, IndentBlock,
+  //     List,
+  //     BlockQuote,
+  //   ],
+  //   table: {
+  //     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+  //   }
+  // }
 
-  public onChange({ editor }: ChangeEvent) {
-    this.description = editor.getData();
+  public onChange(event: any) {
+    this.description = event.editor.getData();
   }
 
   onItemSelect(item: any) {

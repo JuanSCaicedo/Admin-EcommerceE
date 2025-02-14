@@ -131,7 +131,7 @@
         <div class="row mb-6">
             <div class="col-lg-6 mb-6 mb-lg-0">
                 <label class="fs-6 fw-semibold mb-2 required">Descripción:</label>
-                <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="description" (change)="onChange($event)">
+                <ckeditor [(ngModel)]="description" (change)="onChange($event)">
                 </ckeditor>
             </div>
 

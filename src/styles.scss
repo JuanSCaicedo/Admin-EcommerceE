@@ -22,12 +22,17 @@
 // boostrap 5
 @import 'ngx-toastr/toastr-bs5-alert';
 
-.z-index-100 {
-    z-index: 99;
-}
+// .z-index-100 {
+//     z-index: 99;
+// }
 
-.ck-editor__editable_inline {
-    max-height: 300px;
+// .ck-editor__editable_inline {
+//     max-height: 300px;
+// }
+
+//Ocultar notificaciones de CKEditor
+.cke_notification_warning {
+    display: none !important;
 }
 
 .toast-success {
