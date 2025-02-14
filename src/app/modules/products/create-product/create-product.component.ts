@@ -89,6 +89,10 @@ export class CreateProductComponent {
     this.configAll();
   }
 
+  config: any = {
+    versionCheck: false,
+  };
+
   configAll() {
     this.productService.configAll().subscribe((resp: any) => {
       console.log(resp);
