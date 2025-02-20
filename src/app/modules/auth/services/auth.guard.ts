@@ -18,7 +18,7 @@ export class AuthGuard {
     let expiration = (JSON.parse(atob(token.split(".")[1]))).exp;
 
     if (Math.floor((new Date().getTime() / 1000)) >= expiration) {
-      this.authService.logout();
+      this.authService.sessionExpired();
       return false;
     }
 
