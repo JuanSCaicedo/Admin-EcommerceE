@@ -58,9 +58,11 @@
             </div>
 
             <div class="col-lg-3 mb-3 mb-6 mb-lg-0">
-                <label for="color" class="form-label fw-semibold fs-6 required">Color:</label>
-                <input type="color" id="color" name="color" [(ngModel)]="color"
-                    class="cursor-pointer form-control form-control-lg mb-10">
+                <label for="color" class="form-label fw-bold fw-semibold fs-6 required">Color:</label>
+                <input [disabled]="type_slider != 1" type="color" id="color" name="color" [(ngModel)]="color"
+                    class="cursor-pointer form-control form-control-lg mb-3">
+
+                <p>¡Color. Aplica solo para slider principal!</p>
 
                 <div class="fv-row mb-7 d-flex gap-3 mb-6 mb-lg-0">
                     <label class="required fw-bold fs-6 mb-3">Status Slider</label>
