@@ -52,7 +52,7 @@
     "nouislider": "^15.7.0",
     "object-path": "0.11.8",
     "prism-themes": "1.9.0",
-    "prismjs": "^1.29.0",
+    "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",
     "socicon": "3.0.5",
     "tslib": "^2.3.0",
