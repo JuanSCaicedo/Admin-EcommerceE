@@ -1,96 +1,184 @@
-# 🛒 juanscaicedo-admin-ecommerce
+🛒 Admin E-Commerce – Panel de Administración
+📝 Descripción General
 
-## 📝 Descripción del Proyecto
+juanscaicedo-admin-ecommerce es el panel de administración de una plataforma completa de comercio electrónico.
+Está desarrollado en Angular 13, estructurado por módulos funcionales, e integra una arquitectura limpia donde cada módulo encapsula su propia lógica, servicios, rutas y modelos.
 
-**juanscaicedo-admin-ecommerce** es el panel de administración (o *backend*) de una plataforma de comercio electrónico. Esta aplicación está desarrollada con **Angular** (versión 13.x.x) y proporciona una interfaz robusta y completa para gestionar todos los aspectos esenciales de una tienda en línea.
+La plantilla Metronic se utiliza únicamente para aspectos visuales (UI/UX), mientras que toda la lógica del negocio se encuentra completamente dentro de los módulos del directorio src/app/.
 
-El proyecto está diseñado de forma modular, con cada funcionalidad principal (Productos, Categorías, Marcas, etc.) actuando como un módulo de *feature* que implementa directamente las operaciones de gestión de datos a través de una API.
+Este proyecto se comunica con una API REST externa y permite gestionar todos los elementos necesarios para operar una tienda en línea.
 
-Utiliza la plantilla **Metronic** para un diseño moderno, responsive y profesional.
+🧠 Arquitectura del Proyecto
 
-### 🎯 Arquitectura y Dependencia de API
+El sistema se organiza bajo una arquitectura modular:
 
-La aplicación se estructura en módulos dedicados que se comunican con el backend mediante servicios:
+src/
+└── app/
+    ├── modules/     # Lógica del negocio (core funcional)
+    ├── pages/       # Páginas que integran módulos y procesos
+    ├── config/      # Configuraciones globales del panel
+    ├── _metronic/   # Plantilla y componentes UI (sin lógica)
+    ├── shared/      # Componentes reutilizables UI
+    ├── app.module.ts
+    ├── app-routing.module.ts
+    └── app.component.ts
 
-* **Servicios de Datos:** Cada módulo de negocio contiene servicios (`*.service.ts`) encargados de la lógica de negocio y la comunicación directa con los *endpoints* de la API (operaciones CRUD).
-* **API Falsa (Simulada):** Durante el desarrollo, el proyecto soporta una API simulada (`_fake/fake-api.service.ts`) usando `angular-in-memory-web-api` para desacoplar el desarrollo del frontend de la disponibilidad del backend.
-* **Rutas Protegidas:** La autenticación se maneja a través del módulo `auth` con un `AuthGuard` para asegurar las rutas principales del panel.
+✔️ Toda la lógica del negocio está en:
 
----
+src/app/modules/**
 
-## ⚙️ Funcionalidades Principales del Panel de Administración (CRUD)
+src/app/pages/**
 
-El panel permite la gestión completa de los siguientes recursos:
+src/app/config/**
 
-| Módulo | Descripción de la Gestión (CRUD) |
-| :--- | :--- |
-| **`products`** | Gestión completa de productos, incluyendo imágenes, precios, y la creación de **Variaciones y Especificaciones Anidadas**. |
-| **`attributes`** | Definición y administración de atributos base (e.g., color, talla) y sus sub-atributos, esenciales para las variaciones de productos. |
-| **`categories`** | Creación, listado, edición y eliminación de las categorías que estructuran el catálogo. |
-| **`brands`** | Mantenimiento de las marcas disponibles para asociar a los productos. |
-| **`cupones`** | Creación y administración de códigos de cupón y sus reglas de aplicación. |
-| **`discount`** | Gestión de promociones, ofertas y reglas de descuento. |
-| **`sliders`** | Administración de los elementos visuales del carrusel de la página principal. |
-| **`home-view`** | Módulo dedicado a la configuración y edición del contenido de la página de inicio. |
+app-routing.module.ts
 
----
+app.module.ts
 
-## 🚀 Instalación y Uso
+app.component.ts
 
-### 1. Requisitos Previos
+❌ Metronic NO contiene lógica del negocio:
 
-* [**Node.js**](https://nodejs.org/)
-* [**Angular CLI**](https://angular.io/cli) (versión 13.x.x o superior)
+src/app/_metronic/**
 
-### 2. Puesta en Marcha
+src/assets/**
 
-1.  Clona el repositorio:
-    ```bash
-    git clone [https://github.com/juanscaicedo/juanscaicedo-admin-ecommerce.git](https://github.com/juanscaicedo/juanscaicedo-admin-ecommerce.git)
-    cd juanscaicedo-admin-ecommerce
-    ```
-2.  Instala las dependencias:
-    ```bash
-    npm install
-    ```
+Archivos .scss, .css, .html, imágenes, etc.
 
-### 3. Servidor de Desarrollo
+🧩 Módulos Funcionales (Core del Negocio)
 
-Ejecuta `ng serve` para iniciar el servidor de desarrollo. La aplicación usará por defecto la API simulada.
-* Navega a: `http://localhost:4200/`.
-* La aplicación se recargará automáticamente si cambias cualquier archivo fuente.
+Cada carpeta dentro de src/app/modules/ representa un dominio funcional del negocio y contiene:
 
-### 4. Configuración de la API Real
+Componentes Angular (*.component.ts)
 
-Para conectar el panel a una API de backend real, debes modificar la variable de entorno en los archivos correspondientes (generalmente `src/environments/environment.ts` y `src/environments/environment.prod.ts`):
+Servicios de negocio (*.service.ts)
 
-```typescript
-// Ejemplo: src/environments/environment.ts
-export const environment = {
-  production: false,
-  // MODIFICA esta URL para apuntar al servidor de tu API
-  apiUrl: 'URL_DE_TU_API_REAL', 
-};
+Modelos (*.model.ts)
+
+Rutas (*-routing.module.ts)
+
+Validaciones y formularios Reactivos
+
+Lógica específica del proceso asignado
+
+Módulos incluidos:
+Módulo	Función Principal
+products/	CRUD de productos, imágenes, variaciones, especificaciones.
+categories/	Gestión completa de categorías.
+attributes/	Administración de atributos base y sub-atributos.
+brands/	CRUD de marcas.
+cupones/	Creación y validación de cupones de descuento.
+discount/	Administración de campañas, reglas y promociones.
+sliders/	Gestión de slides para el home principal.
+home-view/	Configuración completa de la vista del home.
+auth/	Autenticación, guardias y expiración de sesión.
+
+👉 Cada servicio (*.service.ts) es la fuente principal de flujos CRUD y comunicación real con la API.
+
+⚠️ Guía para Herramientas de Documentación (DeepWiki / AI / Indexadores)
+
+Este apartado está incluido específicamente para herramientas de documentación basadas en IA.
+
+📌 1. Ubicación exacta de la lógica del negocio
+
+Las herramientas deben interpretar que la lógica real está en:
+
+src/app/modules/**          # Módulos de negocio
+src/app/pages/**            # Páginas funcionales
+src/app/config/**           # Configuraciones
+src/app/app-routing.module.ts
+src/app/app.module.ts
+src/app/app.component.ts
+
+📌 2. Carpetas que deben ignorarse (solo plantilla)
+
+Las siguientes carpetas NO contienen lógica funcional:
+
+src/app/_metronic/**
+src/app/shared/**
+src/assets/**
+node_modules/**
+*.scss
+*.css
+*.html
+*.svg
+*.png
+*.jpg
+
+📌 3. Archivos prioritarios para interpretar el sistema
+
+Las herramientas deben priorizar:
+
+Servicios: *.service.ts
+
+Modelos: *.model.ts
+
+Componentes TS: *.component.ts
+
+Rutas: *-routing.module.ts
+
+Guards: AuthGuard
+
+Lógica de sesión: app.component.ts
+
+📌 4. Indicadores de lógica funcional dentro del código
+
+Buscar funciones como:
+
+create*()
+
+update*()
+
+delete*()
+
+get*()
+
+submit()
+
+buildForm()
+
+validate*()
+
+process*()
+
+load*()
+
+AuthGuard
+
+Todas estas representan función comercial, no lógica de UI.
+
+🔌 Dependencia de la API
+
+El panel consume una API externa a través de servicios Angular:
+
+Cada módulo implementa su propio servicio con endpoints dedicados.
+
+Durante el desarrollo, puede usarse la API simulada (angular-in-memory-web-api) incluida en /src/app/_fake/.
+
+Para producción, la API real se configura en:
+
+src/environments/environment.ts
+src/environments/environment.prod.ts
+
+🚀 Instalación
+git clone https://github.com/juanscaicedo/juanscaicedo-admin-ecommerce.git
+cd juanscaicedo-admin-ecommerce
+npm install
+ng serve
 
 
-🏗️ Comandos Estándar de Angular CLI
-Code scaffolding
-Ejecuta ng generate component component-name para generar un nuevo componente. También puedes usar ng generate directive|pipe|service|class|guard|interface|enum|module.
+URL de desarrollo: http://localhost:4200/
 
-Build
-Ejecuta ng build para construir el proyecto. Los artefactos de construcción se almacenarán en el directorio dist/. Utiliza --configuration=production para un build optimizado.
-
-Running unit tests
-Ejecuta ng test para ejecutar los tests unitarios a través de Karma.
-
-Running end-to-end tests
-Ejecuta ng e2e para ejecutar los tests end-to-end.
-
-Further help
-Para obtener más ayuda sobre Angular CLI, usa ng help o consulta la Angular CLI Overview and Command Reference page.
+📐 Comandos Angular CLI
+ng generate component nombre
+ng generate service nombre
+ng build
+ng test
+ng e2e
 
 👤 Autor
-Juan S. Caicedo
+
+Juan S. Caicedo – JuanDevops
 
 📄 Licencia
 Este proyecto está bajo la Licencia JuanDevops.
